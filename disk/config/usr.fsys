@@ -1,0 +1,84 @@
+-noboot-
+5000 3400
+d--755 0 0
+data        d--777 0 0
+    1           ---644 0 0 ../../data/0x000001
+    2           ---644 0 0 ../../data/0x000002
+    4           ---644 0 0 ../../data/0x000004
+    8           ---644 0 0 ../../data/0x000008
+    10          ---644 0 0 ../../data/0x000010
+    20          ---644 0 0 ../../data/0x000020
+    40          ---644 0 0 ../../data/0x000040
+    80          ---644 0 0 ../../data/0x000080
+    100         ---644 0 0 ../../data/0x000100
+    200         ---644 0 0 ../../data/0x000200
+    400         ---644 0 0 ../../data/0x000400
+    800         ---644 0 0 ../../data/0x000800
+    $
+include     d--755 0 0
+    sys         d--755 0 0
+        acct.h      ---644 0 0 ../../include/sys/acct.h
+        blk.h       ---644 0 0 ../../include/sys/blk.h
+        buf.h       ---644 0 0 ../../include/sys/buf.h
+        callo.h     ---644 0 0 ../../include/sys/callo.h
+        conf.h      ---644 0 0 ../../include/sys/conf.h
+        dev.h       ---644 0 0 ../../include/sys/dev.h
+        dir.h       ---644 0 0 ../../include/sys/dir.h
+        fblk.h      ---644 0 0 ../../include/sys/fblk.h
+        file.h      ---644 0 0 ../../include/sys/file.h
+        filsys.h    ---644 0 0 ../../include/sys/filsys.h
+        inode.h     ---644 0 0 ../../include/sys/inode.h
+        ino.h       ---644 0 0 ../../include/sys/ino.h
+        map.h       ---644 0 0 ../../include/sys/map.h
+        mount.h     ---644 0 0 ../../include/sys/mount.h
+        off.h       ---644 0 0 ../../include/sys/off.h
+        param.h     ---644 0 0 ../../include/sys/param.h
+        proc.h      ---644 0 0 ../../include/sys/proc.h
+        reg.h       ---644 0 0 ../../include/sys/reg.h
+        seg.h       ---644 0 0 ../../include/sys/seg.h
+        stat.h      ---644 0 0 ../../include/sys/stat.h
+        stdarg.h    ---644 0 0 ../../include/sys/stdarg.h
+        systm.h     ---644 0 0 ../../include/sys/systm.h
+        text.h      ---644 0 0 ../../include/sys/text.h
+        tim.h       ---644 0 0 ../../include/sys/tim.h
+        tty.h       ---644 0 0 ../../include/sys/tty.h
+        user.h      ---644 0 0 ../../include/sys/user.h
+        $
+    a.out.h     ---644 0 0 ../../include/a.out.h
+    assert.h    ---644 0 0 ../../include/assert.h
+    core.h      ---644 0 0 ../../include/core.h
+    ctype.h     ---644 0 0 ../../include/ctype.h
+    eos32.h     ---644 0 0 ../../include/eos32.h
+    eos32lib.h  ---644 0 0 ../../include/eos32lib.h
+    eos32sys.h  ---644 0 0 ../../include/eos32sys.h
+    errno.h     ---644 0 0 ../../include/errno.h
+    float.h     ---644 0 0 ../../include/float.h
+    limits.h    ---644 0 0 ../../include/limits.h
+    locale.h    ---644 0 0 ../../include/locale.h
+    math.h      ---644 0 0 ../../include/math.h
+    setjmp.h    ---644 0 0 ../../include/setjmp.h
+    signal.h    ---644 0 0 ../../include/signal.h
+    stdarg.h    ---644 0 0 ../../include/stdarg.h
+    stddef.h    ---644 0 0 ../../include/stddef.h
+    stdio.h     ---644 0 0 ../../include/stdio.h
+    stdlib.h    ---644 0 0 ../../include/stdlib.h
+    string.h    ---644 0 0 ../../include/string.h
+    time.h      ---644 0 0 ../../include/time.h
+    $
+lib         d--755 0 0
+    assert.o    ---644 0 0 ../../lib/assert.o
+    c0.o        ---644 0 0 ../../lib/c0.o
+    c1.o        ---644 0 0 ../../lib/c1.o
+    ctype.o     ---644 0 0 ../../lib/ctype.o
+    eos32lib.o  ---644 0 0 ../../lib/eos32lib.o
+    eos32sys.o  ---644 0 0 ../../lib/eos32sys.o
+    errno.o     ---644 0 0 ../../lib/errno.o
+    math.o      ---644 0 0 ../../lib/math.o
+    setjmp.o    ---644 0 0 ../../lib/setjmp.o
+    signal.o    ---644 0 0 ../../lib/signal.o
+    stdio.o     ---644 0 0 ../../lib/stdio.o
+    stdlib.o    ---644 0 0 ../../lib/stdlib.o
+    string.o    ---644 0 0 ../../lib/string.o
+    time.o      ---644 0 0 ../../lib/time.o
+    $
+$

@@ -1,0 +1,206 @@
+./pbootblk
+2236 1500
+d--755 0 0
+WELCOME   ---644 0 0      ./WELCOME
+bin       d--755 0 0
+          ar              ---755 0 0 ../../cmds/ar
+          as              ---755 0 0 ../../cmds/as
+          cat             ---755 0 0 ../../cmds/cat
+          chgrp           ---755 0 0 ../../cmds/chgrp
+          chmod           ---755 0 0 ../../cmds/chmod
+          chown           ---755 0 0 ../../cmds/chown
+          clri            ---755 0 0 ../../cmds/clri
+          cmp             ---755 0 0 ../../cmds/cmp
+          cp              ---755 0 0 ../../cmds/cp
+          cpp             ---755 0 0 ../../cmds/cpp
+          date            ---755 0 0 ../../cmds/date
+          dcheck          ---755 0 0 ../../cmds/dcheck
+          df              ---755 0 0 ../../cmds/df
+          dof             ---755 0 0 ../../cmds/dof
+          du              ---755 0 0 ../../cmds/du
+          echo            ---755 0 0 ../../cmds/echo
+          ed              ---755 0 0 ../../cmds/ed
+          grep            ---755 0 0 ../../cmds/grep
+          icheck          ---755 0 0 ../../cmds/icheck
+          joe             ---755 0 0 ../../cmds/joe
+          kill            ---755 0 0 ../../cmds/kill
+          lburg           ---755 0 0 ../../cmds/lburg
+          lcc             ---755 0 0 ../../cmds/lcc
+          ld              ---755 0 0 ../../cmds/ld
+          ln              ---755 0 0 ../../cmds/ln
+          login           -u-755 0 0 ../../cmds/login
+          ls              ---755 0 0 ../../cmds/ls
+          mkdir           -u-755 0 0 ../../cmds/mkdir
+          mkfs            ---755 0 0 ../../cmds/mkfs
+          mknod           ---755 0 0 ../../cmds/mknod
+          mkpart          ---755 0 0 ../../cmds/mkpart
+          mount           ---755 0 0 ../../cmds/mount
+          ncheck          ---755 0 0 ../../cmds/ncheck
+          od              ---755 0 0 ../../cmds/od
+          passwd          -u-755 0 0 ../../cmds/passwd
+          ps              ---755 0 0 ../../cmds/ps
+          pwd             ---755 0 0 ../../cmds/pwd
+          rcc             ---755 0 0 ../../cmds/rcc
+          rm              ---755 0 0 ../../cmds/rm
+          rmdir           -u-755 0 0 ../../cmds/rmdir
+          sh              ---755 0 0 ../../cmds/sh
+          shfs            ---755 0 0 ../../cmds/shfs
+          shpart          ---755 0 0 ../../cmds/shpart
+          stty            ---755 0 0 ../../cmds/stty
+          sync            ---755 0 0 ../../cmds/sync
+          touch           ---755 0 0 ../../cmds/touch
+          umount          ---755 0 0 ../../cmds/umount
+          update          ---755 0 0 ../../cmds/update
+          wc              ---755 0 0 ../../cmds/wc
+          yes             ---755 0 0 ../../cmds/yes
+          $
+boot      d--755 0 0
+          eos32.bin       ---644 0 0 ../../stdalone/eos32.bin
+          eos32.map       ---644 0 0 ../../stdalone/eos32.map
+          $
+dev       d--755 0 0
+          console         c--644 0 0 0 0
+          mem             c--600 0 0 8 0
+          kmem            c--600 0 0 8 1
+          null            c--666 0 0 8 2
+          idediskp0       b--644 0 0 0 0
+          idediskp1       b--644 0 0 0 1
+          idediskp2       b--644 0 0 0 2
+          idediskp3       b--644 0 0 0 3
+          idedisk         b--644 0 0 0 16
+          serdiskp0       b--644 0 0 1 0
+          serdiskp1       b--644 0 0 1 1
+          serdiskp2       b--644 0 0 1 2
+          serdiskp3       b--644 0 0 1 3
+          serdisk         b--644 0 0 1 16
+          ramdisk         b--644 0 0 2 0
+          swap            b--644 0 0 0 1
+          $
+etc       d--755 0 0
+          init            ---755 0 0 ../../cmds/init
+          getty           ---755 0 0 ../../cmds/getty
+          group           ---644 0 0 ./etc/group
+          passwd          ---644 0 0 ./etc/passwd
+          rc              ---644 0 0 ./etc/rc
+          ttys            ---644 0 0 ./etc/ttys
+          motd            ---644 0 0 ./etc/motd
+          $
+home      d--755 0 0
+          $
+mnt       d--755 0 0
+          $
+tmp       d--777 0 0
+          $
+tst       d--755 0 0
+          app       d--755 0 0
+                    alloc           ---755 0 0 ../../tests/app/alloc
+                    argcopy         ---755 0 0 ../../tests/app/argcopy
+                    chkdsks         ---755 0 0 ../../tests/app/chkdsks
+                    cmdline         ---755 0 0 ../../tests/app/cmdline
+                    db              ---755 0 0 ../../tests/app/db
+                    hello           ---755 0 0 ../../tests/app/hello
+                    init            ---755 0 0 ../../tests/app/init
+                    primes          ---755 0 0 ../../tests/app/primes
+                    recurse         ---755 0 0 ../../tests/app/recurse
+                    retval          ---755 0 0 ../../tests/app/retval
+                    sec1            ---755 0 0 ../../tests/app/sec1
+                    sec2            ---755 0 0 ../../tests/app/sec2
+                    showenv         ---755 0 0 ../../tests/app/showenv
+                    sig1            ---755 0 0 ../../tests/app/sig1
+                    sig2            ---755 0 0 ../../tests/app/sig2
+                    two             ---755 0 0 ../../tests/app/two
+                    $
+          lib       d--755 0 0
+                    assert          ---755 0 0 ../../tests/lib/assert
+                    ctype           ---755 0 0 ../../tests/lib/ctype
+                    eos32           ---755 0 0 ../../tests/lib/eos32
+                    eos32x          ---755 0 0 ../../tests/lib/eos32x
+                    setjmp          ---755 0 0 ../../tests/lib/setjmp
+                    signal          ---755 0 0 ../../tests/lib/signal
+                    stdarg          ---755 0 0 ../../tests/lib/stdarg
+                    stdio           ---755 0 0 ../../tests/lib/stdio
+                    stdlib          ---755 0 0 ../../tests/lib/stdlib
+                    string          ---755 0 0 ../../tests/lib/string
+                    time            ---755 0 0 ../../tests/lib/time
+                    $
+          sc        d--755 0 0
+                    sc00            ---755 0 0 ../../tests/sc/sc00
+                    sc01            ---755 0 0 ../../tests/sc/sc01
+                    sc02            ---755 0 0 ../../tests/sc/sc02
+                    sc03            ---755 0 0 ../../tests/sc/sc03
+                    sc04            ---755 0 0 ../../tests/sc/sc04
+                    sc05            ---755 0 0 ../../tests/sc/sc05
+                    sc06            ---755 0 0 ../../tests/sc/sc06
+                    sc07            ---755 0 0 ../../tests/sc/sc07
+                    sc08            ---755 0 0 ../../tests/sc/sc08
+                    sc09            ---755 0 0 ../../tests/sc/sc09
+                    sc10            ---755 0 0 ../../tests/sc/sc10
+                    sc11            ---755 0 0 ../../tests/sc/sc11
+                    sc12            ---755 0 0 ../../tests/sc/sc12
+                    sc13            ---755 0 0 ../../tests/sc/sc13
+                    sc14            ---755 0 0 ../../tests/sc/sc14
+                    sc15            ---755 0 0 ../../tests/sc/sc15
+                    sc16            ---755 0 0 ../../tests/sc/sc16
+                    sc17            ---755 0 0 ../../tests/sc/sc17
+                    sc18            ---755 0 0 ../../tests/sc/sc18
+                    sc19            ---755 0 0 ../../tests/sc/sc19
+                    sc20            ---755 0 0 ../../tests/sc/sc20
+                    sc21            ---755 0 0 ../../tests/sc/sc21
+                    sc22            ---755 0 0 ../../tests/sc/sc22
+                    sc23            ---755 0 0 ../../tests/sc/sc23
+                    sc24            ---755 0 0 ../../tests/sc/sc24
+                    sc25            ---755 0 0 ../../tests/sc/sc25
+                    sc26            ---755 0 0 ../../tests/sc/sc26
+                    sc27            ---755 0 0 ../../tests/sc/sc27
+                    sc28            ---755 0 0 ../../tests/sc/sc28
+                    sc29            ---755 0 0 ../../tests/sc/sc29
+                    sc30            ---755 0 0 ../../tests/sc/sc30
+                    sc31            ---755 0 0 ../../tests/sc/sc31
+                    sc32            ---755 0 0 ../../tests/sc/sc32
+                    sc33            ---755 0 0 ../../tests/sc/sc33
+                    sc34            ---755 0 0 ../../tests/sc/sc34
+                    sc35            ---755 0 0 ../../tests/sc/sc35
+                    sc36            ---755 0 0 ../../tests/sc/sc36
+                    sc37            ---755 0 0 ../../tests/sc/sc37
+                    sc38            ---755 0 0 ../../tests/sc/sc38
+                    sc39            ---755 0 0 ../../tests/sc/sc39
+                    sc40            ---755 0 0 ../../tests/sc/sc40
+                    sc41            ---755 0 0 ../../tests/sc/sc41
+                    sc42            ---755 0 0 ../../tests/sc/sc42
+                    sc43            ---755 0 0 ../../tests/sc/sc43
+                    sc44            ---755 0 0 ../../tests/sc/sc44
+                    sc45            ---755 0 0 ../../tests/sc/sc45
+                    sc46            ---755 0 0 ../../tests/sc/sc46
+                    sc47            ---755 0 0 ../../tests/sc/sc47
+                    sc48            ---755 0 0 ../../tests/sc/sc48
+                    sc49            ---755 0 0 ../../tests/sc/sc49
+                    sc50            ---755 0 0 ../../tests/sc/sc50
+                    sc51            ---755 0 0 ../../tests/sc/sc51
+                    sc52            ---755 0 0 ../../tests/sc/sc52
+                    sc53            ---755 0 0 ../../tests/sc/sc53
+                    sc54            ---755 0 0 ../../tests/sc/sc54
+                    sc55            ---755 0 0 ../../tests/sc/sc55
+                    sc56            ---755 0 0 ../../tests/sc/sc56
+                    sc57            ---755 0 0 ../../tests/sc/sc57
+                    sc58            ---755 0 0 ../../tests/sc/sc58
+                    sc59            ---755 0 0 ../../tests/sc/sc59
+                    sc59x           ---755 0 0 ../../tests/sc/sc59x
+                    sc60            ---755 0 0 ../../tests/sc/sc60
+                    sc61            ---755 0 0 ../../tests/sc/sc61
+                    sc62            ---755 0 0 ../../tests/sc/sc62
+                    sc63            ---755 0 0 ../../tests/sc/sc63
+                    $
+          ux        d--755 0 0
+                    ux16            ---755 0 0 ../../tests/ux/ux16
+                    ux17            ---755 0 0 ../../tests/ux/ux17
+                    ux18            ---755 0 0 ../../tests/ux/ux18
+                    ux19            ---755 0 0 ../../tests/ux/ux19
+                    ux22            ---755 0 0 ../../tests/ux/ux22
+                    ux23            ---755 0 0 ../../tests/ux/ux23
+                    ux24            ---755 0 0 ../../tests/ux/ux24
+                    ux25            ---755 0 0 ../../tests/ux/ux25
+                    $
+          $
+usr       d--755 0 0
+          $
+$

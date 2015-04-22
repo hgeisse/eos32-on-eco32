@@ -1,0 +1,69 @@
+
+System Calls
+------------
+
+access
+acct
+alarm
+brk
+sbrk
+chdir
+chroot
+chmod
+chown
+close
+creat
+dup
+dup2
+execl
+execv
+execle
+execve
+execlp
+execvp
+exit			this is in <stdlib.h>
+_exit
+fork
+getpid
+getuid
+geteuid
+getgid
+getegid
+indir			not implemented (self-modifying code)
+ioctl
+stty			not implemented ('old system call')
+gtty			not implemented ('old system call')
+kill
+link
+lock			not implemented ('not considered permanent')
+lseek
+tell			not implemented ('obsolete')
+mknod
+mount
+umount
+mpx (and others)	not implemented ('experimental')
+nice
+open
+pause
+phys			not implemented (architecture dependent)
+pipe
+pkon			not implemented (packet protocol)
+pkoff			not implemented (packet protocol)
+profil
+ptrace
+read
+setuid
+setgid
+signal			renamed to _signal; signal is in <signal.h>
+stat
+fstat
+stime
+sync
+time			renamed to _time; time is in <time.h>
+ftime
+times
+umask
+unlink
+utime
+wait
+write

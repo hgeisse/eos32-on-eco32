@@ -1,0 +1,20 @@
+                h       c       s       test
+
+assert          ?       ?       ?       ?
+ctype           ?       ?       ?       ?
+eos32           ?       ?       ?       ?
+eos32lib        ?       ?       ?       ?
+eos32sys        ?       ?       ?       ?
+errno           ?       ?       ?       ?
+float           ?       ?       ?       ?
+limits          ?       ?       ?       ?
+locale          ?       ?       ?       ?
+math            ?       ?       ?       ?
+setjmp          ?       ?       ?       ?
+signal          ?       ?       ?       ?
+stdarg          ?       ?       ?       ?
+stddef          ?       ?       ?       ?
+stdio           ?       ?       ?       ?
+stdlib          ?       ?       ?       ?
+string          ?       ?       ?       ?
+time            ?       ?       ?       ?

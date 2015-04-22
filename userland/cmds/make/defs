@@ -1,0 +1,189 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <time.h>
+#include <eos32.h>
+
+#define SHELLCOM "/bin/sh"
+typedef long int TIMETYPE;
+
+#ifdef unix
+/*  to install metering, add a statement like */
+#define METERFILE "/usr/sif/make/Meter"
+/* to turn metering on, set external variable meteron to 1 */
+#endif
+
+/* define FSTATIC to be static on systems with C compilers
+   supporting file-static; otherwise define it to be null
+*/
+#define FSTATIC static
+
+#define NO 0
+#define YES 1
+
+#define unequal strcmp
+#define HASHSIZE 509
+#define NLEFTS 40
+#define NCHARS 500
+#define NINTS  250
+#define INMAX 1500
+#define OUTMAX 2500
+#define QBUFMAX 1500
+
+#define ALLDEPS  1
+#define SOMEDEPS 2
+
+#define META 01
+#define TERMINAL 02
+extern char funny[128];
+
+
+#define ALLOC(x) (struct x *) ckalloc(sizeof(struct x))
+
+extern int sigivalue;
+extern int sigqvalue;
+extern int waitpid;
+extern int dbgflag;
+extern int prtrflag;
+extern int silflag;
+extern int noexflag;
+extern int keepgoing;
+extern int noruleflag;
+extern int touchflag;
+extern int questflag;
+extern int ndocoms;
+extern int ignerr;
+extern int okdel;
+extern int inarglist;
+extern char *prompt;
+extern char junkname[ ];
+
+
+
+struct nameblock
+	{
+	struct nameblock *nxtnameblock;
+	char *namep;
+	struct lineblock *linep;
+	int done:3;
+	int septype:3;
+	TIMETYPE modtime;
+	};
+
+extern struct nameblock *mainname ;
+extern struct nameblock *firstname;
+
+struct lineblock
+	{
+	struct lineblock *nxtlineblock;
+	struct depblock *depp;
+	struct shblock *shp;
+	};
+extern struct lineblock *sufflist;
+
+struct depblock
+	{
+	struct depblock *nxtdepblock;
+	struct nameblock *depname;
+	};
+
+struct shblock
+	{
+	struct shblock *nxtshblock;
+	char *shbp;
+	};
+
+struct varblock
+	{
+	struct varblock *nxtvarblock;
+	char *varname;
+	char *varval;
+	int noreset:1;
+	int used:1;
+	};
+extern struct varblock *firstvar;
+
+struct pattern
+	{
+	struct pattern *nxtpattern;
+	char *patval;
+	};
+extern struct pattern *firstpat;
+
+struct opendir
+	{
+	struct opendir *nxtopendir;
+	FILE * dirfc;
+	char *dirn;
+	};
+extern struct opendir *firstod;
+
+
+struct chain
+	{
+	struct chain *nextp;
+	char *datap;
+	};
+
+/* main.c */
+void intrupt(int signum);
+int isprecious(char *p);
+void enbint(void (*k)(int));
+int rddescf(char *descfile);
+int rdd1(FILE *k);
+void printdesc(int prntflag);
+
+/* doname.c */
+int doname(struct nameblock *p, int reclevel, TIMETYPE *tval);
+int docom(struct shblock *q);
+int docom1(char *comstring, int nohalt, int noprint);
+void expand(struct depblock *q);
+
+/* misc.c */
+int hashloc(char *s);
+struct nameblock *srchname(char *s);
+struct nameblock *makename(char *s);
+int hasslash(char *s);
+char *copys(char *s);
+char *concat(char *a, char *b, char *c);
+int suffix(char *a, char *b, char *p);
+int *ckalloc(int n);
+char *subst(char *a, char *b);
+void setvar(char *v, char *s);
+int eqsign(char *a);
+struct varblock *varptr(char *v);
+void fatal1(char *s, char *t);
+void fatal(char *s);
+void yyerror(char *s);
+struct chain *appendq(struct chain *head, char *tail);
+char *mkqlist(struct chain *p);
+
+/* files.c */
+TIMETYPE exists(char *filename);
+TIMETYPE prestime(void);
+struct depblock *srchdir(char *pat, int mkchain, struct depblock *nextdbl);
+void meter(char *file);
+TIMETYPE lookarch(char *filename);
+void clarch(void);
+void openarch(char *f);
+int getarch(void);
+void getobj(void);
+int eqstr(char *a, char *b, int n);
+
+/* dosys.c */
+int dosys(char *comstring, int nohalt);
+int metas(char *s);
+int doshell(char *comstring, int nohalt);
+int await(void);
+void doclose(void);
+int doexec(char *str);
+void touch(int force, char *name);
+
+/* gram.y */
+extern char *zznextc;
+extern int yylineno;
+int yyparse(void);
+int yylex(void);
+int retsh(char *q);
+int nextlin(void);
