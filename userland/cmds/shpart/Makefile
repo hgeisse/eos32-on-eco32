@@ -2,7 +2,7 @@
 # Makefile for 'shpart' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		shpart
 

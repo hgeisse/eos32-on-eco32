@@ -2,7 +2,7 @@
 # Makefile for 'update' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		update
 

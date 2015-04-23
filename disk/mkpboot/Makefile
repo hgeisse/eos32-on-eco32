@@ -2,7 +2,7 @@
 # Makefile to build the partition boot block
 #
 
-BUILD = ../../../build
+BUILD = ../../build
 
 .PHONY:		all install clean
 

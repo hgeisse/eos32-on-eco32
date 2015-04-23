@@ -2,7 +2,7 @@
 # Makefile for syscall tests
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 SRCS = sc00.s sc01.s sc02.s sc03.s sc04.s sc05.s sc06.s sc07.s \
        sc08.s sc09.s sc10.s sc11.s sc12.s sc13.s sc14.s sc15.s \

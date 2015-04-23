@@ -2,7 +2,7 @@
 # Makefile for 'ar' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		ar
 

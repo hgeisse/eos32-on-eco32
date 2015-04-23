@@ -2,7 +2,7 @@
 # Makefile for EOS32 init
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		init
 

@@ -2,7 +2,7 @@
 # Makefile for 'pwd' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		pwd
 

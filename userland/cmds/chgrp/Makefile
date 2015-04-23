@@ -2,7 +2,7 @@
 # Makefile for 'chgrp' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		chgrp
 

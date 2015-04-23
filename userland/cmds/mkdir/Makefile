@@ -2,7 +2,7 @@
 # Makefile for 'mkdir' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		mkdir
 

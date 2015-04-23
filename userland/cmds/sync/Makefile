@@ -2,7 +2,7 @@
 # Makefile for 'sync' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		sync
 

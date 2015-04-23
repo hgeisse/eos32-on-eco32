@@ -2,7 +2,7 @@
 # Makefile for 'touch' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		touch
 

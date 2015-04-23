@@ -2,7 +2,7 @@
 # Makefile for 'ld' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		ld
 

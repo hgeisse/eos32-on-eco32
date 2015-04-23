@@ -2,7 +2,7 @@
 # Makefile for EOS32 kernel
 #
 
-BUILD = ../../build
+BUILD = ../build
 
 .PHONY:		all install clean
 

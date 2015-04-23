@@ -2,7 +2,7 @@
 # Makefile for 'yes' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		yes
 

@@ -2,7 +2,7 @@
 # Makefile to build the boot manager
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		boot.bin
 

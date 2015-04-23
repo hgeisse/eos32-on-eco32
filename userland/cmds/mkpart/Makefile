@@ -2,7 +2,7 @@
 # Makefile for 'mkpart' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		mkpart
 

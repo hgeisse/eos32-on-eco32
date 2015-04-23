@@ -2,7 +2,7 @@
 # Makefile for 'sh' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 INCS = brkincr.h ctyp.h defs.h mac.h mode.h \
        name.h stak.h sym.h timeout.h

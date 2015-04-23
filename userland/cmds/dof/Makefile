@@ -2,7 +2,7 @@
 # Makefile for 'dof' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		dof
 

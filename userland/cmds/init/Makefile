@@ -2,7 +2,7 @@
 # Makefile for 'init' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		init
 

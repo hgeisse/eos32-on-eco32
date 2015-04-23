@@ -2,7 +2,7 @@
 # Makefile for 'mkfs' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		mkfs
 

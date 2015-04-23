@@ -2,7 +2,7 @@
 # Makefile for 'cmp' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		cmp
 

@@ -2,7 +2,7 @@
 # Makefile for compiling the library modules
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 CC = $(BUILD)/bin/lcc
 CFLAGS = -A -I../include -c

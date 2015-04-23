@@ -2,7 +2,7 @@
 # Makefile for the 'chkdsks' command
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		chkdsks
 

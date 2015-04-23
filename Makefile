@@ -4,7 +4,7 @@
 
 VERSION = 0.1
 
-DIRS = disk
+DIRS = kernel userland disk
 BUILD = ./build
 
 all:		build-link

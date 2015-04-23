@@ -2,7 +2,7 @@
 # Makefile to build the boot record
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		br.bin
 

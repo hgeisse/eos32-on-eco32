@@ -2,7 +2,7 @@
 # Makefile for 'cp' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		cp
 

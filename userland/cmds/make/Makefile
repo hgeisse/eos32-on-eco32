@@ -2,7 +2,7 @@
 # Makefile for 'make' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 INCS = defs
 SRCS = ident.c main.c doname.c misc.c files.c dosys.c y.tab.c

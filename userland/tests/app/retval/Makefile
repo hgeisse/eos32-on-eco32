@@ -2,7 +2,7 @@
 # Makefile for the 'retval' command
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		retval
 

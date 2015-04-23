@@ -2,7 +2,7 @@
 # Makefile to build the master boot block (with an empty partition table)
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 .PHONY:		all install clean
 

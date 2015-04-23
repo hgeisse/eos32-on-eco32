@@ -2,7 +2,7 @@
 # Makefile to generate test data files for file system test
 #
 
-BUILD = ../../../build
+BUILD = ../../build
 
 CC = gcc
 CFLAGS = -g -Wall

@@ -2,7 +2,7 @@
 # Makefile for 'kill' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		kill
 

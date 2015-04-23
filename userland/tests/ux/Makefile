@@ -2,7 +2,7 @@
 # Makefile for user mode exception tests
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 SRCS = ux16.s ux17.s ux18.s ux19.s ux22.s ux23.s ux24.s ux25.s
 OBJS = $(patsubst %.s,%.o,$(SRCS))

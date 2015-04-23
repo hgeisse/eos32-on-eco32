@@ -2,7 +2,7 @@
 # Makefile for 'login' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		login
 

@@ -2,7 +2,7 @@
 # Makefile for 'as' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		as
 

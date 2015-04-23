@@ -2,7 +2,7 @@
 # Makefile for the 'argcopy' command
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		argcopy
 

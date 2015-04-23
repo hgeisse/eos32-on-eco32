@@ -2,7 +2,7 @@
 # Makefile for 'cat' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		cat
 

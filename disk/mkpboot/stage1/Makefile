@@ -2,7 +2,7 @@
 # Makefile to build the partition boot record
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		pbr.bin
 

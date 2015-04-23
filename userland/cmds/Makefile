@@ -2,7 +2,7 @@
 # Makefile for EOS32 userland commands
 #
 
-BUILD = ../../../build
+BUILD = ../../build
 
 DIRS = ar as cat chgrp chmod chown clri cmp cp date \
        dcheck df dof du echo ed getty grep icheck \

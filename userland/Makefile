@@ -2,7 +2,7 @@
 # Makefile for EOS32 userland
 #
 
-BUILD = ../../build
+BUILD = ../build
 
 DIRS = lib tests cmds
 

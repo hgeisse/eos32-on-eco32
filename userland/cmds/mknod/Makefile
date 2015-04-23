@@ -2,7 +2,7 @@
 # Makefile for 'mknod' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		mknod
 

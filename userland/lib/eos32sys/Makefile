@@ -2,7 +2,7 @@
 # Makefile for building the system call module
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		eos32sys.o
 

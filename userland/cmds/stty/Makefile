@@ -2,7 +2,7 @@
 # Makefile for 'stty' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		stty
 

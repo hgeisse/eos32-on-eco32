@@ -2,7 +2,7 @@
 # Makefile for EOS32 kernel
 #
 
-BUILD = ../../../build
+BUILD = ../../build
 
 STARTINC = start.h
 STARTSRC = start.s

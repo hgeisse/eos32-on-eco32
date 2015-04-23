@@ -2,7 +2,7 @@
 # Makefile for 'joe' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 INCS = joe.h buffer.h blocks.h async.h
 SRCS = joe.c buffer.c blocks.c cruddy.c

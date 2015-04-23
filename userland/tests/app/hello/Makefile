@@ -2,7 +2,7 @@
 # Makefile for the 'hello' command
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		hello
 

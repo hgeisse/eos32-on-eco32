@@ -2,7 +2,7 @@
 # Makefile for EOS32 standard library
 #
 
-BUILD = ../../../build
+BUILD = ../../build
 
 .PHONY:		all install compile clean
 

@@ -2,7 +2,7 @@
 # Makefile for the 'showenv' command
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		showenv
 

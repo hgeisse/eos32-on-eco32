@@ -2,7 +2,7 @@
 # Makefile for 'shfs' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		shfs
 

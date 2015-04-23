@@ -2,7 +2,7 @@
 # Makefile for the 'recurse' command
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		recurse
 

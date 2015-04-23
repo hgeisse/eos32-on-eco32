@@ -2,7 +2,7 @@
 # Makefile for 'mount' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		mount
 

@@ -2,7 +2,7 @@
 # Makefile for 'getty' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		getty
 

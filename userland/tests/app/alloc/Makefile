@@ -2,7 +2,7 @@
 # Makefile for the 'alloc' command
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		alloc
 

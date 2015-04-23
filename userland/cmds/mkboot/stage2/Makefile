@@ -2,7 +2,7 @@
 # Makefile to build the boot loader
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		boot.bin
 

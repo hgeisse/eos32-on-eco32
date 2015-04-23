@@ -2,7 +2,7 @@
 # Makefile for 'du' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		du
 

@@ -2,7 +2,7 @@
 # Makefile to build the partition bootstrap (boot loader)
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		pboot.bin
 

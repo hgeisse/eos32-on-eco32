@@ -2,7 +2,7 @@
 # Makefile for 'wc' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		wc
 

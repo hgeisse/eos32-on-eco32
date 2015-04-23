@@ -2,7 +2,7 @@
 # Makefile for building the setjmp module
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		setjmp.o
 

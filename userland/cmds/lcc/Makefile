@@ -2,7 +2,7 @@
 # Makefile for 'lcc' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 LCCSRCS = etc/lcc.c etc/eco32-eos32.c
 CPPSRCS = cpp/cpp.c cpp/eval.c cpp/getopt.c cpp/hideset.c cpp/include.c \

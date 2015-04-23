@@ -2,7 +2,7 @@
 # Makefile for 'umount' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		umount
 

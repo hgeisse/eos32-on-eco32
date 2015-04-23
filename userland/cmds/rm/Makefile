@@ -2,7 +2,7 @@
 # Makefile for 'rm' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		rm
 

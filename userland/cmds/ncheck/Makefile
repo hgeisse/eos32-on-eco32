@@ -2,7 +2,7 @@
 # Makefile for 'ncheck' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		ncheck
 

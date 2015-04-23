@@ -2,7 +2,7 @@
 # Makefile for 'chmod' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		chmod
 

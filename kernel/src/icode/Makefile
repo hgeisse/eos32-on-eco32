@@ -2,7 +2,7 @@
 # Makefile for icode, the initial code for process 1
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 .PHONY:		all clean
 

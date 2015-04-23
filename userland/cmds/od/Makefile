@@ -2,7 +2,7 @@
 # Makefile for 'od' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		od
 

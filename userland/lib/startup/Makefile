@@ -2,7 +2,7 @@
 # Makefile for building the C startup module
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		c0.o c1.o
 

@@ -2,7 +2,7 @@
 # Makefile for 'chown' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		chown
 

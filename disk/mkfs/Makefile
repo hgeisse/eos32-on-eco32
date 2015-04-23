@@ -2,7 +2,7 @@
 # Makefile for mkfs utility
 #
 
-BUILD = ../../../build
+BUILD = ../../build
 
 CC = gcc
 CFLAGS = -g -Wall

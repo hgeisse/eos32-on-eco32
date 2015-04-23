@@ -2,7 +2,7 @@
 # Makefile for 'ed' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		ed
 

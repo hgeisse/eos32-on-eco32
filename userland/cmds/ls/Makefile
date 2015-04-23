@@ -2,7 +2,7 @@
 # Makefile for 'ls' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		ls
 

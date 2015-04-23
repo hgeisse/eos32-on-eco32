@@ -2,7 +2,7 @@
 # Makefile for 'clri' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		clri
 

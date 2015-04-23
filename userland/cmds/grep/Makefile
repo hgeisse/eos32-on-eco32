@@ -2,7 +2,7 @@
 # Makefile for 'grep' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		grep
 

@@ -2,7 +2,7 @@
 # Makefile for 'df' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		df
 

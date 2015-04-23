@@ -2,7 +2,7 @@
 # Makefile for the 'primes' command
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		primes
 

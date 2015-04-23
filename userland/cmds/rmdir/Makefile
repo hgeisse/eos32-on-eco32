@@ -2,7 +2,7 @@
 # Makefile for 'rmdir' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		rmdir
 

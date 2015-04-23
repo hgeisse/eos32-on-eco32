@@ -2,7 +2,7 @@
 # Makefile for the 'cmdline' command
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		cmdline
 

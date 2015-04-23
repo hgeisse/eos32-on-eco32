@@ -2,7 +2,7 @@
 # Makefile for 'passwd' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		passwd
 

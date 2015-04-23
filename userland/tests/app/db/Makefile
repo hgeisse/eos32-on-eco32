@@ -2,7 +2,7 @@
 # Makefile for the 'db' command
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		db
 

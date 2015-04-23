@@ -2,7 +2,7 @@
 # Makefile for 'date' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		date
 

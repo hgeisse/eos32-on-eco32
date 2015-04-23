@@ -2,7 +2,7 @@
 # Makefile for EOS32 library tests
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 SRCS = assert.c ctype.c eos32.c eos32x.c setjmp.c signal.c \
        stdarg.c stdio.c stdlib.c string.c time.c

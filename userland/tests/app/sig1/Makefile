@@ -2,7 +2,7 @@
 # Makefile for the 'sig1' command
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		sig1
 

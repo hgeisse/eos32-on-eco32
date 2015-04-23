@@ -2,7 +2,7 @@
 # Makefile for 'icheck' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		icheck
 

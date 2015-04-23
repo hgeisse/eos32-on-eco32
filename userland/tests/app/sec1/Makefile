@@ -2,7 +2,7 @@
 # Makefile for the 'sec1' command
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		sec1
 

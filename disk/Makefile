@@ -2,7 +2,7 @@
 # Makefile for EOS32 disk tools
 #
 
-BUILD = ../../build
+BUILD = ../build
 TARGET = $(BUILD)/run/fs-EOS32
 
 DIRS = mkdata mkpboot mkfs shfs

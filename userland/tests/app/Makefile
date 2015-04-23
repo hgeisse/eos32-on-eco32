@@ -2,7 +2,7 @@
 # Makefile for EOS32 userland tests
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 DIRS = init hello primes cmdline showenv retval db sec1 \
        sec2 two sig1 sig2 recurse chkdsks argcopy alloc

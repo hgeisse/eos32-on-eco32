@@ -2,7 +2,7 @@
 # Makefile for the 'two' command
 #
 
-BUILD = ../../../../../build
+BUILD = ../../../../build
 
 all:		two
 

@@ -2,7 +2,7 @@
 # Makefile for EOS32 userland tests
 #
 
-BUILD = ../../../build
+BUILD = ../../build
 
 DIRS = ux sc lib app
 

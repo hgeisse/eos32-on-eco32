@@ -2,7 +2,7 @@
 # Makefile for 'echo' command
 #
 
-BUILD = ../../../../build
+BUILD = ../../../build
 
 all:		echo
 
