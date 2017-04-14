@@ -24,6 +24,7 @@
 #include "c.h"
 #include "idedsk.h"
 #include "serdsk.h"
+#include "sdcdsk.h"
 #include "ramdsk.h"
 #include "trm.h"
 #include "mem.h"
@@ -74,7 +75,7 @@ struct bdevsw bdevsw[] = {
   { noSize,  noOpen,  noClose,  noStrategy,  0       },  /* tm = 3 */
   { noSize,  noOpen,  noClose,  noStrategy,  0       },  /* tc = 4 */
   { noSize,  noOpen,  noClose,  noStrategy,  0       },  /* hs = 5 */
-  { noSize,  noOpen,  noClose,  noStrategy,  0       },  /* hp = 6 */
+  { sdcSize, sdcOpen, sdcClose, sdcStrategy, &sdcTab },  /* hp = 6 */
   { noSize,  noOpen,  noClose,  noStrategy,  0       },  /* ht = 7 */
   { noSize,  noOpen,  noClose,  noStrategy,  0       },  /* rl = 8 */
   { 0,       0,       0,        0,           0       },  /* end */
@@ -97,7 +98,7 @@ struct cdevsw cdevsw[] = {
   { serOpen, serClose, serRead, serWrite, noIoctl  },  /* rp = 11 */
   { noOpen,  noClose,  noRead,  noWrite,  noIoctl  },  /* tm = 12 */
   { noOpen,  noClose,  noRead,  noWrite,  noIoctl  },  /* hs = 13 */
-  { noOpen,  noClose,  noRead,  noWrite,  noIoctl  },  /* hp = 14 */
+  { sdcOpen, sdcClose, sdcRead, sdcWrite, noIoctl  },  /* hp = 14 */
   { noOpen,  noClose,  noRead,  noWrite,  noIoctl  },  /* ht = 15 */
   { noOpen,  noClose,  noRead,  noWrite,  noIoctl  },  /* du = 16 */
   { syopen,  syclose,  syread,  sywrite,  syioctl  },  /* tty = 17 */

@@ -33,6 +33,7 @@
 #include "bio.h"
 #include "idedsk.h"
 #include "serdsk.h"
+#include "sdcdsk.h"
 #include "ramdsk.h"
 #include "pipe.h"
 #include "rdwri.h"
@@ -177,6 +178,9 @@ void setDebugOutput(void) {
 
   /* serdsk.c */
   debugSerDisk = FALSE;
+
+  /* sdcdsk.c */
+  debugSdcDisk = FALSE;
 
   /* ramdsk.c */
   debugRamDisk = FALSE;
@@ -374,6 +378,11 @@ void main(void) {
     rootdev = makedev(1, 0);
     swapdev = makedev(1, 1);
     pipedev = makedev(1, 0);
+  } else
+  if (bootdsk == 2) {
+    rootdev = makedev(6, 0);
+    swapdev = makedev(6, 1);
+    pipedev = makedev(6, 0);
   } else {
     printf("unknown boot disk, assuming disk 0\n");
     rootdev = makedev(0, 0);
