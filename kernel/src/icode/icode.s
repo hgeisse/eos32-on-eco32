@@ -4,12 +4,14 @@
 
 	.set	SYS_EXECE,59		; exece system call
 
+	.export	_start
+
 	.code
 	.align	4
 
 	.nosyn
 
-icode:
+_start:
 	add	$8,$0,SYS_EXECE		; number of system call
 	add	$4,$0,name		; pointer to program name
 	add	$5,$0,argv		; pointer to argument vector

@@ -22,11 +22,10 @@ LOGINC = logfile.h
 LOGSRC = logfile.c
 CONINC = console.h display.h keyboard.h
 CONSRC = console.c display.s keyboard.s kbdtbls.s
-ENDINC =
-ENDSRC = end.s
 
-INC = $(STARTINC) $(KERNINC) $(LOGINC) $(CONINC) $(ENDINC)
-SRC = $(STARTSRC) $(KERNSRC) $(LOGSRC) $(CONSRC) $(ENDSRC)
+INC = $(STARTINC) $(KERNINC) $(LOGINC) $(CONINC)
+SRC = $(STARTSRC) $(KERNSRC) $(LOGSRC) $(CONSRC)
+EXE = eos32
 BIN = eos32.bin
 MAP = eos32.map
 
@@ -40,17 +39,22 @@ install:	$(BIN)
 		cp $(MAP) $(BUILD)/stdalone
 
 run:		$(BIN)
-		$(BUILD)/bin/sim -i -c -t 1 \
+		$(BUILD)/bin/sim -i -c -s 1 -t 0 \
 		  -d $(BUILD)/run/disk.img \
-		  -l $(BIN) -o run.log
+		  -l $(BIN) -a 0x10000 -o run.log
 
-$(BIN):		$(INC) $(SRC) icode/icode.dump
-		$(BUILD)/bin/lcc -A -Wo-kernel \
-		  -Wl-m -Wl$(MAP) -o $(BIN) $(SRC)
+$(BIN):		$(EXE)
+		$(BUILD)/bin/load -p $(EXE) $(BIN)
+
+$(EXE):		$(INC) $(SRC) icode/icode.dump
+		$(BUILD)/bin/lcc -A \
+		  -Wo-nostdinc -Wo-nostdlib \
+		  -Wo-ldscript=stdalone.lnk \
+		  -Wo-ldmap=$(MAP) -o $(EXE) $(SRC)
 
 icode/icode.dump:
 		$(MAKE) -C icode all
 
 clean:
 		$(MAKE) -C icode clean
-		rm -f *~ $(BIN) $(MAP) run.log
+		rm -f *~ $(EXE) $(BIN) $(MAP) run.log

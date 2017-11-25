@@ -14,11 +14,14 @@ icode.dump:	dump icode.bin
 dump:		dump.c
 		gcc -Wall -o dump dump.c
 
-icode.bin:	icode.o
-		$(BUILD)/bin/ld -h -o icode.bin icode.o
+icode.bin:	icode
+		$(BUILD)/bin/load -p icode icode.bin
+
+icode:		icode.o
+		$(BUILD)/bin/ld -o icode icode.o
 
 icode.o:	icode.s
 		$(BUILD)/bin/as -o icode.o icode.s
 
 clean:
-		rm -f *~ dump icode.o icode.bin icode.dump
+		rm -f *~ dump icode.o icode icode.bin icode.dump
