@@ -4,18 +4,21 @@
 
 BUILD = ../../build
 
-.PHONY:		all install compile clean
+.PHONY:		all install archive compile clean
 
-all:		compile
+all:		archive
 
-install:	compile
+install:	archive
 		mkdir -p $(BUILD)/include
 		cp include/*.h $(BUILD)/include
 		mkdir -p $(BUILD)/lib
+		cp scripts/*.lnk $(BUILD)/lib
 		cp startup/*.o $(BUILD)/lib
-		cp setjmp/*.o $(BUILD)/lib
-		cp eos32sys/*.o $(BUILD)/lib
-		cp libsrc/*.o $(BUILD)/lib
+		cp libc.a $(BUILD)/lib
+
+archive:	compile
+		$(BUILD)/bin/ar -cv libc.a \
+		  setjmp/*.o eos32sys/*.o libsrc/*.o
 
 compile:
 		$(MAKE) -C startup all
@@ -29,4 +32,4 @@ clean:
 		$(MAKE) -C setjmp clean
 		$(MAKE) -C eos32sys clean
 		$(MAKE) -C libsrc clean
-		rm -f *~
+		rm -f *~ libc.a

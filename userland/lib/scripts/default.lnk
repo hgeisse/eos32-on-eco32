@@ -1,0 +1,29 @@
+#
+# default.lnk -- default linker script for hosted applications
+#                load at 0x00000000, start at _start
+#                data is aligned on the next page boundary
+#
+
+ENTRY _start;
+
+. = 0;
+
+OSEG .code [APX] {
+  _bcode = .;
+  ISEG .code;
+  _ecode = .;
+}
+
+. = (. + 0xFFF) & ~0xFFF;
+
+OSEG .data [APW] {
+  _bdata = .;
+  ISEG .data;
+  _edata = .;
+}
+
+OSEG .bss [AW] {
+  _bbss = .;
+  ISEG .bss;
+  _ebss = .;
+}
