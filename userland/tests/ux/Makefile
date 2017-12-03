@@ -17,28 +17,28 @@ install:	$(BINS)
 		cp $(BINS) $(BUILD)/tests/ux
 
 ux16:		ux16.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s ux.lnk -o $@ $<
 
 ux17:		ux17.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s ux.lnk -o $@ $<
 
 ux18:		ux18.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s ux.lnk -o $@ $<
 
 ux19:		ux19.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s ux.lnk -o $@ $<
 
 ux22:		ux22.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s ux.lnk -o $@ $<
 
 ux23:		ux23.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s ux.lnk -o $@ $<
 
 ux24:		ux24.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s ux.lnk -o $@ $<
 
 ux25:		ux25.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s ux.lnk -o $@ $<
 
 %.o:		%.s
 		$(BUILD)/bin/as -o $@ $<

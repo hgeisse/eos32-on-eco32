@@ -24,199 +24,199 @@ install:	$(BINS)
 		cp $(BINS) $(BUILD)/tests/sc
 
 sc00:		sc00.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc01:		sc01.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc02:		sc02.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc03:		sc03.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc04:		sc04.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc05:		sc05.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc06:		sc06.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc07:		sc07.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc08:		sc08.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc09:		sc09.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc10:		sc10.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc11:		sc11.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc12:		sc12.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc13:		sc13.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc14:		sc14.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc15:		sc15.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc16:		sc16.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc17:		sc17.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc18:		sc18.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc19:		sc19.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc20:		sc20.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc21:		sc21.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc22:		sc22.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc23:		sc23.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc24:		sc24.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc25:		sc25.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc26:		sc26.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc27:		sc27.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc28:		sc28.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc29:		sc29.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc30:		sc30.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc31:		sc31.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc32:		sc32.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc33:		sc33.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc34:		sc34.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc35:		sc35.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc36:		sc36.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc37:		sc37.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc38:		sc38.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc39:		sc39.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc40:		sc40.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc41:		sc41.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc42:		sc42.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc43:		sc43.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc44:		sc44.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc45:		sc45.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc46:		sc46.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc47:		sc47.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc48:		sc48.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc49:		sc49.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc50:		sc50.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc51:		sc51.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc52:		sc52.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc53:		sc53.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc54:		sc54.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc55:		sc55.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc56:		sc56.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc57:		sc57.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc58:		sc58.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc59:		sc59.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc59x:		sc59x.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc60:		sc60.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc61:		sc61.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc62:		sc62.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 sc63:		sc63.o
-		$(BUILD)/bin/ld -o $@ $<
+		$(BUILD)/bin/ld -s sc.lnk -o $@ $<
 
 %.o:		%.s
 		$(BUILD)/bin/as -o $@ $<
