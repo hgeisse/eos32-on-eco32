@@ -1,23 +1,22 @@
 ;
-; c0.s -- startup code and begin-of-segment labels
+; c0.s -- startup code
 ;
 
-	.import	main
-
+	.import	_bcode
 	.import	_ecode
+	.import	_bdata
 	.import	_edata
+	.import	_bbss
 	.import	_ebss
 
-	.export	_bcode
-	.export	_bdata
-	.export	_bbss
+	.import	main
 
 	.import	bootDisk
 	.import	startSector
 	.import	numSectors
+	.import	entryPoint
 
 	.code
-_bcode:
 
 start:
 	add	$10,$0,_bdata		; copy data segment
@@ -40,7 +39,7 @@ clrloop:
 	add	$8,$8,4
 clrtest:
 	bltu	$8,$9,clrloop
-	add	$29,$0,0xC0100000	; setup stack
+	add	$29,$0,0xC0400000	; setup stack
 	stw	$16,$0,bootDisk		; make arguments available
 	stw	$17,$0,startSector
 	stw	$18,$0,numSectors
@@ -48,11 +47,5 @@ clrtest:
 	ldw	$16,$0,bootDisk		; setup arguments for next stage
 	ldw	$17,$0,startSector
 	ldw	$18,$0,numSectors
-	add	$31,$0,0xC0000000	; jump to loaded program
+	ldw	$31,$0,entryPoint	; jump to loaded program
 	jr	$31
-
-	.data
-_bdata:
-
-	.bss
-_bbss:

@@ -1,25 +1,25 @@
 #
-# Makefile to build the boot block
+# Makefile to build the partition boot block
 #
 
 BUILD = ../../../build
 
 .PHONY:		all install clean
 
-all:		bootblk
+all:		pbootblk
 
-install:	bootblk
+install:	pbootblk
 
-bootblk:	stage1/br.bin stage2/boot.bin
-		cat stage1/br.bin stage2/boot.bin > bootblk
+pbootblk:	stage1/pbr.bin stage2/pboot.bin
+		cat stage1/pbr.bin stage2/pboot.bin >pbootblk
 
-stage1/br.bin:
+stage1/pbr.bin:
 		$(MAKE) -C stage1
 
-stage2/boot.bin:
+stage2/pboot.bin:
 		$(MAKE) -C stage2
 
 clean:
 		$(MAKE) -C stage1 clean
 		$(MAKE) -C stage2 clean
-		rm -f *~ bootblk
+		rm -f *~ pbootblk

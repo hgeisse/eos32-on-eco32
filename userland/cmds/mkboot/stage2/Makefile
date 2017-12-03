@@ -1,26 +1,26 @@
 #
-# Makefile to build the boot loader
+# Makefile to build the partition bootstrap (boot loader)
 #
 
 BUILD = ../../../../build
 
-all:		boot.bin
+all:		pboot.bin
 
-boot.bin:	c0.o boot.o iolib.o c1.o
-		$(BUILD)/bin/ld -h -rc 0xC00F0000 -o boot.bin \
-		  c0.o boot.o iolib.o c1.o
+pboot.bin:	pboot
+		$(BUILD)/bin/load -p pboot pboot.bin
+
+pboot:		c0.o pboot.o biolib.o
+		$(BUILD)/bin/ld -s stage2.lnk -o pboot \
+		  c0.o pboot.o biolib.o
 
 c0.o:		c0.s
 		$(BUILD)/bin/as -o c0.o c0.s
 
-boot.o:		boot.c
-		$(BUILD)/bin/lcc -A -c -o boot.o boot.c
+pboot.o:	pboot.c
+		$(BUILD)/bin/lcc -A -c -o pboot.o pboot.c
 
-iolib.o:	iolib.s
-		$(BUILD)/bin/as -o iolib.o iolib.s
-
-c1.o:		c1.s
-		$(BUILD)/bin/as -o c1.o c1.s
+biolib.o:	biolib.s
+		$(BUILD)/bin/as -o biolib.o biolib.s
 
 clean:
-		rm -f *~ c0.o boot.o iolib.o c1.o boot.bin
+		rm -f *~ c0.o pboot.o biolib.o pboot pboot.bin

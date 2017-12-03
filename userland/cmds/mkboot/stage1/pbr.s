@@ -1,42 +1,28 @@
 ;
-; br.s -- the boot record
+; pbr.s -- the partition boot record
 ;
 
 ; Runtime environment:
 ;
-; This code must be loaded and started at 0xC0000000.
-; It allocates a stack from 0xC0001000 downwards. So
+; This code must be loaded and started at 0xC0010000.
+; It allocates a stack from 0xC0011000 downwards. So
 ; it must run within 4K (code + data + stack).
 ;
 ; This code expects the disk number of the boot disk
 ; in $16, the start sector of the disk or partition
 ; to be booted in $17 and its size in $18.
 ;
-; The bootstrap loader program, which is loaded
-; by this code, must be in standalone (headerless)
-; executable format, stored at partition relative
-; disk sectors 1..7 (i.e. the boot block), and
-; gets loaded and started at 0xC00F0000.
+; The boot loader, which is loaded by this code,
+; must be in standalone (headerless) executable
+; format, stored at partition relative disk
+; sectors 1..7 (i.e., the boot block), and
+; gets loaded and started at 0xC0300000.
 
-	.set	stacktop,0xC0001000	; top of stack
-	.set	loadaddr,0xC00F0000	; where to load the boot loader
+	.set	stacktop,0xC0011000	; top of stack
+	.set	loadaddr,0xC0300000	; where to load the boot loader
 
-	.set	cout,0xE0000018		; ROM console output
-	.set	dskio,0xE0000030	; ROM disk I/O
-
-	; reset arrives here
-reset:
-	j	start
-
-	; interrupts arrive here
-intrpt:
-	j	userMiss
-
-	; user TLB misses arrive here
-userMiss:
-	add	$4,$0,intmsg		; we do not expect any interrupt
-	jal	msgout
-	j	halt
+	.set	cout,0xC0000020		; the monitor's console output
+	.set	dskio,0xC0000028	; the monitor's disk I/O
 
 	; load the boot loader and start it
 start:
@@ -114,10 +100,8 @@ halt1:
 	j	halt1
 
 	; messages
-intmsg:
-	.byte	"unexpected interrupt", 0x0D, 0x0A, 0
 strtmsg:
-	.byte	"BR executing...", 0x0D, 0x0A, 0
+	.byte	"PBR executing...", 0x0D, 0x0A, 0
 dremsg:
 	.byte	"disk read error", 0x0D, 0x0A, 0
 hltmsg:

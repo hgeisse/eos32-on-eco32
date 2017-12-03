@@ -1,16 +1,19 @@
 #
-# Makefile to build the boot record
+# Makefile to build the partition boot record
 #
 
 BUILD = ../../../../build
 
-all:		br.bin
+all:		pbr.bin
 
-br.bin:		br.o
-		$(BUILD)/bin/ld -h -rc 0xC0000000 -o br.bin br.o
+pbr.bin:	pbr
+		$(BUILD)/bin/load -p pbr pbr.bin
 
-br.o:		br.s
-		$(BUILD)/bin/as -o br.o br.s
+pbr:		pbr.o
+		$(BUILD)/bin/ld -s stage1.lnk -o pbr pbr.o
+
+pbr.o:		pbr.s
+		$(BUILD)/bin/as -o pbr.o pbr.s
 
 clean:
-		rm -f *~ br.o br.bin
+		rm -f *~ pbr.o pbr pbr.bin

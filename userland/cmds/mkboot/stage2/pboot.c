@@ -1,9 +1,9 @@
 /*
- * boot.c -- second stage bootstrap (the boot loader)
+ * pboot.c -- the partition bootstrap (boot loader)
  */
 
 
-#include "iolib.h"
+#include "biolib.h"
 
 
 /**************************************************************/
@@ -11,7 +11,10 @@
 /* constants and data types */
 
 
-#define DEFAULT_KERNEL	"/boot/eos32.bin"    /* path of default OS kernel */
+#define DFLT_KERNEL	"/boot/eos32.bin"    /* path of default OS kernel */
+#define LOAD_ADDR	0xC0010000	     /* where to load the kernel */
+
+#define MAX_LINE	100		/* line buffer size */
 
 #define EXEC_MAGIC	0x3AE82DD4	/* magic number for executables */
 
@@ -38,10 +41,10 @@
 #define NULL		0
 
 
-typedef unsigned long EOS32_ino_t;
-typedef unsigned long EOS32_daddr_t;
-typedef unsigned long EOS32_off_t;
-typedef long EOS32_time_t;
+typedef unsigned int EOS32_ino_t;
+typedef unsigned int EOS32_daddr_t;
+typedef unsigned int EOS32_off_t;
+typedef int EOS32_time_t;
 
 
 #define IFMT		070000	/* type of file */
@@ -106,15 +109,20 @@ int strlen(char *str) {
 }
 
 
-void strcpy(char *dst, char *src) {
-  while ((*dst++ = *src++) != '\0') ;
+int strcmp(char *str1, char *str2) {
+  while (*str1 == *str2) {
+    if (*str1 == '\0') {
+      return 0;
+    }
+    str1++;
+    str2++;
+  }
+  return (* (unsigned char *) str1) - (* (unsigned char *) str2);
 }
 
 
-void memcpy(unsigned char *dst, unsigned char *src, unsigned int cnt) {
-  while (cnt--) {
-    *dst++ = *src++;
-  }
+void strcpy(char *dst, char *src) {
+  while ((*dst++ = *src++) != '\0') ;
 }
 
 
@@ -148,10 +156,7 @@ void puts(char *s) {
 /* get a line from the terminal */
 
 
-char line[80];
-
-
-void getLine(char *prompt) {
+void getLine(char *prompt, char *line, int max) {
   int index;
   char c;
 
@@ -212,7 +217,12 @@ unsigned int startSector = 0;	/* gets loaded by previous stage */
 unsigned int numSectors = 0;	/* gets loaded by previous stage */
 
 
-void readBlock(unsigned int blkno, unsigned char *buffer) {
+/*
+ * read a disk block
+ *
+ * NOTE: buffer must be word-aligned
+ */
+void readBlock(unsigned int blkno, void *buffer) {
   unsigned int sector;
   int result;
 
@@ -228,37 +238,47 @@ void readBlock(unsigned int blkno, unsigned char *buffer) {
 }
 
 
-EOS32_daddr_t sibn = -1;
+/**************************************************************/
+
+/* file operations*/
+
+
+EOS32_daddr_t sibn = (EOS32_daddr_t) -1;
 EOS32_daddr_t singleIndirectBlock[NINDIR];
-EOS32_daddr_t dibn = -1;
+EOS32_daddr_t dibn = (EOS32_daddr_t) -1;
 EOS32_daddr_t doubleIndirectBlock[NINDIR];
 
 
-void readFileBlock(Dinode *inode, int blkno, unsigned char *addr) {
+/*
+ * read a block of a file
+ *
+ * NOTE: addr must be word-aligned
+ */
+void readFileBlock(Dinode *ip, int blkno, void *addr) {
   EOS32_daddr_t diskBlock;
 
   if (blkno < NDADDR) {
     /* direct block */
-    diskBlock = inode->di_addr[blkno];
+    diskBlock = ip->di_addr[blkno];
   } else
   if (blkno < NDADDR + NINDIR) {
     /* single indirect block */
-    diskBlock = inode->di_addr[NDADDR];
+    diskBlock = ip->di_addr[NDADDR];
     if (sibn != diskBlock) {
-      readBlock(diskBlock, (unsigned char *) singleIndirectBlock);
+      readBlock(diskBlock, singleIndirectBlock);
       sibn = diskBlock;
     }
     diskBlock = singleIndirectBlock[blkno - NDADDR];
   } else {
     /* double indirect block */
-    diskBlock = inode->di_addr[NDADDR + 1];
+    diskBlock = ip->di_addr[NDADDR + 1];
     if (dibn != diskBlock) {
-      readBlock(diskBlock, (unsigned char *) doubleIndirectBlock);
+      readBlock(diskBlock, doubleIndirectBlock);
       dibn = diskBlock;
     }
     diskBlock = doubleIndirectBlock[(blkno - NDADDR - NINDIR) / NINDIR];
     if (sibn != diskBlock) {
-      readBlock(diskBlock, (unsigned char *) singleIndirectBlock);
+      readBlock(diskBlock, singleIndirectBlock);
       sibn = diskBlock;
     }
     diskBlock = singleIndirectBlock[(blkno - NDADDR - NINDIR) % NINDIR];
@@ -273,44 +293,50 @@ void readFileBlock(Dinode *inode, int blkno, unsigned char *addr) {
 
 
 Dinode inodeBlock[NIPB];
-Dirent directoryBlock[NDIRENT];
 
 
-Dinode *iget(unsigned int inode) {
+Dinode *getInode(unsigned int inode) {
   unsigned int bnum;
   unsigned int inum;
 
   bnum = itod(inode);
   inum = itoo(inode);
-  readBlock(bnum, (unsigned char *) inodeBlock);
+  readBlock(bnum, inodeBlock);
   return &inodeBlock[inum];
 }
 
 
-Dinode *namei(char *path) {
-  Dinode *dp;
+/**************************************************************/
+
+/* convert path to inode */
+
+
+Dirent directoryBlock[NDIRENT];
+
+
+Dinode *pathToInode(char *path) {
+  Dinode *ip;
   char c;
   char dirBuffer[DIRSIZ];
   char *cp;
   EOS32_off_t offset;
-  Dirent dirEntry;
-  int i;
+  Dirent *dp;
+  unsigned int ino;
 
-  dp = iget(ROOT_INO);
+  /* get root inode */
+  ip = getInode(ROOT_INO);
+  /* traverse file system tree while matching path components */
   c = *path++;
-  while (c == '/') {
-    c = *path++;
-  }
-  if (c == '\0') {
-    return NULL;
-  }
   while (1) {
-    /* here dp contains pointer to last component matched */
+    /* skip leading slashes in path component */
+    while (c == '/') {
+      c = *path++;
+    }
     if (c == '\0') {
       /* no more path components */
       break;
     }
-    /* if there is another component, gather up name */
+    /* if there is another component, gather up its name */
     cp = dirBuffer;
     while (c != '/' && c != '\0') {
       if (cp < &dirBuffer[DIRSIZ]) {
@@ -318,52 +344,60 @@ Dinode *namei(char *path) {
       }
       c = *path++;
     }
-    while (cp < &dirBuffer[DIRSIZ]) {
-      *cp++ = '\0';
-    }
-    while (c == '/') {
-      c = *path++;
-    }
-    /* dp must be a directory */
-    if ((dp->di_mode & IFMT) != IFDIR) {
+    *cp++ = '\0';
+    /* ip must be a directory */
+    if ((ip->di_mode & IFMT) != IFDIR) {
       return NULL;
     }
     /* search directory */
     offset = 0;
     while (1) {
-      if (offset >= dp->di_size) {
-        /* not found */
+      if (offset >= ip->di_size) {
+        /* component not found */
         return NULL;
       }
       if ((offset & BMASK) == 0) {
         /* read the next directory block */
-        readFileBlock(dp, offset >> BSHIFT,
-                      (unsigned char *) directoryBlock);
+        readFileBlock(ip, offset >> BSHIFT, directoryBlock);
+        dp = directoryBlock;
       }
-      memcpy((unsigned char *) &dirEntry,
-             (unsigned char *) directoryBlock + (offset & BMASK),
-             sizeof(Dirent));
-      offset += sizeof(Dirent);
-      if (dirEntry.d_ino == 0) {
-        /* directory slot is empty */
-        continue;
-      }
-      for (i = 0; i < DIRSIZ; i++) {
-        if (dirBuffer[i] != dirEntry.d_name[i]) {
+      ino = dp->d_ino;
+      if (ino != 0) {
+        if (strcmp(dirBuffer, dp->d_name) == 0) {
+          /* component found */
           break;
         }
       }
-      if (i == DIRSIZ) {
-        /* component matched */
-        break;
-      }
       /* no match, try next entry */
+      dp++;
+      offset += sizeof(Dirent);
     }
     /* get corresponding inode */
-    dp = iget(dirEntry.d_ino);
+    ip = getInode(ino);
     /* look for more components */
   }
-  return dp;
+  return ip;
+}
+
+
+/**************************************************************/
+
+/* load the kernel */
+
+
+void loadKernel(Dinode *ip) {
+  unsigned int numBlocks;
+  unsigned int nextBlock;
+  unsigned char *nextAddr;
+
+  numBlocks = (ip->di_size + (BSIZE - 1)) / BSIZE;
+  nextBlock = 0;
+  nextAddr = (unsigned char *) LOAD_ADDR;
+  while (numBlocks--) {
+    readFileBlock(ip, nextBlock, nextAddr);
+    nextBlock++;
+    nextAddr += BSIZE;
+  }
 }
 
 
@@ -372,43 +406,39 @@ Dinode *namei(char *path) {
 /* main program */
 
 
+unsigned int entryPoint;	/* where to continue from main() */
+
+
 int main(void) {
-  Dinode *fileInode;
-  int numBlocks;
-  int nextBlock;
-  unsigned char *nextAddress;
+  char line[MAX_LINE];
+  Dinode *ip;
 
   puts("Bootstrap loader executing...\n");
-  strcpy(line, DEFAULT_KERNEL);
+  strcpy(line, DFLT_KERNEL);
   while (1) {
-    getLine("\nPlease enter path to kernel: ");
-    fileInode = namei(line);
-    if (fileInode == NULL) {
+    getLine("\nPlease enter path to kernel: ", line, MAX_LINE);
+    ip = pathToInode(line);
+    if (ip == NULL) {
+      puts("'");
       puts(line);
-      puts(" not found\n");
+      puts("' not found\n");
       continue;
     }
-    if ((fileInode->di_mode & IFMT) != IFREG) {
+    if ((ip->di_mode & IFMT) != IFREG) {
+      puts("'");
       puts(line);
-      puts(" is not a regular file\n");
+      puts("' is not a regular file\n");
       continue;
     }
     break;
   }
-  puts("Loading ");
+  puts("Loading '");
   puts(line);
-  puts("...\n");
-  /* load file */
-  numBlocks = (fileInode->di_size + (BSIZE - 1)) / BSIZE;
-  nextBlock = 0;
-  nextAddress = (unsigned char *) 0xC0000000;
-  while (numBlocks--) {
-    readFileBlock(fileInode, nextBlock, nextAddress);
-    nextBlock++;
-    nextAddress += BSIZE;
-  }
-  puts("Starting ");
+  puts("'...\n");
+  loadKernel(ip);
+  puts("Starting '");
   puts(line);
-  puts("...\n");
+  puts("'...\n");
+  entryPoint = LOAD_ADDR;
   return 0;
 }
