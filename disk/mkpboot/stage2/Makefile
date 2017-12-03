@@ -6,9 +6,12 @@ BUILD = ../../../build
 
 all:		pboot.bin
 
-pboot.bin:	c0.o pboot.o biolib.o c1.o
-		$(BUILD)/bin/ld -h -rc 0xC0300000 -o pboot.bin \
-		  c0.o pboot.o biolib.o c1.o
+pboot.bin:	pboot
+		$(BUILD)/bin/load -p pboot pboot.bin
+
+pboot:		c0.o pboot.o biolib.o
+		$(BUILD)/bin/ld -s stage2.lnk -o pboot \
+		  c0.o pboot.o biolib.o
 
 c0.o:		c0.s
 		$(BUILD)/bin/as -o c0.o c0.s
@@ -19,8 +22,5 @@ pboot.o:	pboot.c
 biolib.o:	biolib.s
 		$(BUILD)/bin/as -o biolib.o biolib.s
 
-c1.o:		c1.s
-		$(BUILD)/bin/as -o c1.o c1.s
-
 clean:
-		rm -f *~ c0.o pboot.o biolib.o c1.o pboot.bin
+		rm -f *~ c0.o pboot.o biolib.o pboot pboot.bin
