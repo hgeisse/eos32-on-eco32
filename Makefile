@@ -7,10 +7,14 @@ VERSION = 0.1
 DIRS = kernel userland disk
 BUILD = ./build
 
-all:		build-link
+all:		clean-dirs
 		for i in $(DIRS) ; do \
 		  $(MAKE) -C $$i install ; \
 		done
+
+clean-dirs:	build-link
+		rm -rf $(BUILD)/include/*
+		rm -rf $(BUILD)/lib/*
 
 build-link:
 		./make-link $(BUILD)
