@@ -66,19 +66,5 @@ include     d--755 0 0
     time.h      ---644 0 0 ../../include/time.h
     $
 lib         d--755 0 0
-    assert.o    ---644 0 0 ../../lib/assert.o
-    c0.o        ---644 0 0 ../../lib/c0.o
-    c1.o        ---644 0 0 ../../lib/c1.o
-    ctype.o     ---644 0 0 ../../lib/ctype.o
-    eos32lib.o  ---644 0 0 ../../lib/eos32lib.o
-    eos32sys.o  ---644 0 0 ../../lib/eos32sys.o
-    errno.o     ---644 0 0 ../../lib/errno.o
-    math.o      ---644 0 0 ../../lib/math.o
-    setjmp.o    ---644 0 0 ../../lib/setjmp.o
-    signal.o    ---644 0 0 ../../lib/signal.o
-    stdio.o     ---644 0 0 ../../lib/stdio.o
-    stdlib.o    ---644 0 0 ../../lib/stdlib.o
-    string.o    ---644 0 0 ../../lib/string.o
-    time.o      ---644 0 0 ../../lib/time.o
     $
 $
