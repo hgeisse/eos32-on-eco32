@@ -107,7 +107,7 @@ void xalloc(struct inode *ip)
 	register unsigned ts;
 	register struct text *xp1;
 
-	if(u.u_exdata.ux_tsize == 0)
+	if(u.u_exdata.ux_segtbl[0].ux_size == 0)
 		return;
 	xp1 = NULL;
 	for (xp = &text[0]; xp < &text[NTEXT]; xp++) {
@@ -139,15 +139,15 @@ void xalloc(struct inode *ip)
 	xp->x_iptr = ip;
 	ip->i_flag |= ITEXT;
 	ip->i_count++;
-	ts = BYTES2PAGES(u.u_exdata.ux_tsize);
+	ts = BYTES2PAGES(u.u_exdata.ux_segtbl[0].ux_size);
 	xp->x_size = ts;
 	if((xp->x_daddr = malloc(swapmap, (int) PAGES2BLOCKS(ts))) == -1)
 		panic("out of swap space");
 	u.u_procp->p_textp = xp;
 	xexpand(xp);
 	estabur(ts, 0, 0, RW);
-	u.u_count = u.u_exdata.ux_tsize;
-	u.u_offset = sizeof(u.u_exdata);
+	u.u_count = u.u_exdata.ux_segtbl[0].ux_size;
+	u.u_offset = u.u_exdata.ux_segtbl[0].ux_offs;
 	u.u_base = 0;
 	u.u_segflg = 2;
 	u.u_procp->p_flag |= SLOCK;

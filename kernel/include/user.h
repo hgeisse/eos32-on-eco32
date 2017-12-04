@@ -24,7 +24,7 @@
  * same process.
  */
 
-#define EXEC_MAGIC	0x1AA09232	/* identifies executables */
+#define EXEC_MAGIC	0x8F0B45C0	/* identifies executables */
 #define	EXCLOSE		01
 
 struct	user
@@ -88,15 +88,28 @@ struct	user
 	char	u_sep;			/* flag for I and D separation */
 	struct tty *u_ttyp;		/* controlling tty pointer */
 	dev_t	u_ttyd;			/* controlling tty dev */
-	struct {			/* header of executable file */
-		unsigned ux_magic;	/* magic number */
-		unsigned ux_tsize;	/* size of text */
-		unsigned ux_dsize;	/* size of data */
-		unsigned ux_bsize;	/* size of bss */
-		unsigned ux_crsize;	/* size of code relocation info */
-		unsigned ux_drsize;	/* size of data relocation info */
-		unsigned ux_symsize;	/* size of symbol table */
-		unsigned ux_strsize;	/* size of string space */
+	union {
+	    struct {			/* header of executable file */
+		unsigned int ux_magic;	/* must be EXEC_MAGIC */
+		unsigned int ux_osegs;	/* offset of segment table in file */
+		unsigned int ux_nsegs;	/* number of segment table entries */
+		unsigned int ux_osyms;	/* offset of symbol table in file */
+		unsigned int ux_nsyms;	/* number of symbol table entries */
+		unsigned int ux_orels;	/* offset of relocation table in file */
+		unsigned int ux_nrels;	/* number of relocation table entries */
+		unsigned int ux_odata;	/* offset of segment data in file */
+		unsigned int ux_sdata;	/* size of segment data in file */
+		unsigned int ux_ostrs;	/* offset of string space in file */
+		unsigned int ux_sstrs;	/* size of string space in file */
+		unsigned int ux_entry;	/* entry point (if executable) */
+	    } ux_exhdr;
+	    struct {			/* segment table of executable file */
+		unsigned int ux_name;	/* offset in string space */
+		unsigned int ux_offs;	/* offset in segment data */
+		unsigned int ux_addr;	/* virtual start address */
+		unsigned int ux_size;	/* size of segment in bytes */
+		unsigned int ux_attr;	/* segment attributes */
+	    } ux_segtbl[3];
 	} u_exdata;
 	char	u_comm[DIRSIZ];
 	time_t	u_start;

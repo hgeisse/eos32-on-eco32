@@ -199,6 +199,7 @@ bad:
  */
 void getxfile(struct inode *ip, int nargc)
 {
+	unsigned osegs, odata, entry;
 	unsigned ts, ds, ss;
 	long lsize;
 	int i;
@@ -212,8 +213,9 @@ void getxfile(struct inode *ip, int nargc)
 	 * data starts on the next page boundary after text
 	 */
 
-	u.u_base = (caddr_t)&u.u_exdata;
-	u.u_count = sizeof(u.u_exdata);
+	/* read header */
+	u.u_base = (caddr_t)&u.u_exdata.ux_exhdr;
+	u.u_count = sizeof(u.u_exdata.ux_exhdr);
 	u.u_offset = 0;
 	u.u_segflg = 1;
 	readi(ip);
@@ -224,24 +226,53 @@ void getxfile(struct inode *ip, int nargc)
 		u.u_error = ENOEXEC;
 		return;
 	}
-	if (u.u_exdata.ux_magic != EXEC_MAGIC) {
+	if (u.u_exdata.ux_exhdr.ux_magic != EXEC_MAGIC) {
 		u.u_error = ENOEXEC;
 		return;
 	}
-	if (u.u_exdata.ux_tsize != 0 &&
+	if (u.u_exdata.ux_exhdr.ux_nsegs != 3) {
+		u.u_error = ENOEXEC;
+		return;
+	}
+	osegs = u.u_exdata.ux_exhdr.ux_osegs;
+	odata = u.u_exdata.ux_exhdr.ux_odata;
+	entry = u.u_exdata.ux_exhdr.ux_entry;
+	if (entry != 0) {
+		/* should eventually be fixed */
+		panic("executable not starting at 0");
+	}
+	/* read segment table */
+	u.u_base = (caddr_t)&u.u_exdata.ux_segtbl[0];
+	u.u_count = sizeof(u.u_exdata.ux_segtbl);
+	u.u_offset = osegs;
+	u.u_segflg = 1;
+	readi(ip);
+	u.u_segflg = 0;
+	if (u.u_error)
+		return;
+	if (u.u_count != 0) {
+		u.u_error = ENOEXEC;
+		return;
+	}
+	if (u.u_exdata.ux_segtbl[0].ux_size != 0 &&
 	    (ip->i_flag & ITEXT) == 0 &&
 	    ip->i_count != 1) {
 		u.u_error = ETXTBSY;
 		return;
 	}
+	/* convert segment offsets to file offsets */
+	u.u_exdata.ux_segtbl[0].ux_offs += odata;
+	u.u_exdata.ux_segtbl[1].ux_offs += odata;
+	u.u_exdata.ux_segtbl[2].ux_offs += odata;
 
 	/*
 	 * find text and data sizes
 	 * try them out for possible
 	 * overflow of max sizes
 	 */
-	ts = BYTES2PAGES(u.u_exdata.ux_tsize);
-	lsize = (long) u.u_exdata.ux_dsize + (long) u.u_exdata.ux_bsize;
+	ts = BYTES2PAGES(u.u_exdata.ux_segtbl[0].ux_size);
+	lsize = (long) u.u_exdata.ux_segtbl[1].ux_size +
+	        (long) u.u_exdata.ux_segtbl[2].ux_size;
 	if (lsize != (unsigned) lsize) {
 		u.u_error = ENOMEM;
 		return;
@@ -272,8 +303,8 @@ void getxfile(struct inode *ip, int nargc)
 
 	estabur(0, ds, 0, RO);
 	u.u_base = 0;
-	u.u_offset = sizeof(u.u_exdata) + u.u_exdata.ux_tsize;
-	u.u_count = u.u_exdata.ux_dsize;
+	u.u_offset = u.u_exdata.ux_segtbl[1].ux_offs;
+	u.u_count = u.u_exdata.ux_segtbl[1].ux_size;
 	readi(ip);
 	/*
 	 * set SUID/SGID protections, if no tracing
