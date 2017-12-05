@@ -4,6 +4,7 @@
 xx(alpha/osf,    alphaIR) \
 xx(mips/irix,    mipsebIR) \
 xx(eco32/linux,  eco32IR) \
+xx(eco32/netbsd, eco32IR) \
 xx(eco32/eos32,  eco32IR) \
 xx(sparc/sun,    sparcIR) \
 xx(sparc/solaris,solarisIR) \
