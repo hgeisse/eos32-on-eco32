@@ -28,6 +28,7 @@ bin       d--755 0 0
           lcc             ---755 0 0 ../../cmds/lcc
           ld              ---755 0 0 ../../cmds/ld
           ln              ---755 0 0 ../../cmds/ln
+          load            ---755 0 0 ../../cmds/load
           login           -u-755 0 0 ../../cmds/login
           ls              ---755 0 0 ../../cmds/ls
           mkdir           -u-755 0 0 ../../cmds/mkdir
