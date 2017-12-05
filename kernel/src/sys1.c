@@ -205,10 +205,8 @@ void getxfile(struct inode *ip, int nargc)
 	int i;
 
 	/*
-	 * read in first few bytes of
-	 * file for segment sizes
+	 * read in header and segment table
 	 *
-	 * ux_magic = EXEC_MAGIC
 	 * text is always RO (but its size may be zero)
 	 * data starts on the next page boundary after text
 	 */
@@ -239,7 +237,8 @@ void getxfile(struct inode *ip, int nargc)
 	entry = u.u_exdata.ux_exhdr.ux_entry;
 	if (entry != 0) {
 		/* should eventually be fixed */
-		panic("executable not starting at 0");
+		u.u_error = ENOEXEC;
+		return;
 	}
 	/* read segment table */
 	u.u_base = (caddr_t)&u.u_exdata.ux_segtbl[0];
