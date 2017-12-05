@@ -88,6 +88,8 @@
 #define OP_SAR		0x1C
 #define OP_SARI		0x1D
 
+#define OP_CCTL		0x1E
+
 #define OP_LDHI		0x1F
 
 #define OP_BEQ		0x20
@@ -121,18 +123,29 @@
 
 #define OP_MVFS		0x38
 #define OP_MVTS		0x39
+
 #define OP_TBS		0x3A
 #define OP_TBWR		0x3B
 #define OP_TBRI		0x3C
 #define OP_TBWI		0x3D
 
+#define OP_LDLW		0x3E
+#define OP_STCW		0x3F
+
 
 /**************************************************************/
+
+
+#define SEGMENT_ABS	0	/* absolute values */
+#define SEGMENT_CODE	1	/* code segment */
+#define SEGMENT_DATA	2	/* initialized data segment */
+#define SEGMENT_BSS	3	/* uninitialized data segment */
 
 
 int debugToken = 0;
 int debugCode = 0;
 int debugFixup = 0;
+int debugModule = 0;
 
 char codeName[L_tmpnam];
 char dataName[L_tmpnam];
@@ -254,9 +267,9 @@ int getNextToken(void) {
   if (*lineptr == '\n' || *lineptr == '\0' || *lineptr == ';') {
     return TOK_EOL;
   }
-  if (isalpha(*lineptr) || *lineptr == '_' || *lineptr == '.') {
+  if (isalpha((int) *lineptr) || *lineptr == '_' || *lineptr == '.') {
     p = tokenvalString;
-    while (isalnum(*lineptr) || *lineptr == '_' || *lineptr == '.') {
+    while (isalnum((int) *lineptr) || *lineptr == '_' || *lineptr == '.') {
       *p++ = *lineptr++;
     }
     *p = '\0';
@@ -267,7 +280,7 @@ int getNextToken(void) {
       return TOK_IDENT;
     }
   }
-  if (isdigit(*lineptr)) {
+  if (isdigit((int) *lineptr)) {
     base = 10;
     tokenvalNumber = 0;
     if (*lineptr == '0') {
@@ -276,13 +289,13 @@ int getNextToken(void) {
         base = 16;
         lineptr++;
       } else
-      if (isdigit(*lineptr)) {
+      if (isdigit((int) *lineptr)) {
         base = 8;
       } else {
         return TOK_NUMBER;
       }
     }
-    while (isxdigit(*lineptr)) {
+    while (isxdigit((int) *lineptr)) {
       digit = *lineptr++ - '0';
       if (digit >= 'A' - '0') {
         if (digit >= 'a' - '0') {
@@ -301,7 +314,7 @@ int getNextToken(void) {
   }
   if (*lineptr == '\'') {
     lineptr++;
-    if (!isprint(*lineptr)) {
+    if (!isprint((int) *lineptr)) {
       error("cannot quote character 0x%02X in line %d", *lineptr, lineno);
     }
     tokenvalNumber = *lineptr;
@@ -319,7 +332,7 @@ int getNextToken(void) {
       if (*lineptr == '\n' || *lineptr == '\0') {
         error("unterminated string constant in line %d", lineno);
       }
-      if (!isprint(*lineptr)) {
+      if (!isprint((int) *lineptr)) {
         error("string contains illegal character 0x%02X in line %d",
               *lineptr, lineno);
       }
@@ -334,11 +347,11 @@ int getNextToken(void) {
   }
   if (*lineptr == '$') {
     lineptr++;
-    if (!isdigit(*lineptr)) {
+    if (!isdigit((int) *lineptr)) {
       error("register number expected after '$' in line %d", lineno);
     }
     tokenvalNumber = 0;
-    while (isdigit(*lineptr)) {
+    while (isdigit((int) *lineptr)) {
       digit = *lineptr++ - '0';
       tokenvalNumber *= 10;
       tokenvalNumber += digit;
@@ -682,6 +695,55 @@ void linkLocals(void) {
   localTable = NULL;
   fseek(codeFile, 0, SEEK_END);
   fseek(dataFile, 0, SEEK_END);
+}
+
+
+/**************************************************************/
+
+
+static int numSymbols;
+
+
+void walkTree(Symbol *s, void (*fp)(Symbol *sp)) {
+  if (s == NULL) {
+    return;
+  }
+  walkTree(s->left, fp);
+  (*fp)(s);
+  walkTree(s->right, fp);
+}
+
+
+void transferFixupsForSymbol(Symbol *s) {
+  Fixup *f;
+
+  if (s->status != STATUS_UNKNOWN && s->status != STATUS_DEFINED) {
+    /* this should never happen */
+    error("global symbol is neither unknown nor defined");
+  }
+  if (s->status == STATUS_UNKNOWN && s->fixups == NULL) {
+    /* this symbol is neither defined here nor referenced here: skip */
+    s->skip = 1;
+    return;
+  }
+  s->skip = 0;
+  while (s->fixups != NULL) {
+    /* get next fixup record */
+    f = s->fixups;
+    s->fixups = f->next;
+    /* use the 'base' component to store the current symbol number */
+    f->base = MSB | numSymbols;
+    /* transfer the record to the fixup list */
+    f->next = fixupList;
+    fixupList = f;
+  }
+  numSymbols++;
+}
+
+
+void transferFixups(void) {
+  numSymbols = 0;
+  walkTree(globalTable, transferFixupsForSymbol);
 }
 
 
@@ -1198,7 +1260,7 @@ void dotWord(unsigned int code) {
     if (v.sym == NULL) {
       emitWord(v.con);
     } else {
-      addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_W32, v.con);
+      addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_W32, v.con);
       emitWord(0);
     }
     if (token != TOK_COMMA) {
@@ -1268,7 +1330,7 @@ void formatRH(unsigned int code) {
     emitHalf(code << 10 | reg);
     emitHalf(v.con);
   } else {
-    addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_L16, v.con);
+    addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_L16, v.con);
     emitHalf(code << 10 | reg);
     emitHalf(0);
   }
@@ -1291,7 +1353,7 @@ void formatRHH(unsigned int code) {
     emitHalf(code << 10 | reg);
     emitHalf(v.con >> 16);
   } else {
-    addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_H16, v.con);
+    addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_H16, v.con);
     emitHalf(code << 10 | reg);
     emitHalf(0);
   }
@@ -1333,10 +1395,10 @@ void formatRRH(unsigned int code) {
       }
     } else {
       /* code: ldhi $1,con; or $1,$1,con; add $1,$1,src; op dst,$1,0 */
-      addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_H16, v.con);
+      addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_H16, v.con);
       emitHalf(OP_LDHI << 10 | AUX_REG);
       emitHalf(0);
-      addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_L16, v.con);
+      addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_L16, v.con);
       emitHalf((OP_OR + 1) << 10 | AUX_REG << 5 | AUX_REG);
       emitHalf(0);
       emitHalf(OP_ADD << 10 | AUX_REG << 5 | src);
@@ -1349,7 +1411,7 @@ void formatRRH(unsigned int code) {
       emitHalf(code << 10 | src << 5 | dst);
       emitHalf(v.con);
     } else {
-      addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_L16, v.con);
+      addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_L16, v.con);
       emitHalf(code << 10 | src << 5 | dst);
       emitHalf(0);
     }
@@ -1393,10 +1455,10 @@ void formatRRS(unsigned int code) {
       }
     } else {
       /* code: ldhi $1,con; or $1,$1,con; add $1,$1,src; op dst,$1,0 */
-      addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_H16, v.con);
+      addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_H16, v.con);
       emitHalf(OP_LDHI << 10 | AUX_REG);
       emitHalf(0);
-      addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_L16, v.con);
+      addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_L16, v.con);
       emitHalf((OP_OR + 1) << 10 | AUX_REG << 5 | AUX_REG);
       emitHalf(0);
       emitHalf(OP_ADD << 10 | AUX_REG << 5 | src);
@@ -1409,7 +1471,7 @@ void formatRRS(unsigned int code) {
       emitHalf(code << 10 | src << 5 | dst);
       emitHalf(v.con);
     } else {
-      addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_L16, v.con);
+      addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_L16, v.con);
       emitHalf(code << 10 | src << 5 | dst);
       emitHalf(0);
     }
@@ -1487,10 +1549,10 @@ void formatRRX(unsigned int code) {
         }
       } else {
         /* code: ldhi $1,con; or $1,$1,con; op dst,src,$1 */
-        addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_H16, v.con);
+        addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_H16, v.con);
         emitHalf(OP_LDHI << 10 | AUX_REG);
         emitHalf(0);
-        addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_L16, v.con);
+        addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_L16, v.con);
         emitHalf((OP_OR + 1) << 10 | AUX_REG << 5 | AUX_REG);
         emitHalf(0);
         emitHalf(code << 10 | src1 << 5 | AUX_REG);
@@ -1501,7 +1563,7 @@ void formatRRX(unsigned int code) {
         emitHalf((code + 1) << 10 | src1 << 5 | dst);
         emitHalf(v.con);
       } else {
-        addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_L16, v.con);
+        addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_L16, v.con);
         emitHalf((code + 1) << 10 | src1 << 5 | dst);
         emitHalf(0);
       }
@@ -1559,10 +1621,10 @@ void formatRRY(unsigned int code) {
         }
       } else {
         /* code: ldhi $1,con; or $1,$1,con; op dst,src,$1 */
-        addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_H16, v.con);
+        addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_H16, v.con);
         emitHalf(OP_LDHI << 10 | AUX_REG);
         emitHalf(0);
-        addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_L16, v.con);
+        addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_L16, v.con);
         emitHalf((OP_OR + 1) << 10 | AUX_REG << 5 | AUX_REG);
         emitHalf(0);
         emitHalf(code << 10 | src1 << 5 | AUX_REG);
@@ -1573,7 +1635,7 @@ void formatRRY(unsigned int code) {
         emitHalf((code + 1) << 10 | src1 << 5 | dst);
         emitHalf(v.con);
       } else {
-        addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_L16, v.con);
+        addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_L16, v.con);
         emitHalf((code + 1) << 10 | src1 << 5 | dst);
         emitHalf(0);
       }
@@ -1602,7 +1664,7 @@ void formatRRB(unsigned int code) {
   if (v.sym == NULL) {
     immed = (v.con - ((signed) segPtr[currSeg] + 4)) / 4;
   } else {
-    addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_R16, v.con);
+    addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_R16, v.con);
     immed = 0;
   }
   emitHalf(code << 10 | src1 << 5 | src2);
@@ -1626,7 +1688,7 @@ void formatJ(unsigned int code) {
     if (v.sym == NULL) {
       immed = (v.con - ((signed) segPtr[currSeg] + 4)) / 4;
     } else {
-      addFixup(v.sym, currSeg, segPtr[currSeg], METHOD_R26, v.con);
+      addFixup(v.sym, currSeg, segPtr[currSeg], RELOC_R26, v.con);
       immed = 0;
     }
     emitWord(code << 26 | (immed & 0x03FFFFFF));
@@ -1692,6 +1754,9 @@ Instr instrTable[] = {
   { "slr",     formatRRX, OP_SLR  },
   { "sar",     formatRRX, OP_SAR  },
 
+  /* cache control instructions */
+  { "cctl",    formatN,   OP_CCTL },
+
   /* load immediate instructions */
   { "ldhi",    formatRHH, OP_LDHI },
 
@@ -1735,7 +1800,11 @@ Instr instrTable[] = {
   { "tbs",     formatN,   OP_TBS  },
   { "tbwr",    formatN,   OP_TBWR },
   { "tbri",    formatN,   OP_TBRI },
-  { "tbwi",    formatN,   OP_TBWI }
+  { "tbwi",    formatN,   OP_TBWI },
+
+  /* synchronization instructions */
+  { "ldlw",    formatRRS, OP_LDLW },
+  { "stcw",    formatRRS, OP_STCW },
 
 };
 
@@ -1868,169 +1937,114 @@ void conv4FromNativeToEco(unsigned char *p) {
 /**************************************************************/
 
 
+#define CODE_NAME	".code"
+#define DATA_NAME	".data"
+#define BSS_NAME	".bss"
+
+
 static ExecHeader execHeader;
-static int numSymbols;
-static int crelSize;
-static int drelSize;
-static int symtblSize;
+
+static int fileOffset;
+static int dataSize;
 static int stringSize;
 
-
-static void walkTree(Symbol *s, void (*fp)(Symbol *sp)) {
-  if (s == NULL) {
-    return;
-  }
-  walkTree(s->left, fp);
-  (*fp)(s);
-  walkTree(s->right, fp);
-}
+static int nsyms;
+static int nrels;
 
 
-void writeDummyHeader(void) {
+static void writeDummyHeader(void) {
   fwrite(&execHeader, sizeof(ExecHeader), 1, outFile);
+  /* update file offset */
+  fileOffset += sizeof(ExecHeader);
 }
 
 
-void writeRealHeader(void) {
+static void writeRealHeader(void) {
   rewind(outFile);
   execHeader.magic = EXEC_MAGIC;
-  execHeader.csize = segPtr[SEGMENT_CODE];
-  execHeader.dsize = segPtr[SEGMENT_DATA];
-  execHeader.bsize = segPtr[SEGMENT_BSS];
-  execHeader.crsize = crelSize;
-  execHeader.drsize = drelSize;
-  execHeader.symsize = symtblSize;
-  execHeader.strsize = stringSize;
+  execHeader.entry = 0;
   conv4FromNativeToEco((unsigned char *) &execHeader.magic);
-  conv4FromNativeToEco((unsigned char *) &execHeader.csize);
-  conv4FromNativeToEco((unsigned char *) &execHeader.dsize);
-  conv4FromNativeToEco((unsigned char *) &execHeader.bsize);
-  conv4FromNativeToEco((unsigned char *) &execHeader.crsize);
-  conv4FromNativeToEco((unsigned char *) &execHeader.drsize);
-  conv4FromNativeToEco((unsigned char *) &execHeader.symsize);
-  conv4FromNativeToEco((unsigned char *) &execHeader.strsize);
+  conv4FromNativeToEco((unsigned char *) &execHeader.osegs);
+  conv4FromNativeToEco((unsigned char *) &execHeader.nsegs);
+  conv4FromNativeToEco((unsigned char *) &execHeader.osyms);
+  conv4FromNativeToEco((unsigned char *) &execHeader.nsyms);
+  conv4FromNativeToEco((unsigned char *) &execHeader.orels);
+  conv4FromNativeToEco((unsigned char *) &execHeader.nrels);
+  conv4FromNativeToEco((unsigned char *) &execHeader.odata);
+  conv4FromNativeToEco((unsigned char *) &execHeader.sdata);
+  conv4FromNativeToEco((unsigned char *) &execHeader.ostrs);
+  conv4FromNativeToEco((unsigned char *) &execHeader.sstrs);
+  conv4FromNativeToEco((unsigned char *) &execHeader.entry);
   fwrite(&execHeader, sizeof(ExecHeader), 1, outFile);
+  conv4FromEcoToNative((unsigned char *) &execHeader.magic);
+  conv4FromEcoToNative((unsigned char *) &execHeader.osegs);
+  conv4FromEcoToNative((unsigned char *) &execHeader.nsegs);
+  conv4FromEcoToNative((unsigned char *) &execHeader.osyms);
+  conv4FromEcoToNative((unsigned char *) &execHeader.nsyms);
+  conv4FromEcoToNative((unsigned char *) &execHeader.orels);
+  conv4FromEcoToNative((unsigned char *) &execHeader.nrels);
+  conv4FromEcoToNative((unsigned char *) &execHeader.odata);
+  conv4FromEcoToNative((unsigned char *) &execHeader.sdata);
+  conv4FromEcoToNative((unsigned char *) &execHeader.ostrs);
+  conv4FromEcoToNative((unsigned char *) &execHeader.sstrs);
+  conv4FromEcoToNative((unsigned char *) &execHeader.entry);
 }
 
 
-void writeCode(void) {
-  int data;
-
-  rewind(codeFile);
-  while (1) {
-    data = fgetc(codeFile);
-    if (data == EOF) {
-      break;
-    }
-    fputc(data, outFile);
-  }
+static void writeSegment(SegmentRecord *p) {
+  conv4FromNativeToEco((unsigned char *) &p->name);
+  conv4FromNativeToEco((unsigned char *) &p->offs);
+  conv4FromNativeToEco((unsigned char *) &p->addr);
+  conv4FromNativeToEco((unsigned char *) &p->size);
+  conv4FromNativeToEco((unsigned char *) &p->attr);
+  fwrite(p, sizeof(SegmentRecord), 1, outFile);
+  conv4FromEcoToNative((unsigned char *) &p->name);
+  conv4FromEcoToNative((unsigned char *) &p->offs);
+  conv4FromEcoToNative((unsigned char *) &p->addr);
+  conv4FromEcoToNative((unsigned char *) &p->size);
+  conv4FromEcoToNative((unsigned char *) &p->attr);
 }
 
 
-void writeData(void) {
-  int data;
+static void writeSegmentTable(void) {
+  SegmentRecord segment;
 
-  rewind(dataFile);
-  while (1) {
-    data = fgetc(dataFile);
-    if (data == EOF) {
-      break;
-    }
-    fputc(data, outFile);
-  }
+  /* record file offset */
+  execHeader.osegs = fileOffset;
+  /* write code segment descriptor */
+  segment.name = stringSize;
+  stringSize += strlen(CODE_NAME) + 1;
+  segment.offs = dataSize;
+  segment.addr = 0;
+  segment.size = segPtr[SEGMENT_CODE];
+  segment.attr = SEG_ATTR_A | SEG_ATTR_P | SEG_ATTR_X;
+  writeSegment(&segment);
+  dataSize += segment.size;
+  /* write data segment descriptor */
+  segment.name = stringSize;
+  stringSize += strlen(DATA_NAME) + 1;
+  segment.offs = dataSize;
+  segment.addr = 0;
+  segment.size = segPtr[SEGMENT_DATA];
+  segment.attr = SEG_ATTR_A | SEG_ATTR_P | SEG_ATTR_W;
+  writeSegment(&segment);
+  dataSize += segment.size;
+  /* write bss segment descriptor */
+  segment.name = stringSize;
+  stringSize += strlen(BSS_NAME) + 1;
+  segment.offs = dataSize;
+  segment.addr = 0;
+  segment.size = segPtr[SEGMENT_BSS];
+  segment.attr = SEG_ATTR_A | SEG_ATTR_W;
+  writeSegment(&segment);
+  dataSize += 0;  /* segment not present */
+  /* update file offset */
+  execHeader.nsegs = 3;
+  fileOffset += execHeader.nsegs * sizeof(SegmentRecord);
 }
 
 
-void transferFixupsForSymbol(Symbol *s) {
-  Fixup *f;
-
-  if (s->status != STATUS_UNKNOWN && s->status != STATUS_DEFINED) {
-    /* this should never happen */
-    error("global symbol is neither unknown nor defined");
-  }
-  if (s->status == STATUS_UNKNOWN && s->fixups == NULL) {
-    /* this symbol is neither defined here nor referenced here: skip */
-    s->skip = 1;
-    return;
-  }
-  s->skip = 0;
-  while (s->fixups != NULL) {
-    /* get next fixup record */
-    f = s->fixups;
-    s->fixups = f->next;
-    /* use the 'base' component to store the current symbol number */
-    f->base = MSB | numSymbols;
-    /* transfer the record to the fixup list */
-    f->next = fixupList;
-    fixupList = f;
-  }
-  numSymbols++;
-}
-
-
-void transferFixups(void) {
-  numSymbols = 0;
-  walkTree(globalTable, transferFixupsForSymbol);
-}
-
-
-void writeCodeRelocs(void) {
-  Fixup *f;
-  RelocRecord relRec;
-
-  crelSize = 0;
-  f = fixupList;
-  while (f != NULL) {
-    if (f->segment != SEGMENT_CODE && f->segment != SEGMENT_DATA) {
-      /* this should never happan */
-      error("fixup found in a segment other than code or data");
-    }
-    if (f->segment == SEGMENT_CODE) {
-      relRec.offset = f->offset;
-      relRec.method = f->method;
-      relRec.value = f->value;
-      relRec.base = f->base;
-      conv4FromNativeToEco((unsigned char *) &relRec.offset);
-      conv4FromNativeToEco((unsigned char *) &relRec.method);
-      conv4FromNativeToEco((unsigned char *) &relRec.value);
-      conv4FromNativeToEco((unsigned char *) &relRec.base);
-      fwrite(&relRec, sizeof(RelocRecord), 1, outFile);
-      crelSize += sizeof(RelocRecord);
-    }
-    f = f->next;
-  }
-}
-
-
-void writeDataRelocs(void) {
-  Fixup *f;
-  RelocRecord relRec;
-
-  drelSize = 0;
-  f = fixupList;
-  while (f != NULL) {
-    if (f->segment != SEGMENT_CODE && f->segment != SEGMENT_DATA) {
-      /* this should never happan */
-      error("fixup found in a segment other than code or data");
-    }
-    if (f->segment == SEGMENT_DATA) {
-      relRec.offset = f->offset;
-      relRec.method = f->method;
-      relRec.value = f->value;
-      relRec.base = f->base;
-      conv4FromNativeToEco((unsigned char *) &relRec.offset);
-      conv4FromNativeToEco((unsigned char *) &relRec.method);
-      conv4FromNativeToEco((unsigned char *) &relRec.value);
-      conv4FromNativeToEco((unsigned char *) &relRec.base);
-      fwrite(&relRec, sizeof(RelocRecord), 1, outFile);
-      drelSize += sizeof(RelocRecord);
-    }
-    f = f->next;
-  }
-}
-
-
-void writeSymbol(Symbol *s) {
+static void writeSymbol(Symbol *s) {
   SymbolRecord symRec;
 
   if (s->skip) {
@@ -2038,30 +2052,121 @@ void writeSymbol(Symbol *s) {
     return;
   }
   symRec.name = stringSize;
+  stringSize += strlen(s->name) + 1;
   if (s->status == STATUS_UNKNOWN) {
-    symRec.type = (int) MSB;
-    symRec.value = 0;
+    symRec.val = 0;
+    symRec.seg = -1;
+    symRec.attr = SYM_ATTR_U;
   } else {
-    symRec.type = s->segment;
-    symRec.value = s->value;
+    symRec.val = s->value;
+    /* change (.abs, .code, .data, .bss) from (0..3) to (-1..2) */
+    symRec.seg = s->segment - 1;
+    symRec.attr = 0;
   }
   conv4FromNativeToEco((unsigned char *) &symRec.name);
-  conv4FromNativeToEco((unsigned char *) &symRec.type);
-  conv4FromNativeToEco((unsigned char *) &symRec.value);
+  conv4FromNativeToEco((unsigned char *) &symRec.val);
+  conv4FromNativeToEco((unsigned char *) &symRec.seg);
+  conv4FromNativeToEco((unsigned char *) &symRec.attr);
   fwrite(&symRec, sizeof(SymbolRecord), 1, outFile);
-  symtblSize += sizeof(SymbolRecord);
-  stringSize += strlen(s->name) + 1;
+  conv4FromEcoToNative((unsigned char *) &symRec.name);
+  conv4FromEcoToNative((unsigned char *) &symRec.val);
+  conv4FromEcoToNative((unsigned char *) &symRec.seg);
+  conv4FromEcoToNative((unsigned char *) &symRec.attr);
+  nsyms++;
 }
 
 
-void writeSymbols(void) {
-  symtblSize = 0;
-  stringSize = 0;
+static void writeSymbolTable(void) {
+  /* record file offset */
+  execHeader.osyms = fileOffset;
+  /* write symbol table */
+  nsyms = 0;
   walkTree(globalTable, writeSymbol);
+  /* update file offset */
+  execHeader.nsyms = nsyms;
+  fileOffset += execHeader.nsyms * sizeof(SymbolRecord);
 }
 
 
-void writeString(Symbol *s) {
+static void writeRelocTable(void) {
+  Fixup *f;
+  RelocRecord relRec;
+
+  /* record file offset */
+  execHeader.orels = fileOffset;
+  /* write reloc table */
+  nrels = 0;
+  f = fixupList;
+  while (f != NULL) {
+    if (f->segment != SEGMENT_CODE && f->segment != SEGMENT_DATA) {
+      /* this should never happen */
+      error("fixup found in a segment other than code or data");
+    }
+    relRec.loc = f->offset;
+    /* change (.code, .data) from (1, 2) to (0, 1) */
+    relRec.seg = f->segment - 1;
+    relRec.typ = f->method;
+    /* 'typ' knows if a symbol or a segment is referenced */
+    if (f->base & MSB) {
+      /* it's a symbol */
+      relRec.typ |= RELOC_SYM;
+    }
+    /* but 'ref' is a plain number */
+    if (f->base & MSB) {
+      /* so clear MSB in case of symbol reference */
+      relRec.ref = f->base & ~MSB;
+    } else {
+      /* and correct segment otherwise, see above */
+      relRec.ref = f->base - 1;
+    }
+    relRec.add = f->value;
+    conv4FromNativeToEco((unsigned char *) &relRec.loc);
+    conv4FromNativeToEco((unsigned char *) &relRec.seg);
+    conv4FromNativeToEco((unsigned char *) &relRec.typ);
+    conv4FromNativeToEco((unsigned char *) &relRec.ref);
+    conv4FromNativeToEco((unsigned char *) &relRec.add);
+    fwrite(&relRec, sizeof(RelocRecord), 1, outFile);
+    conv4FromEcoToNative((unsigned char *) &relRec.loc);
+    conv4FromEcoToNative((unsigned char *) &relRec.seg);
+    conv4FromEcoToNative((unsigned char *) &relRec.typ);
+    conv4FromEcoToNative((unsigned char *) &relRec.ref);
+    conv4FromEcoToNative((unsigned char *) &relRec.add);
+    nrels++;
+    f = f->next;
+  }
+  /* update file offset */
+  execHeader.nrels = nrels;
+  fileOffset += execHeader.nrels * sizeof(RelocRecord);
+}
+
+
+static void writeBytes(FILE *file) {
+  int data;
+
+  rewind(file);
+  while (1) {
+    data = fgetc(file);
+    if (data == EOF) {
+      break;
+    }
+    fputc(data, outFile);
+  }
+}
+
+
+static void writeData(void) {
+  /* record file offset */
+  execHeader.odata = fileOffset;
+  /* write segment data */
+  writeBytes(codeFile);
+  writeBytes(dataFile);
+  /* update file offset */
+  execHeader.sdata = dataSize;
+  fileOffset += execHeader.sdata;
+}
+
+
+static void writeString(Symbol *s) {
   if (s->skip) {
     /* this symbol is neither defined here nor referenced here: skip */
     return;
@@ -2071,8 +2176,35 @@ void writeString(Symbol *s) {
 }
 
 
-void writeStrings(void) {
+static void writeStrings(void) {
+  /* record file offset */
+  execHeader.ostrs = fileOffset;
+  /* write segment names */
+  fputs(CODE_NAME, outFile);
+  fputc('\0', outFile);
+  fputs(DATA_NAME, outFile);
+  fputc('\0', outFile);
+  fputs(BSS_NAME, outFile);
+  fputc('\0', outFile);
+  /* write symbol names */
   walkTree(globalTable, writeString);
+  /* update file offsets */
+  execHeader.sstrs = stringSize;
+  fileOffset += execHeader.sstrs;
+}
+
+
+void writeAll(void) {
+  fileOffset = 0;
+  dataSize = 0;
+  stringSize = 0;
+  writeDummyHeader();
+  writeSegmentTable();
+  writeSymbolTable();
+  writeRelocTable();
+  writeData();
+  writeStrings();
+  writeRealHeader();
 }
 
 
@@ -2137,7 +2269,9 @@ int main(int argc, char *argv[]) {
     if (inFile == NULL) {
       error("cannot open input file '%s'", inName);
     }
-    fprintf(stderr, "Assembling module '%s'...\n", inName);
+    if (debugModule) {
+      fprintf(stderr, "Assembling module '%s'...\n", inName);
+    }
     asmModule();
     if (inFile != NULL) {
       fclose(inFile);
@@ -2145,15 +2279,8 @@ int main(int argc, char *argv[]) {
     }
     linkLocals();
   } while (++i < argc);
-  writeDummyHeader();
-  writeCode();
-  writeData();
   transferFixups();
-  writeCodeRelocs();
-  writeDataRelocs();
-  writeSymbols();
-  writeStrings();
-  writeRealHeader();
+  writeAll();
   if (codeFile != NULL) {
     fclose(codeFile);
     codeFile = NULL;
