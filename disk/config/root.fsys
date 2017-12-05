@@ -56,6 +56,42 @@ bin       d--755 0 0
           yes             ---755 0 0 ../../cmds/yes
           $
 boot      d--755 0 0
+          atomics.bin     ---644 0 0 ../../stdalone/atomics.bin
+          atomics.map     ---644 0 0 ../../stdalone/atomics.map
+          bottles.bin     ---644 0 0 ../../stdalone/bottles.bin
+          bottles.map     ---644 0 0 ../../stdalone/bottles.map
+          dactest.bin     ---644 0 0 ../../stdalone/dactest.bin
+          dactest.map     ---644 0 0 ../../stdalone/dactest.map
+          dhrystone.bin   ---644 0 0 ../../stdalone/dhrystone.bin
+          dhrystone.map   ---644 0 0 ../../stdalone/dhrystone.map
+          dmpmbr.bin      ---644 0 0 ../../stdalone/dmpmbr.bin
+          dmpmbr.map      ---644 0 0 ../../stdalone/dmpmbr.map
+          dskchk.bin      ---644 0 0 ../../stdalone/dskchk.bin
+          dskchk.map      ---644 0 0 ../../stdalone/dskchk.map
+          dskchk2.bin     ---644 0 0 ../../stdalone/dskchk2.bin
+          dskchk2.map     ---644 0 0 ../../stdalone/dskchk2.map
+          hello.bin       ---644 0 0 ../../stdalone/hello.bin
+          hello.map       ---644 0 0 ../../stdalone/hello.map
+          hello2.bin      ---644 0 0 ../../stdalone/hello2.bin
+          hello2.map      ---644 0 0 ../../stdalone/hello2.map
+          memsize.bin     ---644 0 0 ../../stdalone/memsize.bin
+          memsize.map     ---644 0 0 ../../stdalone/memsize.map
+          memtest.bin     ---644 0 0 ../../stdalone/memtest.bin
+          memtest.map     ---644 0 0 ../../stdalone/memtest.map
+          mkpart.bin      ---644 0 0 ../../stdalone/mkpart.bin
+          mkpart.map      ---644 0 0 ../../stdalone/mkpart.map
+          onetask.bin     ---644 0 0 ../../stdalone/onetask.bin
+          onetask.map     ---644 0 0 ../../stdalone/onetask.map
+          sdctest.bin     ---644 0 0 ../../stdalone/sdctest.bin
+          sdctest.map     ---644 0 0 ../../stdalone/sdctest.map
+          shpart.bin      ---644 0 0 ../../stdalone/shpart.bin
+          shpart.map      ---644 0 0 ../../stdalone/shpart.map
+          twotasks-1.bin  ---644 0 0 ../../stdalone/twotasks-1.bin
+          twotasks-1.map  ---644 0 0 ../../stdalone/twotasks-1.map
+          twotasks-2.bin  ---644 0 0 ../../stdalone/twotasks-2.bin
+          twotasks-2.map  ---644 0 0 ../../stdalone/twotasks-2.map
+          wrtmbr.bin      ---644 0 0 ../../stdalone/wrtmbr.bin
+          wrtmbr.map      ---644 0 0 ../../stdalone/wrtmbr.map
           eos32.bin       ---644 0 0 ../../stdalone/eos32.bin
           eos32.map       ---644 0 0 ../../stdalone/eos32.map
           $
