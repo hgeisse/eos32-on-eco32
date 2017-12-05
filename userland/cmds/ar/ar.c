@@ -7,9 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
-
-#include "../include/ar.h"
-#include "../include/a.out.h"
+#include <ar.h>
+#include <a.out.h>
 
 
 /**************************************************************/
