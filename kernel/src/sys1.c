@@ -325,6 +325,7 @@ void getxfile(struct inode *ip, int nargc)
 	u.u_sep = 0;
 	/* HG: sep == 0 */
 	estabur(ts, ds, ss, RO);
+	syncCaches();
 }
 
 /*

@@ -447,6 +447,7 @@ void main(void) {
   #endif
 #endif
     copyOut((caddr_t) icode, (caddr_t) 0, szicode);
+    syncCaches();
     /* return goes to location 0 of user init code just copied out */
     return;
   }

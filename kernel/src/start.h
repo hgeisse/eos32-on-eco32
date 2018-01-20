@@ -35,6 +35,8 @@ void restfp(struct fps *fpsp);
 void flushTLB(void);
 void setTLB(int index, unsigned int entryHi, unsigned int entryLo);
 
+void syncCaches(void);
+
 Bool enableInt(void);
 Bool disableInt(void);
 void restoreInt(Bool enable);

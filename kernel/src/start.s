@@ -68,6 +68,8 @@
 	.export	flushTLB
 	.export	setTLB
 
+	.export	syncCaches
+
 	.export	enableInt
 	.export	disableInt
 	.export	restoreInt
@@ -255,6 +257,7 @@ start:
 	add	$9,$0,MONITOR_START
 	stw	$8,$9,4			; MONITOR_START + 4: j exception
 	stw	$8,$9,8			; MONITOR_START + 8: j user_miss
+	cctl	7			; sync caches
 
 	; initialize TLB
 	jal	flushAll		; invalidate all TLB entries
@@ -454,6 +457,16 @@ setTLB:
 	mvts	$5,TLB_ENTRY_HI
 	mvts	$6,TLB_ENTRY_LO
 	tbwi
+	jr	$31
+
+;***************************************************************
+
+	.code
+	.align	4
+
+	; void syncCaches(void);
+syncCaches:
+	cctl	7			; invalidate icache, flush dcache
 	jr	$31
 
 ;***************************************************************

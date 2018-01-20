@@ -416,6 +416,7 @@ int swapin(struct proc *p)
 	p->p_addr = a;
 	p->p_flag |= SLOAD;
 	p->p_time = 0;
+	syncCaches();
 	return(1);
 }
 
