@@ -224,11 +224,13 @@ void splx(unsigned int mask) {
  * This is the clock interrupt service routine.
  */
 static void clockISR(int irq, InterruptContext *icp) {
+  unsigned int dummy;
+
   /* set process priority, re-enable interrupts */
   spl6();
   enableInt();
-  /* restart clock */
-  *TIMER_CTRL = 2;
+  /* reset clock IRQ */
+  dummy = *TIMER_CTRL;
   /* call clock handler */
   clock(icp);
 }

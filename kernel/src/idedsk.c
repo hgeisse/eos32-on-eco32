@@ -96,15 +96,11 @@ static void waitDiskReady(void) {
  * and therefore may take a while.
  */
 static void readPartitionTable(void) {
-  unsigned int diskCtrl;
-
+  /* read disk sector 1 */
   *DISK_SCT = 1;
   *DISK_CNT = 1;
   *DISK_CTRL = DISK_CTRL_STRT;
   while ((*DISK_CTRL & DISK_CTRL_DONE) == 0) ;
-  /* clear done bit und thus the yet pending irq */
-  diskCtrl = *DISK_CTRL;
-  *DISK_CTRL = diskCtrl & ~(DISK_CTRL_DONE | DISK_CTRL_STRT);
   /* copy sector from disk buffer */
   copyWords((unsigned int *) partTbl, DISK_BUFFER, WPS);
 }
@@ -337,9 +333,9 @@ static void ideISR(int irq, InterruptContext *icp) {
   /* set process priority, re-enable interrupts */
   spl5();
   enableInt();
-  /* clear done bit und thus the yet pending irq */
+  /* disable disk IRQ */
   diskCtrl = *DISK_CTRL;
-  *DISK_CTRL = diskCtrl & ~(DISK_CTRL_DONE | DISK_CTRL_STRT);
+  *DISK_CTRL = diskCtrl & ~DISK_CTRL_IEN;
   if (ideTab.b_active == 0) {
     return;
   }
