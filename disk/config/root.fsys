@@ -123,7 +123,8 @@ etc       d--755 0 0
           getty           ---755 0 0 ../../cmds/getty
           group           ---644 0 0 ./etc/group
           passwd          ---644 0 0 ./etc/passwd
-          rc              ---644 0 0 ./etc/rc
+          rc-ide          ---644 0 0 ./etc/rc-ide
+          rc-sdc          ---644 0 0 ./etc/rc-sdc
           ttys            ---644 0 0 ./etc/ttys
           motd            ---644 0 0 ./etc/motd
           $
