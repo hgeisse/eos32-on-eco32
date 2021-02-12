@@ -82,6 +82,14 @@ unsigned int get4Bytes(unsigned char *addr) {
 }
 
 
+char *timeStr(EOS32_time_t tim) {
+  time_t t;
+
+  t = (time_t) tim;
+  return ctime(&t);
+}
+
+
 int waitForReturn(void) {
   char line[LINE_SIZE];
 
@@ -210,7 +218,7 @@ void superBlock(unsigned char *p) {
   }
   tim = get4Bytes(p);
   p += 4;
-  dat = ctime((time_t *) &tim);
+  dat = timeStr(tim);
   dat[strlen(dat) - 1] = '\0';
   printf("last super block update = %d (%s)\n", tim, dat);
   if (checkBatch(1)) return;
@@ -304,7 +312,7 @@ void inodeBlock(unsigned char *p) {
     }
     tim = get4Bytes(p);
     p += 4;
-    dat = ctime((time_t *) &tim);
+    dat = timeStr(tim);
     dat[strlen(dat) - 1] = '\0';
     if (mode != 0) {
       printf("  time inode created = %d (%s)\n", tim, dat);
@@ -312,7 +320,7 @@ void inodeBlock(unsigned char *p) {
     }
     tim = get4Bytes(p);
     p += 4;
-    dat = ctime((time_t *) &tim);
+    dat = timeStr(tim);
     dat[strlen(dat) - 1] = '\0';
     if (mode != 0) {
       printf("  time last modified = %d (%s)\n", tim, dat);
@@ -320,7 +328,7 @@ void inodeBlock(unsigned char *p) {
     }
     tim = get4Bytes(p);
     p += 4;
-    dat = ctime((time_t *) &tim);
+    dat = timeStr(tim);
     dat[strlen(dat) - 1] = '\0';
     if (mode != 0) {
       printf("  time last accessed = %d (%s)\n", tim, dat);
