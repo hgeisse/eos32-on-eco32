@@ -6,10 +6,10 @@ BUILD = ../../build
 
 DIRS = ar as cat chgrp chmod chown clri cmp cp date \
        dcheck df dof du echo ed getty grep icheck \
-       init joe kill lcc ld ln load login ls mkdir \
+       init joe kill lcc ld lex ln load login ls mkdir \
        mkfs mkmboot mknod mkpart mkpboot mount ncheck \
        od passwd ps pwd rm rmdir sh shfs shpart stty \
-       sync touch umount update wc yes
+       sync touch umount update wc yacc yes
 
 .PHONY:		all install clean
 

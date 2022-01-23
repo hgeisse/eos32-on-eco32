@@ -27,6 +27,7 @@ bin       d--755 0 0
           lburg           ---755 0 0 ../../cmds/lburg
           lcc             ---755 0 0 ../../cmds/lcc
           ld              ---755 0 0 ../../cmds/ld
+          lex             ---755 0 0 ../../cmds/lex
           ln              ---755 0 0 ../../cmds/ln
           load            ---755 0 0 ../../cmds/load
           login           -u-755 0 0 ../../cmds/login
@@ -53,6 +54,7 @@ bin       d--755 0 0
           umount          ---755 0 0 ../../cmds/umount
           update          ---755 0 0 ../../cmds/update
           wc              ---755 0 0 ../../cmds/wc
+          yacc            ---755 0 0 ../../cmds/yacc
           yes             ---755 0 0 ../../cmds/yes
           $
 boot      d--755 0 0
