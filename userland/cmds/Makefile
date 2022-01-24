@@ -9,7 +9,7 @@ DIRS = ar as cat chgrp chmod chown clri cmp cp date \
        init joe kill lcc ld lex ln load login ls mkdir \
        mkfs mkmboot mknod mkpart mkpboot mount ncheck \
        od passwd ps pwd rm rmdir sh shfs shpart stty \
-       su sync touch umount update wc yacc yes
+       su sync touch umount update wc who yacc yes
 
 .PHONY:		all install clean
 

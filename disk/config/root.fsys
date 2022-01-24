@@ -55,6 +55,7 @@ bin       d--755 0 0
           umount          ---755 0 0 ../../cmds/umount
           update          ---755 0 0 ../../cmds/update
           wc              ---755 0 0 ../../cmds/wc
+          who             ---755 0 0 ../../cmds/who
           yacc            ---755 0 0 ../../cmds/yacc
           yes             ---755 0 0 ../../cmds/yes
           $
