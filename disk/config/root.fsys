@@ -129,7 +129,9 @@ etc       d--755 0 0
           rc-sdc          ---644 0 0 ./etc/rc-sdc
           rc              ---644 0 0 ./etc/rc-ide
           ttys            ---644 0 0 ./etc/ttys
-          motd            ---644 0 0 ./etc/motd
+          motd1           ---644 0 0 ./etc/motd1
+          motd2           ---644 0 0 ./etc/motd2
+          motd            ---644 0 0 ./etc/motd2
           $
 home      d--755 0 0
           $
