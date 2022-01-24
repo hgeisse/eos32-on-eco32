@@ -49,6 +49,7 @@ bin       d--755 0 0
           shfs            ---755 0 0 ../../cmds/shfs
           shpart          ---755 0 0 ../../cmds/shpart
           stty            ---755 0 0 ../../cmds/stty
+          su              ---755 0 0 ../../cmds/su
           sync            ---755 0 0 ../../cmds/sync
           touch           ---755 0 0 ../../cmds/touch
           umount          ---755 0 0 ../../cmds/umount
