@@ -137,12 +137,6 @@ etc       d--755 0 0
           $
 home      d--755 0 0
           $
-lib       d--755 0 0
-          crt0.o          ---644 0 0 ../../lib/crt0.o
-          default.lnk     ---644 0 0 ../../lib/default.lnk
-          libc.a          ---644 0 0 ../../lib/libc.a
-          yaccpar         ---644 0 0 ../../lib/yaccpar
-          $
 mnt       d--755 0 0
           $
 tmp       d--777 0 0
