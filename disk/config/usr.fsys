@@ -47,6 +47,7 @@ include     d--755 0 0
         user.h      ---644 0 0 ../../include/sys/user.h
         $
     a.out.h     ---644 0 0 ../../include/a.out.h
+    ar.h        ---644 0 0 ../../include/ar.h
     assert.h    ---644 0 0 ../../include/assert.h
     core.h      ---644 0 0 ../../include/core.h
     ctype.h     ---644 0 0 ../../include/ctype.h
