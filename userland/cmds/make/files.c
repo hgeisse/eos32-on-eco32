@@ -311,20 +311,28 @@ if( (mout=fopen(file,"a")) != NULL )
 	}
 }
 #endif
-
+
 
 /* look inside archives for notations a(b) and a((b))
 	a(b)	is file member   b   in archive a
 	a((b))	is entry point  _b  in object archive a
 */
-//#include <ar.h>
-//#include <a.out.h>
+
+
+/* take LOCAL includes! */
+#include "ar.h"
+#include "a.out.h"
 
 static struct ar_hdr arhead;
+
+
+
 FILE *arfd;
 long int arpos, arlen;
 
 static struct exec objhead;
+
+
 
 static struct nlist objentry;
 

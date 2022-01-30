@@ -16,8 +16,13 @@ install:	make
 make:		$(SRCS)
 		$(BUILD)/bin/lcc -A -o make $(SRCS)
 
-y.tab.c:	gram.y
-		$(BUILD)/bin/yacc gram.y
+# original code for YACC
+#y.tab.c:	gram.y
+#		$(BUILD)/bin/yacc gram.y
+
+# new code for BISON
+y.tab.c:	gram-bison.y
+		bison --output=y.tab.c gram-bison.y
 
 clean:
 		rm -f *~ y.tab.c make
