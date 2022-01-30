@@ -2,6 +2,7 @@
 1000 700
 d--755 0 0
 hgeisse     d--755 10 10
+          disk.part       ---755 10 10 ../../home/hgeisse/disk.part
           hello.c         ---755 10 10 ../../home/hgeisse/hello.c
           parser.y        ---755 10 10 ../../home/hgeisse/parser.y
           scanner.l       ---755 10 10 ../../home/hgeisse/scanner.l
