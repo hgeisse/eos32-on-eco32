@@ -3,7 +3,7 @@
 ar		?		?
 as		?		?
 cat		?		?
-chgrp		?		?
+chgrp		ok		ok
 chmod		?		?
 chown		ok		ok
 clri		ok		ok
