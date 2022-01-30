@@ -2,7 +2,7 @@
 
 ar		?		?
 as		?		?
-cat		?		?
+cat		ok		ok
 chgrp		ok		ok
 chmod		ok		ok
 chown		ok		ok
