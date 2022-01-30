@@ -4,7 +4,7 @@ ar		?		?
 as		?		?
 cat		?		?
 chgrp		ok		ok
-chmod		?		?
+chmod		ok		ok
 chown		ok		ok
 clri		ok		ok
 cmp		?		?
