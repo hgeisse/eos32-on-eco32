@@ -16,10 +16,10 @@ yyparse() {
 
 	short yys[YYMAXDEPTH];
 	short yyj, yym;
-	register YYSTYPE *yypvt;
-	register short yystate, *yyps, yyn;
-	register YYSTYPE *yypv;
-	register short *yyxi;
+	YYSTYPE *yypvt;
+	short yystate, *yyps, yyn;
+	YYSTYPE *yypv;
+	short *yyxi;
 
 	yystate = 0;
 	yychar = -1;
