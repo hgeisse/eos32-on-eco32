@@ -12,8 +12,8 @@ all:		lex
 install:	lex
 		mkdir -p $(BUILD)/cmds
 		cp lex $(BUILD)/cmds
-		mkdir -p $(BUILD)/lib
-		cp ncform $(BUILD)/lib
+		mkdir -p $(BUILD)/lib/lex
+		cp ncform $(BUILD)/lib/lex
 
 lex:		$(INCS) $(SRCS)
 		$(BUILD)/bin/lcc -A -o lex $(SRCS)

@@ -72,7 +72,11 @@ lib         d--755 0 0
     crt0.o          ---644 0 0 ../../lib/crt0.o
     default.lnk     ---644 0 0 ../../lib/default.lnk
     libc.a          ---644 0 0 ../../lib/libc.a
-    ncform          ---644 0 0 ../../lib/ncform
-    yaccpar         ---644 0 0 ../../lib/yaccpar
+    lex         d--755 0 0
+        ncform          ---644 0 0 ../../lib/lex/ncform
+        $
+    yacc        d--755 0 0
+        yaccpar         ---644 0 0 ../../lib/yacc/yaccpar
+        $
     $
 $
