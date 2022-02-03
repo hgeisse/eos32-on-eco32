@@ -27,6 +27,7 @@ bin       d--755 0 0
           lburg           ---755 0 0 ../../cmds/lburg
           lcc             ---755 0 0 ../../cmds/lcc
           ld              ---755 0 0 ../../cmds/ld
+          lex             ---755 0 0 ../../cmds/lex
           ln              ---755 0 0 ../../cmds/ln
           load            ---755 0 0 ../../cmds/load
           login           -u-755 0 0 ../../cmds/login
@@ -49,12 +50,14 @@ bin       d--755 0 0
           shfs            ---755 0 0 ../../cmds/shfs
           shpart          ---755 0 0 ../../cmds/shpart
           stty            ---755 0 0 ../../cmds/stty
+          su              ---755 0 0 ../../cmds/su
           sync            ---755 0 0 ../../cmds/sync
           tail            ---755 0 0 ../../cmds/tail
           touch           ---755 0 0 ../../cmds/touch
           umount          ---755 0 0 ../../cmds/umount
           update          ---755 0 0 ../../cmds/update
           wc              ---755 0 0 ../../cmds/wc
+          who             ---755 0 0 ../../cmds/who
           yacc            ---755 0 0 ../../cmds/yacc
           yes             ---755 0 0 ../../cmds/yes
           $
@@ -128,8 +131,11 @@ etc       d--755 0 0
           passwd          ---644 0 0 ./etc/passwd
           rc-ide          ---644 0 0 ./etc/rc-ide
           rc-sdc          ---644 0 0 ./etc/rc-sdc
+          rc              ---644 0 0 ./etc/rc-ide
           ttys            ---644 0 0 ./etc/ttys
-          motd            ---644 0 0 ./etc/motd
+          motd1           ---644 0 0 ./etc/motd1
+          motd2           ---644 0 0 ./etc/motd2
+          motd            ---644 0 0 ./etc/motd2
           $
 home      d--755 0 0
           $

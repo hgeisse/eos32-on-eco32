@@ -1,0 +1,9 @@
+//
+// function declaration, one parameter
+//
+
+Integer f(Integer a) {
+}
+
+void main() {
+}

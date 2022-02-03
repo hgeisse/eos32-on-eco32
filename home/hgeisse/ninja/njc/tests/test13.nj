@@ -1,0 +1,8 @@
+//
+// assign statement, assign to local var
+//
+
+void main() {
+  local Integer a;
+  a = 5;
+}

@@ -5,7 +5,7 @@
 BUILD = ../../../build
 
 INCS = defs
-SRCS = ident.c main.c doname.c misc.c files.c dosys.c y.tab.c
+SRCS = ident.c main.c doname.c misc.c files.c dosys.c gram.tab.c
 
 all:		make
 
@@ -16,13 +16,8 @@ install:	make
 make:		$(SRCS)
 		$(BUILD)/bin/lcc -A -o make $(SRCS)
 
-# original code for YACC
-#y.tab.c:	gram.y
-#		$(BUILD)/bin/yacc gram.y
-
-# new code for BISON
-y.tab.c:	gram-bison.y
-		bison --output=y.tab.c gram-bison.y
+gram.tab.c:	gram.y
+		bison gram.y
 
 clean:
-		rm -f *~ y.tab.c make
+		rm -f *~ gram.tab.c make

@@ -1,0 +1,48 @@
+//
+// array types
+//
+
+type myVector = Integer[];
+
+void g() {
+  local Integer[] a;
+  local Integer[][] b;
+  local Integer[][][] c;
+  local Integer i;
+  local Integer j;
+  a = new(Integer[3]);
+  b = new(Integer[3][]);
+  i = 0;
+  while (i < 3) {
+    b[i] = new(Integer[4]);
+    i = i + 1;
+  }
+  c = new(Integer[3][][]);
+  i = 0;
+  while (i < 3) {
+    c[i] = new(Integer[4][]);
+    j = 0;
+    while (j < 4) {
+      c[i][j] = new(Integer[5]);
+      j = j + 1;
+    }
+    i = i + 1;
+  }
+}
+
+void main() {
+  local Integer i;
+  local Integer[] j;
+  local myVector v;
+  local myVector[] w;
+  i = 3;
+  j = new(Integer[i]);
+  v = new(Integer[i + 1]);
+  w = new(myVector[2 * i + 1]);
+  writeInteger(sizeof(w));
+  writeCharacter('\n');
+  writeInteger(sizeof(new(Integer[0])));
+  writeCharacter('\n');
+  writeInteger(sizeof(1234));
+  writeCharacter('\n');
+}

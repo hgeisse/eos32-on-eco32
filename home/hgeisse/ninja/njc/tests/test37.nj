@@ -1,0 +1,8 @@
+//
+// one global variable
+//
+
+global Integer i;
+
+void main() {
+}

@@ -1,0 +1,12 @@
+//
+// type declaration
+//
+
+type myInteger = Integer;
+
+void main() {
+}
+
+myInteger f() {
+  return 42;
+}
