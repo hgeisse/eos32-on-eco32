@@ -8,7 +8,15 @@
 %left '*' '+' '?'
 
 %{
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 # include "ldefs.c"
+#include "lmain.h"
+#include "sub1.h"
+#include "sub2.h"
+#include "header.h"
+#include "parser.h"
 int i;
 int j,k;
 int g;
@@ -40,14 +48,14 @@ lexinput:	defns delim prods end
 	;
 end:		delim | ;
 defns:	defns STR STR
-	{	scopy($2,dp);
+	{	scopy((char *)(long)$2,dp);
 		def[dptr] = dp;
-		dp =+ slength($2) + 1;
-		scopy($3,dp);
+		dp += slength((char *)(long)$2) + 1;
+		scopy((char *)(long)$3,dp);
 		subs[dptr++] = dp;
 		if(dptr >= DEFSIZE)
 			error("Too many definitions");
-		dp =+ slength($3) + 1;
+		dp += slength((char *)(long)$3) + 1;
 		if(dp >= dchar+DEFCHAR)
 			error("Definitions too long");
 		subs[dptr]=def[dptr]=0;	/* for lookup - require ending null */
@@ -87,7 +95,7 @@ r:	CHAR
 	{	$$ = mn0($1); }
 	| STR
 	{
-		p = $1;
+		p = (char *)(long)$1;
 		i = mn0(*p++);
 		while(*p)
 			i = mn2(RSTR,i,*p++);
@@ -112,7 +120,7 @@ r:	CHAR
 			}
 		else
 			p = psave;
-		$$ = mn1(RCCL,p);
+		$$ = mn1(RCCL,(int)(long)p);
 		cclinter(1);
 		}
 	| CCL
@@ -207,9 +215,9 @@ r:	CHAR
 	{	$$ = mn0(RNULLS); }
 	;
 %%
-yylex(){
-	register char *p;
-	register int c, i;
+int yylex(void){
+	char *p;
+	int c, i;
 	char  *t, *xp;
 	int n, j, k, x;
 	static int sectbegin;
@@ -235,10 +243,9 @@ yylex(){
 						sectbegin = TRUE;
 						i = treesize*(sizeof(*name)+sizeof(*left)+
 							sizeof(*right)+sizeof(*nullstr)+sizeof(*parent))+ALITTLEEXTRA;
-						c = myalloc(i,1);
-						if(c == 0)
+						p = myalloc(i,1);
+						if(p == 0)
 							error("Too little core for parse tree");
-						p = c;
 						cfree(p,i,1);
 						name = myalloc(treesize,sizeof(*name));
 						left = myalloc(treesize,sizeof(*left));
@@ -355,12 +362,12 @@ yylex(){
 						error("Premature eof");
 					case 's': case 'S':		/* start conditions */
 						lgate();
-						while(*p && index(*p," \t,") < 0) p++;
+						while(*p && myindex(*p," \t,") < 0) p++;
 						n = TRUE;
 						while(n){
-							while(*p && index(*p," \t,") >= 0) p++;
+							while(*p && myindex(*p," \t,") >= 0) p++;
 							t = p;
-							while(*p && index(*p," \t,") < 0)p++;
+							while(*p && myindex(*p," \t,") < 0)p++;
 							if(!*p) n = FALSE;
 							*p++ = 0;
 							if (*t == 0) continue;
@@ -372,7 +379,7 @@ yylex(){
 							sname[sptr] = 0;	/* required by lookup */
 							if(sptr >= STARTSIZE)
 								error("Too many start conditions");
-							sp =+ slength(sp) + 1;
+							sp += slength(sp) + 1;
 							if(sp >= schar+STARTCHAR)
 								error("Start conditions too long");
 							}
@@ -392,7 +399,7 @@ yylex(){
 					prev = *p;
 					*p = 0;
 					bptr = p+1;
-					yylval = buf;
+					yylval = (int)(long)buf;
 					if(digit(buf[0]))
 						warning("Substitution strings may not begin with digits");
 					return(freturn(STR));
@@ -405,7 +412,7 @@ yylex(){
 				if(*p == 0)
 					warning("No translation given - null string assumed");
 				scopy(p,token);
-				yylval = token;
+				yylval = (int)(long)token;
 				prev = '\n';
 				return(freturn(STR));
 				}
@@ -501,7 +508,7 @@ yylex(){
 						}
 					token[i] = 0;
 					yylval = siconv(token);
-					munput('c',c);
+					munput('c',c,NULL);
 					x = ITER;
 					break;
 					}
@@ -516,7 +523,7 @@ yylex(){
 					if(i < 0)
 						warning("Definition %s not found",token);
 					else
-						munput('s',subs[i]);
+						munput('s',0,subs[i]);
 					continue;
 					}
 			case '<':		/* start condition ? */
@@ -556,7 +563,7 @@ yylex(){
 					}
 				if(slptr > slist+STARTSIZE)		/* note not packed ! */
 					error("Too many start conditions used");
-				yylval = t;
+				yylval = (int)(long)t;
 				x = SCON;
 				break;
 			case '"':
@@ -582,7 +589,7 @@ yylex(){
 					x = CHAR;
 					}
 				else {
-					yylval = token;
+					yylval = (int)(long)token;
 					x = STR;
 					}
 				break;
@@ -626,11 +633,11 @@ yylex(){
 					while(p <ccptr && scomp(token,p) != 0)p++;
 					}
 				if(p < ccptr)	/* found it */
-					yylval = p;
+					yylval = (int)(long)p;
 				else {
-					yylval = ccptr;
+					yylval = (int)(long)ccptr;
 					scopy(token,ccptr);
-					ccptr =+ slength(token) + 1;
+					ccptr += slength(token) + 1;
 					if(ccptr >= ccl+CCLSIZE)
 						error("Too many large character classes");
 					}
@@ -647,12 +654,12 @@ yylex(){
 					}
 				if(alpha(peek)){
 					i = 0;
-					yylval = token;
+					yylval = (int)(long)token;
 					token[i++] = c;
 					while(alpha(peek))
 						token[i++] = gch();
 					if(peek == '?' || peek == '*' || peek == '+')
-						munput('c',token[--i]);
+						munput('c',token[--i],NULL);
 					token[i] = 0;
 					if(i == 1){
 						yylval = token[0];
