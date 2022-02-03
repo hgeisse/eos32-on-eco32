@@ -12,8 +12,8 @@ all:		yacc
 install:	yacc
 		mkdir -p $(BUILD)/cmds
 		cp yacc $(BUILD)/cmds
-		mkdir -p $(BUILD)/lib
-		cp yaccpar $(BUILD)/lib
+		mkdir -p $(BUILD)/lib/yacc
+		cp yaccpar $(BUILD)/lib/yacc
 
 yacc:		$(INCS) $(SRCS)
 		$(BUILD)/bin/lcc -A -o yacc $(SRCS)
