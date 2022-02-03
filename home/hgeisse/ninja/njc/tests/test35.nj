@@ -1,0 +1,12 @@
+//
+// conversion: int --> char
+//
+
+void main() {
+  local Integer i;
+  local Character c;
+  i = 75;
+  c = int2char(i);
+  writeCharacter(c);
+  writeCharacter('\n');
+}

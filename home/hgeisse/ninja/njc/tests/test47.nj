@@ -1,0 +1,18 @@
+//
+// nil
+//
+
+void main() {
+  local Integer[] a;
+  a = new(Integer[5]);
+  if (a == nil) {
+    writeString("a == nil\n");
+  } else {
+    writeString("a != nil\n");
+  }
+  if (a[2] != nil) {
+    writeString("a[2] != nil\n");
+  } else {
+    writeString("a[2] == nil\n");
+  }
+}

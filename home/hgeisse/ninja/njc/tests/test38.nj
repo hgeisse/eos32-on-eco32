@@ -1,0 +1,9 @@
+//
+// two global variables
+//
+
+global Boolean b;
+global Character c;
+
+void main() {
+}

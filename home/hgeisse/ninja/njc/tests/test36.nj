@@ -1,0 +1,12 @@
+//
+// conversion: char --> int
+//
+
+void main() {
+  local Character c;
+  local Integer i;
+  c = 'K';
+  i = char2int(c);
+  writeInteger(i);
+  writeCharacter('\n');
+}

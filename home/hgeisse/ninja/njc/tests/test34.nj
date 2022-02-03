@@ -1,0 +1,22 @@
+//
+// characters
+//
+
+void f(Character c) {
+  local Character a;
+  if (c == 'a') a = 'a';
+  if (c != 'b') a = 'b';
+  if (c < 'c') a = 'c';
+  if (c <= 'd') a = 'd';
+  if (c > 'e') a = 'e';
+  if (c >= 'f') a = 'f';
+  if (c == '\n') a = 'g';
+  if (c == '\r') a = 'h';
+  if (c == '\t') a = 'i';
+  if (c == '\'') a = 'j';
+  if (c == '\"') a = 'k';
+  if (c == '\\') a = 'l';
+}
+
+void main() {
+}

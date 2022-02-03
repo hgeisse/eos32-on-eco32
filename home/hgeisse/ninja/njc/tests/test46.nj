@@ -1,0 +1,10 @@
+//
+// strings
+//
+
+void main() {
+  local String s;
+  writeString("Hello, ");
+  s = "world!\n";
+  writeString(s);
+}
