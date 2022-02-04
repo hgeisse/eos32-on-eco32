@@ -1,6 +1,6 @@
 		compile		test
 
-ar		?		?
+ar		ok		?
 as		?		?
 cat		ok		ok
 chgrp		ok		ok
