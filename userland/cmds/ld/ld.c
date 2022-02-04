@@ -1289,7 +1289,7 @@ typedef struct {
 } SymtableIterator;
 
 
-void getSymbol(Sym *sym, void *arg) {
+static void getSymbol(Sym *sym, void *arg) {
   SymtableIterator *iter;
 
   iter = (SymtableIterator *) arg;
@@ -1297,7 +1297,7 @@ void getSymbol(Sym *sym, void *arg) {
 }
 
 
-int compareSymbols(const void *p1, const void *p2) {
+static int compareSymbols(const void *p1, const void *p2) {
   Sym **sym1;
   Sym **sym2;
 
@@ -1340,7 +1340,7 @@ void writeSymbolTable(FILE *mapFile) {
 }
 
 
-void resolveSymbol(Sym *sym, void *arg) {
+static void resolveSymbol(Sym *sym, void *arg) {
   Module *mod;
   SegmentRecord *seg;
 
@@ -1499,10 +1499,7 @@ void relocateModules(void) {
 
 
 static ExecHeader execHeader;
-
 static unsigned int outFileOffset;
-static unsigned int outDataSize;
-static unsigned int outStringSize;
 
 
 static void writeDummyHeader(FILE *outFile) {
@@ -1556,6 +1553,8 @@ static void writeData(FILE *outFile) {
   SegmentRecord *seg;
   unsigned char *data;
   unsigned int size;
+  unsigned int padSize;
+  unsigned char pad[3] = { 0, 0, 0 };
 
   execHeader.odata = outFileOffset;
   execHeader.sdata = 0;
@@ -1571,12 +1570,18 @@ static void writeData(FILE *outFile) {
           seg = mod->segs + iseg->seg;
           data = mod->data + seg->offs;
           size = seg->size;
+          padSize = WORD_ALIGN(size) - size;
           if (size != 0) {
             if (fwrite(data, 1, size, outFile) != size) {
               error("cannot write output file segment data");
             }
+            if (padSize != 0) {
+              if (fwrite(pad, 1, padSize, outFile) != padSize) {
+                error("cannot write output file segment data");
+              }
+            }
           }
-          execHeader.sdata += size;
+          execHeader.sdata += size + padSize;
           iseg = iseg->next;
         }
         igrp = igrp->next;
@@ -1653,8 +1658,6 @@ void writeOutput(char *outName) {
     error("cannot open output file '%s'", outName);
   }
   outFileOffset = 0;
-  outDataSize = 0;
-  outStringSize = 0;
   writeDummyHeader(outFile);
   writeData(outFile);
   writeStrings(outFile);
