@@ -1,7 +1,7 @@
 		compile		test
 
 ar		ok		?
-as		?		?
+as		ok		?
 cat		ok		ok
 chgrp		ok		ok
 chmod		ok		ok
