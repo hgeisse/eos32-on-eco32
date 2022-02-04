@@ -3,6 +3,12 @@
 d--755 0 0
 hgeisse     d--755 10 10
     disk.part   ---755 10 10 ../../home/hgeisse/disk.part
+    retval      d--755 10 10
+        retval.c    ---755 10 10 ../../home/hgeisse/retval/retval.c
+        $
+    simple      d--755 10 10
+        simple.c    ---755 10 10 ../../home/hgeisse/simple/simple.c
+        $
     hello       d--755 10 10
         hello.c     ---755 10 10 ../../home/hgeisse/hello/hello.c
         $
