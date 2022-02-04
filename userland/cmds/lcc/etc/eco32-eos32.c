@@ -34,7 +34,7 @@ char *cpp[] = {
   0
 };
 
-char *com[] =  {
+char *com[] = {
   LCCDIR "rcc",
   "-target=eco32/eos32",
   "$1",			/* other options handed through */
