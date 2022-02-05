@@ -9,6 +9,7 @@
 #include <stdarg.h>
 #include <a.out.h>
 #include <ar.h>
+#include <eos32.h>
 
 #include "utils.h"
 #include "readscript.h"
@@ -1664,6 +1665,7 @@ void writeOutput(char *outName) {
   writeSegmentTable(outFile);
   writeRealHeader(outFile);
   fclose(outFile);
+  chmod(outName, 0777 & ~umask(0));
 }
 
 
