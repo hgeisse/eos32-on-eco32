@@ -9,6 +9,7 @@
 #include <limits.h>
 #include <errno.h>
 #include <eos32.h>
+#include <assert.h>
 
 
 /**************************************************************/

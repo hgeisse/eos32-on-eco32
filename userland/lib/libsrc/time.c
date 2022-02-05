@@ -5,6 +5,7 @@
 
 #include <time.h>
 #include <eos32.h>
+#include <assert.h>
 
 
 /*

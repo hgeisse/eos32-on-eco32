@@ -10,6 +10,7 @@
 #include <limits.h>
 #include <ctype.h>
 #include <eos32.h>
+#include <assert.h>
 
 
 /**************************************************************/
