@@ -718,24 +718,48 @@ int sprintf(char *s, const char *format, ...) {
  */
 
 
-int scanf(const char *format, ...) {
-  /* !!!!! */
-  assert(1 == 0);
+static int doScanf(FILE *stream, const char *format, va_list ap) {
+  /* fprintf(stderr, "%s\n", format); */
   return 0;
+}
+
+
+int scanf(const char *format, ...) {
+  va_list ap;
+  int count;
+
+  va_start(ap, format);
+  count = doScanf(stdin, format, ap);
+  va_end(ap);
+  return count;
 }
 
 
 int fscanf(FILE *stream, const char *format, ...) {
-  /* !!!!! */
-  assert(1 == 0);
-  return 0;
+  va_list ap;
+  int count;
+
+  va_start(ap, format);
+  count = doScanf(stream, format, ap);
+  va_end(ap);
+  return count;
 }
 
 
 int sscanf(const char *s, const char *format, ...) {
-  /* !!!!! */
-  assert(1 == 0);
-  return 0;
+  FILE stream;
+  va_list ap;
+  int count;
+
+  stream.cnt = INT_MAX;
+  stream.ptr = (unsigned char *) s;
+  stream.buf = NULL;
+  stream.fd = -1;
+  stream.flags = _STRM_RD | _STRM_STRG;
+  va_start(ap, format);
+  count = doScanf(&stream, format, ap);
+  va_end(ap);
+  return count;
 }
 
 
