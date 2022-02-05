@@ -117,6 +117,7 @@ static char *twoDigits(char *cp, int n) {
 
 clock_t clock(void) {
   /* !!!!! */
+  assert(1 == 0);
   return 0;
 }
 
@@ -128,6 +129,7 @@ time_t time(time_t *tp) {
 
 time_t mktime(struct tm *tp) {
   /* !!!!! */
+  assert(1 == 0);
   return 0;
 }
 
@@ -279,5 +281,6 @@ size_t strftime(char *s, size_t smax,
                 const char *fmt,
                 const struct tm *tp) {
   /* !!!!! */
+  assert(1 == 0);
   return 0;
 }

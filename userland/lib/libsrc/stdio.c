@@ -181,6 +181,7 @@ int rename(const char *oldname, const char *newname) {
 
 FILE *tmpfile(void) {
   /* !!!!! */
+  assert(1 == 0);
   return NULL;
 }
 
@@ -210,6 +211,7 @@ char *tmpnam(char *s) {
 
 int setvbuf(FILE *stream, char *buf, int mode, size_t size) {
   /* !!!!! */
+  assert(1 == 0);
   return 0;
 }
 
@@ -717,18 +719,21 @@ int sprintf(char *s, const char *format, ...) {
 
 int scanf(const char *format, ...) {
   /* !!!!! */
+  assert(1 == 0);
   return 0;
 }
 
 
 int fscanf(FILE *stream, const char *format, ...) {
   /* !!!!! */
+  assert(1 == 0);
   return 0;
 }
 
 
 int sscanf(const char *s, const char *format, ...) {
   /* !!!!! */
+  assert(1 == 0);
   return 0;
 }
 
