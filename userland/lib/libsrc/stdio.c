@@ -640,25 +640,6 @@ static int doPrintf(FILE *stream, const char *format, va_list ap) {
 }
 
 
-int vfprintf(FILE *stream, const char *format, va_list ap) {
-  int count;
-
-  count = doPrintf(stream, format, ap);
-  return ferror(stream) ? EOF : count;
-}
-
-
-int fprintf(FILE *stream, const char *format, ...) {
-  va_list ap;
-  int count;
-
-  va_start(ap, format);
-  count = doPrintf(stream, format, ap);
-  va_end(ap);
-  return ferror(stream) ? EOF : count;
-}
-
-
 int vprintf(const char *format, va_list ap) {
   int count;
 
@@ -675,6 +656,25 @@ int printf(const char *format, ...) {
   count = doPrintf(stdout, format, ap);
   va_end(ap);
   return ferror(stdout) ? EOF : count;
+}
+
+
+int vfprintf(FILE *stream, const char *format, va_list ap) {
+  int count;
+
+  count = doPrintf(stream, format, ap);
+  return ferror(stream) ? EOF : count;
+}
+
+
+int fprintf(FILE *stream, const char *format, ...) {
+  va_list ap;
+  int count;
+
+  va_start(ap, format);
+  count = doPrintf(stream, format, ap);
+  va_end(ap);
+  return ferror(stream) ? EOF : count;
 }
 
 
