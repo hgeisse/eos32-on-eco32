@@ -135,6 +135,7 @@ etc       d--755 0 0
           motd1           ---644 0 0 ./etc/motd1
           motd2           ---644 0 0 ./etc/motd2
           motd            ---644 0 0 ./etc/motd2
+          joerc           ---644 0 0 ./etc/joerc
           $
 home      d--755 0 0
           $

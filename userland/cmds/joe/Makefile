@@ -14,7 +14,7 @@ install:	joe
 		cp joe $(BUILD)/cmds
 
 joe:		$(SRCS)
-		$(BUILD)/bin/lcc -A -o joe -DKEYDEF=\"x.joerc\" $(SRCS)
+		$(BUILD)/bin/lcc -A -o joe -DKEYDEF=\"/etc/joerc\" $(SRCS)
 
 clean:
 		rm -f *~ joe
