@@ -84,6 +84,7 @@ src         d--755 0 0
         tail        d--755 0 0
             Makefile        ---644 0 0 ../../usr/src/bin/tail/Makefile
             tail.c          ---644 0 0 ../../usr/src/bin/tail/tail.c
+            tail.h          ---644 0 0 ../../usr/src/bin/tail/tail.h
             $
         $
     $
