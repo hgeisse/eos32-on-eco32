@@ -9,6 +9,7 @@
 #include <limits.h>
 #include <errno.h>
 #include <eos32.h>
+#include <assert.h>
 
 
 /**************************************************************/
@@ -181,6 +182,7 @@ int rename(const char *oldname, const char *newname) {
 
 FILE *tmpfile(void) {
   /* !!!!! */
+  assert(1 == 0);
   return NULL;
 }
 
@@ -210,6 +212,7 @@ char *tmpnam(char *s) {
 
 int setvbuf(FILE *stream, char *buf, int mode, size_t size) {
   /* !!!!! */
+  assert(1 == 0);
   return 0;
 }
 
@@ -637,25 +640,6 @@ static int doPrintf(FILE *stream, const char *format, va_list ap) {
 }
 
 
-int vfprintf(FILE *stream, const char *format, va_list ap) {
-  int count;
-
-  count = doPrintf(stream, format, ap);
-  return ferror(stream) ? EOF : count;
-}
-
-
-int fprintf(FILE *stream, const char *format, ...) {
-  va_list ap;
-  int count;
-
-  va_start(ap, format);
-  count = doPrintf(stream, format, ap);
-  va_end(ap);
-  return ferror(stream) ? EOF : count;
-}
-
-
 int vprintf(const char *format, va_list ap) {
   int count;
 
@@ -672,6 +656,25 @@ int printf(const char *format, ...) {
   count = doPrintf(stdout, format, ap);
   va_end(ap);
   return ferror(stdout) ? EOF : count;
+}
+
+
+int vfprintf(FILE *stream, const char *format, va_list ap) {
+  int count;
+
+  count = doPrintf(stream, format, ap);
+  return ferror(stream) ? EOF : count;
+}
+
+
+int fprintf(FILE *stream, const char *format, ...) {
+  va_list ap;
+  int count;
+
+  va_start(ap, format);
+  count = doPrintf(stream, format, ap);
+  va_end(ap);
+  return ferror(stream) ? EOF : count;
 }
 
 
@@ -715,21 +718,48 @@ int sprintf(char *s, const char *format, ...) {
  */
 
 
-int scanf(const char *format, ...) {
-  /* !!!!! */
+static int doScanf(FILE *stream, const char *format, va_list ap) {
+  /* fprintf(stderr, "%s\n", format); */
   return 0;
+}
+
+
+int scanf(const char *format, ...) {
+  va_list ap;
+  int count;
+
+  va_start(ap, format);
+  count = doScanf(stdin, format, ap);
+  va_end(ap);
+  return count;
 }
 
 
 int fscanf(FILE *stream, const char *format, ...) {
-  /* !!!!! */
-  return 0;
+  va_list ap;
+  int count;
+
+  va_start(ap, format);
+  count = doScanf(stream, format, ap);
+  va_end(ap);
+  return count;
 }
 
 
 int sscanf(const char *s, const char *format, ...) {
-  /* !!!!! */
-  return 0;
+  FILE stream;
+  va_list ap;
+  int count;
+
+  stream.cnt = INT_MAX;
+  stream.ptr = (unsigned char *) s;
+  stream.buf = NULL;
+  stream.fd = -1;
+  stream.flags = _STRM_RD | _STRM_STRG;
+  va_start(ap, format);
+  count = doScanf(&stream, format, ap);
+  va_end(ap);
+  return count;
 }
 
 
