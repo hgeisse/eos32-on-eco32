@@ -4,7 +4,7 @@
 
 BUILD = ../build
 
-DIRS = lib tests cmds
+DIRS = lib tests cmds usr
 
 .PHONY:		all install clean
 

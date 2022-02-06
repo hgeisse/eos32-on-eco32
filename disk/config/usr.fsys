@@ -79,4 +79,12 @@ lib         d--755 0 0
         yaccpar         ---644 0 0 ../../lib/yacc/yaccpar
         $
     $
+src         d--755 0 0
+    bin         d--755 0 0
+        tail        d--755 0 0
+            Makefile        ---644 0 0 ../../usr/src/bin/tail/Makefile
+            tail.c          ---644 0 0 ../../usr/src/bin/tail/tail.c
+            $
+        $
+    $
 $
