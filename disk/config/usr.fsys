@@ -87,5 +87,12 @@ src         d--755 0 0
             tail.h          ---644 0 0 ../../usr/src/bin/tail/tail.h
             $
         $
+    games       d--755 0 0
+        wump        d--755 0 0
+            Makefile        ---644 0 0 ../../usr/src/games/wump/Makefile
+            wump.c          ---644 0 0 ../../usr/src/games/wump/wump.c
+            wump.h          ---644 0 0 ../../usr/src/games/wump/wump.h
+            $
+        $
     $
 $
