@@ -333,7 +333,7 @@ int rin(void) {
         if(c<'0' || c>'9') {
             while(c != '\n') {
                 if(c == 0)
-                    exit();
+                    exit(0);
                 c = getchar();
             }
             return(0);
@@ -357,5 +357,5 @@ int near(room_t *ap, int ahaz) {
 }
 
 int icomp(const void *p1, const void *p2) {
-    return(*p1 - *p2);
+    return(*(int*)p1 - *(int*)p2);
 }

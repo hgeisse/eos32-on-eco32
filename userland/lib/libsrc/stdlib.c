@@ -53,10 +53,13 @@ long atol(const char *s) {
  */
 
 double strtod (const char* str, char** endptr) {
+    assert(0 == 1); /* no floating points yet :(  */
     double result1 = 0.0; /* left site of dot */
     double result2 = 0.0; /* right site of dot */
     double* cur;
     char sign = +1;
+    int rsc = 0; /* right site counter */
+    int quot = 1; /* quotient */
 
     cur = &result1;
     if( ! str) goto output;
@@ -77,11 +80,13 @@ double strtod (const char* str, char** endptr) {
                 break;
             case '.':
                 cur = &result2;
+                rsc = 0;
                 break;
             case '0': case '1': case '2': case '3': case '4':
             case '5': case '6': case '7': case '8': case '9':
                 *cur *= 10;
                 *cur += (*str) - '0';
+                rsc++;
                 break;
             default:
                 goto output;
@@ -91,7 +96,9 @@ double strtod (const char* str, char** endptr) {
     output:
     if(endptr) *endptr = (char*) str;
     /* move result2 to the right site of the dot (mathematically, if any) */
-    if(result2 != 0.0) result2 /= pow(10, (int) log10(result2) + 1);
+    while(rsc--) quot *= 10;
+    if(result2 != 0.0) result2 /= quot;
+    
     return sign * (result1 + result2);
 }
 

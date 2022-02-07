@@ -83,6 +83,18 @@ double exp(double x) {
   return 0.0;
 }
 
+double log(double arg) {  
+  /* !!!!! */
+  assert(1 == 0);
+  return 0.0;
+}
+
+double log10(double arg) {  
+  /* !!!!! */
+  assert(1 == 0);
+  return 0.0;
+}
+
 double pow(double x, double y) {
   /* !!!!! */
   assert(1 == 0);
