@@ -86,6 +86,100 @@ src         d--755 0 0
             tail.c          ---644 0 0 ../../usr/src/bin/tail/tail.c
             tail.h          ---644 0 0 ../../usr/src/bin/tail/tail.h
             $
+        lcc         d--755 0 0
+            Makefile            ---644 0 0 ../../usr/src/bin/lcc/Makefile
+            lburg               d--644 0 0 
+                lburg.c             ---644 0 0 ../../usr/src/bin/lcc/lburg/lburg.c
+                lburg.1             ---644 0 0 ../../usr/src/bin/lcc/lburg/lburg.1
+                lburg.h             ---644 0 0 ../../usr/src/bin/lcc/lburg/lburg.h
+                gram.y              ---644 0 0 ../../usr/src/bin/lcc/lburg/gram.y
+                $
+            cpp                 d--644 0 0 
+                cpp.h               ---644 0 0 ../../usr/src/bin/lcc/cpp/cpp.h
+                unix.c              ---644 0 0 ../../usr/src/bin/lcc/cpp/unix.c
+                getopt.c            ---644 0 0 ../../usr/src/bin/lcc/cpp/getopt.c
+                nlist.c             ---644 0 0 ../../usr/src/bin/lcc/cpp/nlist.c
+                unix.c.ORIG         ---644 0 0 ../../usr/src/bin/lcc/cpp/unix.c.ORIG
+                hideset.c           ---644 0 0 ../../usr/src/bin/lcc/cpp/hideset.c
+                tokens.c.ORIG       ---644 0 0 ../../usr/src/bin/lcc/cpp/tokens.c.ORIG
+                macro.c             ---644 0 0 ../../usr/src/bin/lcc/cpp/macro.c
+                cpp.c               ---644 0 0 ../../usr/src/bin/lcc/cpp/cpp.c
+                tokens.c            ---644 0 0 ../../usr/src/bin/lcc/cpp/tokens.c
+                cpp.h.ORIG          ---644 0 0 ../../usr/src/bin/lcc/cpp/cpp.h.ORIG
+                eval.c              ---644 0 0 ../../usr/src/bin/lcc/cpp/eval.c
+                lex.c               ---644 0 0 ../../usr/src/bin/lcc/cpp/lex.c
+                include.c           ---644 0 0 ../../usr/src/bin/lcc/cpp/include.c
+                $
+            doc                 d--644 0 0 
+                bprint.1            ---644 0 0 ../../usr/src/bin/lcc/doc/bprint.1
+                lcc.1               ---644 0 0 ../../usr/src/bin/lcc/doc/lcc.1
+                install.html        ---644 0 0 ../../usr/src/bin/lcc/doc/install.html
+                $
+            LOG                 ---644 0 0 ../../usr/src/bin/lcc/LOG
+            src                 d--644 0 0 
+                mips.md             ---644 0 0 ../../usr/src/bin/lcc/src/mips.md
+                gen.c               ---644 0 0 ../../usr/src/bin/lcc/src/gen.c
+                config.h.ORIG       ---644 0 0 ../../usr/src/bin/lcc/src/config.h.ORIG
+                x86linux.md         ---644 0 0 ../../usr/src/bin/lcc/src/x86linux.md
+                decl.c              ---644 0 0 ../../usr/src/bin/lcc/src/decl.c
+                input.c             ---644 0 0 ../../usr/src/bin/lcc/src/input.c
+                token.h             ---644 0 0 ../../usr/src/bin/lcc/src/token.h
+                lex.c.ORIG          ---644 0 0 ../../usr/src/bin/lcc/src/lex.c.ORIG
+                expr.c              ---644 0 0 ../../usr/src/bin/lcc/src/expr.c
+                bind.c              ---644 0 0 ../../usr/src/bin/lcc/src/bind.c
+                prof.c              ---644 0 0 ../../usr/src/bin/lcc/src/prof.c
+                types.c             ---644 0 0 ../../usr/src/bin/lcc/src/types.c
+                init.c              ---644 0 0 ../../usr/src/bin/lcc/src/init.c
+                output.c            ---644 0 0 ../../usr/src/bin/lcc/src/output.c
+                profio.c            ---644 0 0 ../../usr/src/bin/lcc/src/profio.c
+                stmt.c              ---644 0 0 ../../usr/src/bin/lcc/src/stmt.c
+                event.c             ---644 0 0 ../../usr/src/bin/lcc/src/event.c
+                dag.c               ---644 0 0 ../../usr/src/bin/lcc/src/dag.c
+                alloc.c             ---644 0 0 ../../usr/src/bin/lcc/src/alloc.c
+                stab.c              ---644 0 0 ../../usr/src/bin/lcc/src/stab.c
+                sym.c               ---644 0 0 ../../usr/src/bin/lcc/src/sym.c
+                main.c              ---644 0 0 ../../usr/src/bin/lcc/src/main.c
+                null.c              ---644 0 0 ../../usr/src/bin/lcc/src/null.c
+                c.h                 ---644 0 0 ../../usr/src/bin/lcc/src/c.h
+                bytecode.c          ---644 0 0 ../../usr/src/bin/lcc/src/bytecode.c
+                alpha.md            ---644 0 0 ../../usr/src/bin/lcc/src/alpha.md
+                eco32.md            ---644 0 0 ../../usr/src/bin/lcc/src/eco32.md
+                trace.c             ---644 0 0 ../../usr/src/bin/lcc/src/trace.c
+                symbolic.c          ---644 0 0 ../../usr/src/bin/lcc/src/symbolic.c
+                x86.md              ---644 0 0 ../../usr/src/bin/lcc/src/x86.md
+                inits.c             ---644 0 0 ../../usr/src/bin/lcc/src/inits.c
+                enode.c             ---644 0 0 ../../usr/src/bin/lcc/src/enode.c
+                config.h            ---644 0 0 ../../usr/src/bin/lcc/src/config.h
+                error.c             ---644 0 0 ../../usr/src/bin/lcc/src/error.c
+                dagcheck.md         ---644 0 0 ../../usr/src/bin/lcc/src/dagcheck.md
+                string.c            ---644 0 0 ../../usr/src/bin/lcc/src/string.c
+                run.sh              ---644 0 0 ../../usr/src/bin/lcc/src/run.sh
+                tree.c              ---644 0 0 ../../usr/src/bin/lcc/src/tree.c
+                simp.c              ---644 0 0 ../../usr/src/bin/lcc/src/simp.c
+                stab.h              ---644 0 0 ../../usr/src/bin/lcc/src/stab.h
+                stab.c.ORIG         ---644 0 0 ../../usr/src/bin/lcc/src/stab.c.ORIG
+                list.c              ---644 0 0 ../../usr/src/bin/lcc/src/list.c
+                lex.c               ---644 0 0 ../../usr/src/bin/lcc/src/lex.c
+                ops.h               ---644 0 0 ../../usr/src/bin/lcc/src/ops.h
+                sparc.md            ---644 0 0 ../../usr/src/bin/lcc/src/sparc.md
+                $
+            README              ---644 0 0 ../../usr/src/bin/lcc/README
+            etc                 d--644 0 0 
+                osf.c               ---644 0 0 ../../usr/src/bin/lcc/etc/osf.c
+                ops.c               ---644 0 0 ../../usr/src/bin/lcc/etc/ops.c
+                gcc-solaris.c       ---644 0 0 ../../usr/src/bin/lcc/etc/gcc-solaris.c
+                linux.c             ---644 0 0 ../../usr/src/bin/lcc/etc/linux.c
+                solaris.c           ---644 0 0 ../../usr/src/bin/lcc/etc/solaris.c
+                eco32-linux.c       ---644 0 0 ../../usr/src/bin/lcc/etc/eco32-linux.c
+                bprint.c            ---644 0 0 ../../usr/src/bin/lcc/etc/bprint.c
+                eco32-netbsd.c      ---644 0 0 ../../usr/src/bin/lcc/etc/eco32-netbsd.c
+                irix.c              ---644 0 0 ../../usr/src/bin/lcc/etc/irix.c
+                eco32-eos32.c       ---644 0 0 ../../usr/src/bin/lcc/etc/eco32-eos32.c
+                lcc.c               ---644 0 0 ../../usr/src/bin/lcc/etc/lcc.c
+                win32.c             ---644 0 0 ../../usr/src/bin/lcc/etc/win32.c
+                $
+            CPYRIGHT            ---644 0 0 ../../usr/src/bin/lcc/CPYRIGHT
+            $
         $
     games       d--755 0 0
         wump        d--755 0 0
