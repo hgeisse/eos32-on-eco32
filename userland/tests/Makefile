@@ -4,7 +4,7 @@
 
 BUILD = ../../build
 
-DIRS = ux sc lib app
+DIRS = ux sc lib app libm
 
 .PHONY:		all install clean
 

@@ -9,7 +9,11 @@
 #include <limits.h>
 #include <errno.h>
 #include <eos32.h>
+#include <math.h>
 
+/* TODO: bfranken remove */
+static int printString(char *str, int flags, int width, int prec, FILE *stream);
+static int printUnsigned(unsigned long unum, int base, int flags, int width, int prec, FILE *stream);
 
 /**************************************************************/
 
@@ -248,6 +252,19 @@ void setbuf(FILE *stream, char *buf) {
 #define SIZE_LONG	3		/* 'l' length modifier */
 
 
+static int printFloat(float f, int width, int prec, FILE *stream) {
+  /* bfranken TODO somehow implement this */
+  int num = 0;
+  union {
+    float _f;
+    unsigned int _i;
+  } _x;
+
+  _x._f = f;
+  num += printUnsigned(_x._i, 16, 0, 8, 0, stream);
+  return num;
+}
+
 static int printString(char *str, int flags,
                        int width, int prec, FILE *stream) {
   int length;
@@ -469,6 +486,7 @@ static int doPrintf(FILE *stream, const char *format, va_list ap) {
   char *str;
   signed long snum;
   unsigned long unum;
+  float f;
   int base;
 
   count = 0;
@@ -627,6 +645,11 @@ static int doPrintf(FILE *stream, const char *format, va_list ap) {
         flags |= FLAG_ALT | FLAG_ZERO;
         unum = (unsigned long) va_arg(ap, void *);
         count += printUnsigned(unum, 16, flags, 10, 0, stream);
+        break;
+      case 'f':
+        /* TODO: print floating point value */
+        f = va_arg(ap, float);
+        count += printFloat(f, width, prec, stream);
         break;
       default:
         /* unknown conversion type, return error */
