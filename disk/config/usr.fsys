@@ -80,6 +80,136 @@ lib         d--755 0 0
         $
     $
 src         d--755 0 0
+    kernel      d--755 0 0
+        include             d--755 0 0 
+            conf.h              ---755 0 0 ../../usr/src/kernel/include/conf.h
+            systm.h             ---755 0 0 ../../usr/src/kernel/include/systm.h
+            reg.h               ---755 0 0 ../../usr/src/kernel/include/reg.h
+            callo.h             ---755 0 0 ../../usr/src/kernel/include/callo.h
+            map.h               ---755 0 0 ../../usr/src/kernel/include/map.h
+            inode.h             ---755 0 0 ../../usr/src/kernel/include/inode.h
+            tty.h               ---755 0 0 ../../usr/src/kernel/include/tty.h
+            user.h              ---755 0 0 ../../usr/src/kernel/include/user.h
+            filsys.h            ---755 0 0 ../../usr/src/kernel/include/filsys.h
+            stat.h              ---755 0 0 ../../usr/src/kernel/include/stat.h
+            stdarg.h            ---755 0 0 ../../usr/src/kernel/include/stdarg.h
+            off.h               ---755 0 0 ../../usr/src/kernel/include/off.h
+            proc.h              ---755 0 0 ../../usr/src/kernel/include/proc.h
+            text.h              ---755 0 0 ../../usr/src/kernel/include/text.h
+            acct.h              ---755 0 0 ../../usr/src/kernel/include/acct.h
+            seg.h               ---755 0 0 ../../usr/src/kernel/include/seg.h
+            blk.h               ---755 0 0 ../../usr/src/kernel/include/blk.h
+            fblk.h              ---755 0 0 ../../usr/src/kernel/include/fblk.h
+            buf.h               ---755 0 0 ../../usr/src/kernel/include/buf.h
+            mount.h             ---755 0 0 ../../usr/src/kernel/include/mount.h
+            file.h              ---755 0 0 ../../usr/src/kernel/include/file.h
+            dir.h               ---755 0 0 ../../usr/src/kernel/include/dir.h
+            ino.h               ---755 0 0 ../../usr/src/kernel/include/ino.h
+            tim.h               ---755 0 0 ../../usr/src/kernel/include/tim.h
+            param.h             ---755 0 0 ../../usr/src/kernel/include/param.h
+            dev.h               ---755 0 0 ../../usr/src/kernel/include/dev.h
+            $
+        src                 d--755 0 0 
+            sys2.h              ---755 0 0 ../../usr/src/kernel/src/sys2.h
+            serdsk.c            ---755 0 0 ../../usr/src/kernel/src/serdsk.c
+            start.s             ---755 0 0 ../../usr/src/kernel/src/start.s
+            serdsk.h            ---755 0 0 ../../usr/src/kernel/src/serdsk.h
+            console.h           ---755 0 0 ../../usr/src/kernel/src/console.h
+            display.h           ---755 0 0 ../../usr/src/kernel/src/display.h
+            trap.c              ---755 0 0 ../../usr/src/kernel/src/trap.c
+            acc.h               ---755 0 0 ../../usr/src/kernel/src/acc.h
+            c.c                 ---755 0 0 ../../usr/src/kernel/src/c.c
+            sys3.h              ---755 0 0 ../../usr/src/kernel/src/sys3.h
+            slp.h               ---755 0 0 ../../usr/src/kernel/src/slp.h
+            mem.h               ---755 0 0 ../../usr/src/kernel/src/mem.h
+            ramdsk.c            ---755 0 0 ../../usr/src/kernel/src/ramdsk.c
+            bio.h               ---755 0 0 ../../usr/src/kernel/src/bio.h
+            sysent.h            ---755 0 0 ../../usr/src/kernel/src/sysent.h
+            iget.c              ---755 0 0 ../../usr/src/kernel/src/iget.c
+            logfile.h           ---755 0 0 ../../usr/src/kernel/src/logfile.h
+            sys4.h              ---755 0 0 ../../usr/src/kernel/src/sys4.h
+            iget.h              ---755 0 0 ../../usr/src/kernel/src/iget.h
+            trm.h               ---755 0 0 ../../usr/src/kernel/src/trm.h
+            txt.h               ---755 0 0 ../../usr/src/kernel/src/txt.h
+            Makefile            ---755 0 0 ../../usr/src/kernel/src/Makefile
+            pipe.h              ---755 0 0 ../../usr/src/kernel/src/pipe.h
+            subr.c              ---755 0 0 ../../usr/src/kernel/src/subr.c
+            display.s           ---755 0 0 ../../usr/src/kernel/src/display.s
+            clock.h             ---755 0 0 ../../usr/src/kernel/src/clock.h
+            syscalls            ---755 0 0 ../../usr/src/kernel/src/syscalls
+            ureg.h              ---755 0 0 ../../usr/src/kernel/src/ureg.h
+            nami.c              ---755 0 0 ../../usr/src/kernel/src/nami.c
+            nami.h              ---755 0 0 ../../usr/src/kernel/src/nami.h
+            rdwri.h             ---755 0 0 ../../usr/src/kernel/src/rdwri.h
+            bio.c               ---755 0 0 ../../usr/src/kernel/src/bio.c
+            slp.c               ---755 0 0 ../../usr/src/kernel/src/slp.c
+            idedsk.h            ---755 0 0 ../../usr/src/kernel/src/idedsk.h
+            trm.c               ---755 0 0 ../../usr/src/kernel/src/trm.c
+            prim.c              ---755 0 0 ../../usr/src/kernel/src/prim.c
+            alloc.c             ---755 0 0 ../../usr/src/kernel/src/alloc.c
+            sys1.h              ---755 0 0 ../../usr/src/kernel/src/sys1.h
+            sdcdsk.h            ---755 0 0 ../../usr/src/kernel/src/sdcdsk.h
+            partab.h            ---755 0 0 ../../usr/src/kernel/src/partab.h
+            machdep.c           ---755 0 0 ../../usr/src/kernel/src/machdep.c
+            malloc.c            ---755 0 0 ../../usr/src/kernel/src/malloc.c
+            sys4.c              ---755 0 0 ../../usr/src/kernel/src/sys4.c
+            rdwri.c             ---755 0 0 ../../usr/src/kernel/src/rdwri.c
+            prim.h              ---755 0 0 ../../usr/src/kernel/src/prim.h
+            pipe.c              ---755 0 0 ../../usr/src/kernel/src/pipe.c
+            sdcdsk.c            ---755 0 0 ../../usr/src/kernel/src/sdcdsk.c
+            main.c              ---755 0 0 ../../usr/src/kernel/src/main.c
+            partab.c            ---755 0 0 ../../usr/src/kernel/src/partab.c
+            txt.c               ---755 0 0 ../../usr/src/kernel/src/txt.c
+            c.h                 ---755 0 0 ../../usr/src/kernel/src/c.h
+            sys1.c              ---755 0 0 ../../usr/src/kernel/src/sys1.c
+            fio.h               ---755 0 0 ../../usr/src/kernel/src/fio.h
+            klib.c              ---755 0 0 ../../usr/src/kernel/src/klib.c
+            tt.h                ---755 0 0 ../../usr/src/kernel/src/tt.h
+            stdalone.lnk        ---755 0 0 ../../usr/src/kernel/src/stdalone.lnk
+            sys.c               ---755 0 0 ../../usr/src/kernel/src/sys.c
+            kbdtbls.s           ---755 0 0 ../../usr/src/kernel/src/kbdtbls.s
+            start.h             ---755 0 0 ../../usr/src/kernel/src/start.h
+            machdep.h           ---755 0 0 ../../usr/src/kernel/src/machdep.h
+            tt.c                ---755 0 0 ../../usr/src/kernel/src/tt.c
+            eos32               ---755 0 0 ../../usr/src/kernel/src/eos32
+            console.c           ---755 0 0 ../../usr/src/kernel/src/console.c
+            xtest.h             ---755 0 0 ../../usr/src/kernel/src/xtest.h
+            sig.h               ---755 0 0 ../../usr/src/kernel/src/sig.h
+            ureg.c              ---755 0 0 ../../usr/src/kernel/src/ureg.c
+            acc.c               ---755 0 0 ../../usr/src/kernel/src/acc.c
+            subr.h              ---755 0 0 ../../usr/src/kernel/src/subr.h
+            alloc.h             ---755 0 0 ../../usr/src/kernel/src/alloc.h
+            keyboard.s          ---755 0 0 ../../usr/src/kernel/src/keyboard.s
+            keyboard.h          ---755 0 0 ../../usr/src/kernel/src/keyboard.h
+            eos32.bin           ---755 0 0 ../../usr/src/kernel/src/eos32.bin
+            mem.c               ---755 0 0 ../../usr/src/kernel/src/mem.c
+            sys3.c              ---755 0 0 ../../usr/src/kernel/src/sys3.c
+            malloc.h            ---755 0 0 ../../usr/src/kernel/src/malloc.h
+            sig.c               ---755 0 0 ../../usr/src/kernel/src/sig.c
+            sys2.c              ---755 0 0 ../../usr/src/kernel/src/sys2.c
+            trap.h              ---755 0 0 ../../usr/src/kernel/src/trap.h
+            idedsk.c            ---755 0 0 ../../usr/src/kernel/src/idedsk.c
+            clock.c             ---755 0 0 ../../usr/src/kernel/src/clock.c
+            sysent.c            ---755 0 0 ../../usr/src/kernel/src/sysent.c
+            icode               d--755 0 0 
+                dump.c              ---755 0 0 ../../usr/src/kernel/src/icode/dump.c
+                dump                ---755 0 0 ../../usr/src/kernel/src/icode/dump
+                Makefile            ---755 0 0 ../../usr/src/kernel/src/icode/Makefile
+                icode.bin           ---755 0 0 ../../usr/src/kernel/src/icode/icode.bin
+                icode.dump          ---755 0 0 ../../usr/src/kernel/src/icode/icode.dump
+                icode.s             ---755 0 0 ../../usr/src/kernel/src/icode/icode.s
+                icode.o             ---755 0 0 ../../usr/src/kernel/src/icode/icode.o
+                default.lnk         ---755 0 0 ../../usr/src/kernel/src/icode/default.lnk
+                icode               ---755 0 0 ../../usr/src/kernel/src/icode/icode
+                $
+            logfile.c           ---755 0 0 ../../usr/src/kernel/src/logfile.c
+            klib.h              ---755 0 0 ../../usr/src/kernel/src/klib.h
+            eos32.map           ---755 0 0 ../../usr/src/kernel/src/eos32.map
+            fio.c               ---755 0 0 ../../usr/src/kernel/src/fio.c
+            sys.h               ---755 0 0 ../../usr/src/kernel/src/sys.h
+            ramdsk.h            ---755 0 0 ../../usr/src/kernel/src/ramdsk.h
+            $
+        $
     bin         d--755 0 0
         tail        d--755 0 0
             Makefile        ---644 0 0 ../../usr/src/bin/tail/Makefile

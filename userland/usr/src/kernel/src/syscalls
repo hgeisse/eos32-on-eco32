@@ -1,0 +1,650 @@
+System Calls
+------------
+
+/*  0 = getadr */
+
+arguments: 1
+    arg1 = object descriptor
+           0: process table base
+           1: root device variable
+           2: swap device variable
+           3: pipe device variable
+
+results:   2
+    res1 = the object's kernel virtual address
+    res2 = the object's size in bytes
+
+--------------------------------------------------
+
+/*  1 = exit */
+
+arguments: 1
+    arg1 = exit status
+
+results:   0
+
+remark:    does not return
+
+--------------------------------------------------
+
+/*  2 = fork */
+
+arguments: 0
+
+results:   2
+    in parent: res1 = pid of child
+               res2 = 0
+    in child:  res1 = 0
+               res2 = pid of parent
+
+remark:    returns twice
+
+--------------------------------------------------
+
+/*  3 = read */
+
+arguments: 3
+    arg1 = file descriptor
+    arg2 = pointer to buffer
+    arg3 = number of bytes
+
+results:   1
+    res1 = number of bytes read
+
+--------------------------------------------------
+
+/*  4 = write */
+
+arguments: 3
+    arg1 = file descriptor
+    arg2 = pointer to buffer
+    arg3 = number of bytes
+
+results:   1
+    res1 = number of bytes written
+
+--------------------------------------------------
+
+/*  5 = open */
+
+arguments: 2
+    arg1 = pointer to path name
+    arg2 = mode (0: read, 1: write, 2: read/write)
+
+results:   1
+    res1 = file descriptor
+
+--------------------------------------------------
+
+/*  6 = close */
+
+arguments: 1
+    arg1 = file descriptor
+
+results:   0
+
+--------------------------------------------------
+
+/*  7 = wait */
+
+arguments: 0
+
+results:   2
+    res1 = pid of terminated child
+    res2 = (exit status << 8) | termination status
+
+--------------------------------------------------
+
+/*  8 = creat */
+
+arguments: 2
+    arg1 = pointer to path name
+    arg2 = mode (ugsrwxrwxrwx)
+
+results:   1
+    res1 = file descriptor
+
+--------------------------------------------------
+
+/*  9 = link */
+
+arguments: 2
+    arg1 = pointer to old path name
+    arg2 = pointer to new path name
+
+results:   0
+
+--------------------------------------------------
+
+/* 10 = unlink */
+
+arguments: 1
+    arg1 = pointer to path name
+
+results:   0
+
+--------------------------------------------------
+
+/* 11 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 12 = chdir */
+
+arguments: 1
+    arg1 = pointer to path name
+
+results:   0
+
+--------------------------------------------------
+
+/* 13 = time */
+
+arguments: 0
+
+results:   1
+    res1 = time in seconds since 1970
+
+--------------------------------------------------
+
+/* 14 = mknod */
+
+arguments: 3
+    arg1 = pointer to path name
+    arg2 = mode (tttugsrwxrwxrwx)
+           ttt = 001  block special file
+                 010  character special file
+                 011  directory file
+                 100  regular file
+    arg3 = device number if special file, else 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 15 = chmod */
+
+arguments: 2
+    arg1 = pointer to path name
+    arg2 = mode (ugsrwxrwxrwx)
+
+results:   0
+
+--------------------------------------------------
+
+/* 16 = chown */
+
+arguments: 3
+    arg1 = pointer to path name
+    arg2 = owner
+    arg3 = group
+
+results:   0
+
+--------------------------------------------------
+
+/* 17 = break */
+
+arguments: 1
+    arg1 = lowest addr not used by the process
+           (gets rounded up to next page boundary)
+
+results:   0
+
+--------------------------------------------------
+
+/* 18 = stat */
+
+arguments: 2
+    arg1 = pointer to path name
+    arg2 = pointer to stat buffer
+
+results:   0
+
+--------------------------------------------------
+
+/* 19 = seek */
+
+arguments: 3
+    arg1 = file descriptor
+    arg2 = offset
+    arg3 = whence (0: start, 1: current, 2: end)
+
+results:   1
+    res1 = resulting location
+
+--------------------------------------------------
+
+/* 20 = getpid */
+
+arguments: 0
+
+results:   2
+    res1 = pid of calling process
+    res2 = pid of parent process
+
+--------------------------------------------------
+
+/* 21 = mount */
+
+arguments: 3
+    arg1 = pointer to path name of special file
+    arg2 = pointer to path name of mount point
+    arg3 = rwflag (0: writing allowed, non-0: read-only)
+
+results:   0
+
+--------------------------------------------------
+
+/* 22 = umount */
+
+arguments: 1
+    arg1 = pointer to path name of special file
+
+results:   0
+
+--------------------------------------------------
+
+/* 23 = setuid */
+
+arguments: 1
+    arg1 = new user id
+
+results:   0
+
+--------------------------------------------------
+
+/* 24 = getuid */
+
+arguments: 0
+
+results:   2
+    res1 = real user id
+    res2 = effective user id
+
+--------------------------------------------------
+
+/* 25 = stime */
+
+arguments: 1
+    arg1 = time in seconds since 1970
+
+results:   0
+
+--------------------------------------------------
+
+/* 26 = ptrace */
+
+arguments: 4
+    arg1 = request (0..9)
+           0: request tracing (used only by child)
+           1: return a word from child's addr space
+           2: return a word from child's addr space
+           3: return a word from child's u-area
+           4: write a word to child's addr space
+           5: write a word to child's addr space
+           6: write a word to child's u-area
+           7: continue execution
+           8: terminate child
+           9: execute a single instruction
+    arg2 = pid of traced child
+    arg3 = addr
+    arg4 = data
+
+results:   1
+    res1 = data
+
+remark:    not yet working
+
+--------------------------------------------------
+
+/* 27 = alarm */
+
+arguments: 1
+    arg1 = number of seconds until alarm goes off
+
+results:   1
+    res1 = number of seconds previously remaining
+
+--------------------------------------------------
+
+/* 28 = fstat */
+
+arguments: 2
+    arg1 = file descriptor
+    arg2 = pointer to stat buffer
+
+results:   0
+
+--------------------------------------------------
+
+/* 29 = pause */
+
+arguments: 0
+
+results:   0
+
+remark:    does not return
+
+--------------------------------------------------
+
+/* 30 = utime */
+
+arguments: 2
+    arg1 = pointer to path name
+    arg2 = pointer to array with two times
+           (last accessed, last updated)
+
+results:   0
+
+--------------------------------------------------
+
+/* 31 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 32 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 33 = access */
+
+arguments: 2
+    arg1 = pointer to path name
+    arg2 = mode (0..7, any combination of rwx)
+
+results:   0
+
+--------------------------------------------------
+
+/* 34 = nice */
+
+arguments: 1
+    arg1 = increment to scheduling priority
+
+results:   0
+
+--------------------------------------------------
+
+/* 35 = ftime */
+
+arguments: 1
+    arg1 = pointer to time buffer
+
+results:   0
+
+--------------------------------------------------
+
+/* 36 = sync */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 37 = kill */
+
+arguments: 2
+    arg1 = pid of process to send signal to
+    arg2 = signal number
+
+results:   0
+
+--------------------------------------------------
+
+/* 38 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 39 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 40 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 41 = dup */
+
+arguments: 3
+    arg1 = old file descriptor
+    arg2 = new file descriptor (or irrelevant)
+    arg3 = "dup2" flag, set if arg2 is present
+
+results:   1
+    res1 = new file descriptor
+
+--------------------------------------------------
+
+/* 42 = pipe */
+
+arguments: 0
+
+results:   2
+    res1 = read file descriptor
+    res2 = write file descriptor
+
+--------------------------------------------------
+
+/* 43 = times */
+
+arguments: 1
+    arg1 = pointer to tbuffer
+
+results:   0
+
+--------------------------------------------------
+
+/* 44 = profil */
+
+arguments: 4
+    arg1 = address of profiling buffer
+    arg2 = size of profiling buffer in bytes
+    arg3 = offset (which is subtracted from the
+           PC before multiplication by arg4)
+    arg4 = scale (unsigned fixed-point fraction
+           with binary point at the left)
+
+results:   0
+
+remark:    not yet working
+
+--------------------------------------------------
+
+/* 45 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 46 = setgid */
+
+arguments: 1
+    arg1 = new group id
+
+results:   0
+
+--------------------------------------------------
+
+/* 47 = getgid */
+
+arguments: 0
+
+results:   2
+    res1 = real group id
+    res2 = effective group id
+
+--------------------------------------------------
+
+/* 48 = signal */
+
+arguments: 3
+    arg1 = signal number
+    arg2 = pointer to new signal handler
+    arg3 = new signal handler's return address
+
+results:   1
+    res1 = pointer to old signal handler
+
+--------------------------------------------------
+
+/* 49 = sigret */
+
+arguments: 0
+
+results:   0
+
+remark:    returns to the interrupted function
+
+--------------------------------------------------
+
+/* 50 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 51 = acct */
+
+arguments: 1
+    arg1 = pointer to accounting file's path name
+           (0 to turn accounting off)
+
+results:   0
+
+--------------------------------------------------
+
+/* 52 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 53 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 54 = ioctl */
+
+arguments: 3
+    arg1 = file descriptor
+    arg2 = request
+    arg3 = pointer to argument structure
+           (this is normally a tty control block)
+
+results:   0
+
+--------------------------------------------------
+
+/* 55 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 56 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 57 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 58 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 59 = exece */
+
+arguments: 3
+    arg1 = pointer to path of executable
+    arg2 = pointer to argument array
+    arg3 = pointer to environment array
+
+results:   0
+
+remark:    does not return, but starts executable
+
+--------------------------------------------------
+
+/* 60 = umask */
+
+arguments: 1
+    arg1 = new mask
+
+results:   1
+    res1 = old mask
+
+--------------------------------------------------
+
+/* 61 = chroot */
+
+arguments: 1
+    arg1 = pointer to path name
+
+results:   0
+
+--------------------------------------------------
+
+/* 62 = not used */
+
+arguments: 0
+
+results:   0
+
+--------------------------------------------------
+
+/* 63 = not used */
+
+arguments: 0
+
+results:   0
