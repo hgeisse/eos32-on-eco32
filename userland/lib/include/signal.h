@@ -6,6 +6,7 @@
 #ifndef _SIGNAL_H_
 #define _SIGNAL_H_
 
+#define NSIG 17 /* taken from v7 */
 
 #define SIGHUP		1	/* hangup [term] */
 #define SIGINT		2	/* interrupt [term] */
