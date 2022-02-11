@@ -8,8 +8,6 @@ static char rcsid[] = "$Id: stab.c,v 1.1 2002/08/28 23:12:46 drh Exp $";
 static char *currentfile;       /* current file name */
 static int ntypes;
 
-extern Interface sparcIR;
-
 char *stabprefix = "L";
 
 extern char *stabprefix;
@@ -202,7 +200,7 @@ void stabblock(int brace, int lev, Symbol *p) {
 	if (brace == '{')
 		while (*p)
 			stabsym(*p++);
-	if (IR == &sparcIR)
+	if (0) /*hack*/
 		print(".stabd 0x%x,0,%d\n", brace == '{' ? N_LBRAC : N_RBRAC, lev);
 	else {
 		int lab = genlabel(1);
@@ -249,7 +247,7 @@ void stabline(Coordinate *cp) {
 		print("%s%d:\n", stabprefix, lab);
 		currentfile = cp->file;
 	}
-	if (IR == &sparcIR)
+	if (0) /*hack*/
 		print(".stabd 0x%x,0,%d\n", N_SLINE, cp->y);
 	else {
 		int lab = genlabel(1);

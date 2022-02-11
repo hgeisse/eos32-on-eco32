@@ -11,17 +11,16 @@ RCCSRCS = src/main.c src/alloc.c src/bind.c src/dag.c src/decl.c \
           src/prof.c src/profio.c src/simp.c src/stab.c src/stmt.c \
           src/string.c src/sym.c src/trace.c src/tree.c src/types.c \
           src/null.c src/symbolic.c src/gen.c src/bytecode.c
-BACKENDS = build/eco32.c
+BACKENDS = build/eco32.c build/dagcheck.c
 LBURGSRCS = lburg/lburg.c lburg/gram.c
 
 all:		mkbuild build/lcc build/cpp build/rcc build/lburg
 
 install:	mkbuild build/lcc build/cpp build/rcc build/lburg
-		mkdir -p $(BUILD)/cmds
-		cp build/lcc $(BUILD)/cmds
-		cp build/cpp $(BUILD)/cmds
-		cp build/rcc $(BUILD)/cmds
-		cp build/lburg $(BUILD)/cmds
+		cp build/lcc /bin
+		cp build/cpp /bin
+		cp build/rcc /bin
+		cp build/lburg /bin
 
 mkbuild:
 		-mkdir ./build 
@@ -60,7 +59,9 @@ build/x86.c:	src/x86.md
 		lburg src/x86.md build/x86.c
 
 lburg/gram.c:	lburg/gram.y
-		bison -o lburg/gram.c lburg/gram.y
+		yacc lburg/gram.y
+		cp lburg/y.tab.c lburg/gram.c
+		rm lburg/y.tab.c
 
 build/lburg:	$(LBURGSRCS)
 		lcc -A -o build/lburg $(LBURGSRCS)
