@@ -54,6 +54,7 @@ long atol(const char *s) {
 
 double strtod (const char* str, char** endptr) {
   /* !!!!! */
+  return 0.0; /*dirty workaround */
   assert(1 == 0);
   return 0.0;
 }
