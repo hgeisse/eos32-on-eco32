@@ -38,6 +38,7 @@ bin       d--755 0 0
           mknod           ---755 0 0 ../../cmds/mknod
           mkpart          ---755 0 0 ../../cmds/mkpart
           mount           ---755 0 0 ../../cmds/mount
+          mv              ---755 0 0 ../../cmds/mv
           ncheck          ---755 0 0 ../../cmds/ncheck
           od              ---755 0 0 ../../cmds/od
           passwd          -u-755 0 0 ../../cmds/passwd

@@ -7,7 +7,7 @@ BUILD = ../../build
 DIRS = ar as cat chgrp chmod chown clri cmp cp date \
        dcheck df dof du echo ed getty grep icheck \
        init joe kill lcc ld lex ln load login ls make mkdir \
-       mkfs mkmboot mknod mkpart mkpboot mount ncheck \
+       mkfs mkmboot mknod mkpart mkpboot mount mv ncheck \
        od passwd ps pwd rm rmdir sh shfs shpart stty \
        su sync touch umount update wc who yacc yes
 
