@@ -81,6 +81,7 @@ lib         d--755 0 0
     $
 src         d--755 0 0
     kernel      d--755 0 0
+        Makefile        ---755 0 0 ../../usr/src/kernel/Makefile
         include             d--755 0 0 
             conf.h              ---755 0 0 ../../usr/src/kernel/include/conf.h
             systm.h             ---755 0 0 ../../usr/src/kernel/include/systm.h

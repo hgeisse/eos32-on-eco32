@@ -1,8 +1,6 @@
 #
 # Makefile for EOS32 kernel
-#
-
-BUILD = ../../build
+# selfhosting
 
 STARTINC = start.h
 STARTSRC = start.s
@@ -34,20 +32,21 @@ MAP = eos32.map
 all:		$(BIN)
 
 install:	$(BIN)
-		mkdir -p $(BUILD)/stdalone
-		cp $(BIN) $(BUILD)/stdalone
-		cp $(MAP) $(BUILD)/stdalone
+		-mkdir ../stdalone
+		cp $(BIN) ../stdalone
+		cp $(MAP) ../stdalone
 
-run:		$(BIN)
-		$(BUILD)/bin/sim -i -c -s 1 -t 0 \
-		  -d $(BUILD)/run/disk.img \
-		  -l $(BIN) -a 0x10000 -o run.log
+# NOTE: there is no ~spoon~ sim
+#run:		$(BIN)
+#		sim -i -c -s 1 -t 0 \
+#		  -d $(BUILD)/run/disk.img \
+#		  -l $(BIN) -a 0x10000 -o run.log
 
 $(BIN):		$(EXE)
-		$(BUILD)/bin/load -p $(EXE) $(BIN)
+		load -p $(EXE) $(BIN)
 
 $(EXE):		$(INC) $(SRC) icode/icode.dump
-		$(BUILD)/bin/lcc -A \
+		lcc -A \
 		  -Wo-nostdinc -Wo-nostdlib \
 		  -Wo-ldscript=stdalone.lnk \
 		  -Wo-ldmap=$(MAP) -o $(EXE) $(SRC)
