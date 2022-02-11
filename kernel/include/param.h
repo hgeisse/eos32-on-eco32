@@ -16,9 +16,9 @@
 #define M	(K * K)
 
 #define MEM_MAX	(128 * K)	/* maximum total memory size (frames) */
-#define MEM_USE	(1 * K)		/* restricted memory usage (frames) */
+#define MEM_USE	(8 * K)		/* restricted memory usage (frames) */
 //#define MEM_USE	(512)		/* restricted memory usage (frames) */
-#define MAXMEM	512		/* max core per process (frames) */
+#define MAXMEM	(1 * K)		/* max core per process (frames) */
 
 #define	NBUF	29		/* size of buffer cache */
 #define	NINODE	200		/* number of in core inodes */
