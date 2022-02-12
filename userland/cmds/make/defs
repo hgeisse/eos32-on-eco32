@@ -4,9 +4,15 @@
 #include <ctype.h>
 #include <time.h>
 #include <eos32.h>
+#include <limits.h>
 
 #define SHELLCOM "/bin/sh"
 typedef long int TIMETYPE;
+
+/* workaround for incomplete limits.h */
+#ifndef PATH_MAX
+#define PATH_MAX 255
+#endif
 
 #ifdef unix
 /*  to install metering, add a statement like */

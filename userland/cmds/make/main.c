@@ -12,6 +12,7 @@ Flags:	'd'  print out debugging comments
 	't'   touch (update time of) files but don't issue command
 	'q'   don't do anything, but check if object is up to date;
 	      returns exit code 0 if up to date, -1 if not
+	'C'	 change dir before processing (GNU like)
 */
 
 struct nameblock *mainname ;
@@ -44,146 +45,155 @@ char funny[128];
 
 int main(int argc, char *argv[])
 {
-register struct nameblock *p;
-int i, j;
-int descset, nfargs;
-TIMETYPE tjunk;
-char c, *s;
-static char onechar[2] = "X";
+    register struct nameblock *p;
+    int i, j;
+    int descset, nfargs;
+    TIMETYPE tjunk;
+    char c, *s;
+    static char onechar[2] = "X";
 
 #ifdef METERFILE
-meter(METERFILE);
+    meter(METERFILE);
 #endif
 
-descset = 0;
+    descset = 0;
 
-funny['\0'] = (META | TERMINAL);
-for(s = "=|^();&<>*?[]:$`'\"\\\n" ; *s ; ++s)
-	funny[*s] |= META;
-for(s = "\n\t :;&>|" ; *s ; ++s)
-	funny[*s] |= TERMINAL;
+    funny['\0'] = (META | TERMINAL);
+    for(s = "=|^();&<>*?[]:$`'\"\\\n" ; *s ; ++s)
+        funny[*s] |= META;
+    for(s = "\n\t :;&>|" ; *s ; ++s)
+        funny[*s] |= TERMINAL;
 
 
-inarglist = 1;
-for(i=1; i<argc; ++i)
-	if(argv[i]!=0 && argv[i][0]!='-' && eqsign(argv[i]))
-		argv[i] = 0;
+    inarglist = 1;
+    for(i=1; i<argc; ++i)
+        if(argv[i]!=0 && argv[i][0]!='-' && eqsign(argv[i]))
+            argv[i] = 0;
 
-setvar("$","$");
-inarglist = 0;
+    setvar("$","$");
+    inarglist = 0;
 
-for(i=1; i<argc; ++i)
-    if(argv[i]!=0 && argv[i][0]=='-')
-	{
-	for(j=1 ; (c=argv[i][j])!='\0' ; ++j)  switch(c)
-		{
-		case 'd':
-			dbgflag = YES;
-			break;
+    for(i=1; i<argc; ++i)
+        if(argv[i]!=0 && argv[i][0]=='-')
+        {
+            for(j=1 ; (c=argv[i][j])!='\0' ; ++j)  switch(c)
+                {
+                case 'd':
+                    dbgflag = YES;
+                    break;
 
-		case 'p':
-			prtrflag = YES;
-			break;
+                case 'p':
+                    prtrflag = YES;
+                    break;
 
-		case 's':
-			silflag = YES;
-			break;
+                case 's':
+                    silflag = YES;
+                    break;
 
-		case 'i':
-			ignerr = YES;
-			break;
+                case 'i':
+                    ignerr = YES;
+                    break;
 
-		case 'S':
-			keepgoing = NO;
-			break;
+                case 'S':
+                    keepgoing = NO;
+                    break;
 
-		case 'k':
-			keepgoing = YES;
-			break;
+                case 'k':
+                    keepgoing = YES;
+                    break;
 
-		case 'n':
-			noexflag = YES;
-			break;
+                case 'n':
+                    noexflag = YES;
+                    break;
 
-		case 'r':
-			noruleflag = YES;
-			break;
+                case 'r':
+                    noruleflag = YES;
+                    break;
 
-		case 't':
-			touchflag = YES;
-			break;
+                case 't':
+                    touchflag = YES;
+                    break;
 
-		case 'q':
-			questflag = YES;
-			break;
+                case 'q':
+                    questflag = YES;
+                    break;
 
-		case 'f':
-			if(i >= argc-1)
-			  fatal("No description argument after -f flag");
-			if( rddescf(argv[i+1]) )
-				fatal1("Cannot open %s", argv[i+1]);
-			argv[i+1] = 0;
-			++descset;
-			break;
+                case 'f':
+                    if(i >= argc-1)
+                        fatal("No description argument after -f flag");
+                    if( rddescf(argv[i+1]) )
+                        fatal1("Cannot open %s", argv[i+1]);
+                    argv[i+1] = 0;
+                    ++descset;
+                    break;
 
-		default:
-			onechar[0] = c;	/* to make lint happy */
-			fatal1("Unknown flag argument %s", onechar);
-		}
+                case 'C':
+                    if(i >= argc-1)
+                        fatal("No description argument after -C flag");
+                    if( chdir(argv[i+1]) < 0 )
+                        fatal1("Cannot open %s", argv[i+1]);
+                    argv[i+1] = 0;
+                    break;
 
-	argv[i] = 0;
-	}
+                default:
+                    onechar[0] = c;	/* to make lint happy */
+                    fatal1("Unknown flag argument %s", onechar);
+                }
 
-if( !descset )
+            argv[i] = 0;
+        }
+
+
+        if( !descset )
 #ifdef unix
-	if( rddescf("makefile") )  rddescf("Makefile");
+            if( rddescf("makefile") )  rddescf("Makefile");
 #endif
 #ifdef gcos
-	rddescf("makefile");
+    rddescf("makefile");
 #endif
 
-if(prtrflag) printdesc(NO);
+    if(prtrflag) printdesc(NO);
 
-if( srchname(".IGNORE") ) ++ignerr;
-if( srchname(".SILENT") ) silflag = 1;
-if(p=srchname(".SUFFIXES")) sufflist = p->linep;
-if( !sufflist ) fprintf(stderr,"No suffix list.\n");
+    if( srchname(".IGNORE") ) ++ignerr;
+    if( srchname(".SILENT") ) silflag = 1;
+    if(p=srchname(".SUFFIXES")) sufflist = p->linep;
+    if( !sufflist ) fprintf(stderr,"No suffix list.\n");
 
 #ifdef unix
-sigivalue = (int) signal(SIGINT, SIG_IGN) & 01;
-sigqvalue = (int) signal(SIGQUIT, SIG_IGN) & 01;
-enbint(intrupt);
+    sigivalue = (int) signal(SIGINT, SIG_IGN) & 01;
+    sigqvalue = (int) signal(SIGQUIT, SIG_IGN) & 01;
+    enbint(intrupt);
 #endif
 
-nfargs = 0;
+    nfargs = 0;
 
-for(i=1; i<argc; ++i)
-	if((s=argv[i]) != 0)
-		{
-		if((p=srchname(s)) == 0)
-			{
-			p = makename(s);
-			}
-		++nfargs;
-		doname(p, 0, &tjunk);
-		if(dbgflag) printdesc(YES);
-		}
+    for(i=1; i<argc; ++i)
+        if((s=argv[i]) != 0)
+        {
+            if((p=srchname(s)) == 0)
+            {
+                p = makename(s);
+            }
+            ++nfargs;
+            doname(p, 0, &tjunk);
+            if(dbgflag) printdesc(YES);
+        }
 
-/*
-If no file arguments have been encountered, make the first
-name encountered that doesn't start with a dot
-*/
+    /*
+    If no file arguments have been encountered, make the first
+    name encountered that doesn't start with a dot
+    */
 
-if(nfargs == 0)
-	if(mainname == 0)
-		fatal("No arguments or description file");
-	else	{
-		doname(mainname, 0, &tjunk);
-		if(dbgflag) printdesc(YES);
-		}
+    if(nfargs == 0)
+        if(mainname == 0)
+            fatal("No arguments or description file");
+        else	{
+            doname(mainname, 0, &tjunk);
+            if(dbgflag) printdesc(YES);
+        }
 
-exit(0);
-return 0;
+    exit(0);
+    return 0;
 }
 
 
@@ -191,19 +201,19 @@ return 0;
 #ifdef unix
 void intrupt(int signum)
 {
-char *p;
+    char *p;
 
-if(okdel && !noexflag && !touchflag &&
-	(p = varptr("@")->varval) && exists(p)>0 && !isprecious(p) )
-		{
-		fprintf(stderr, "\n***  %s removed.", p);
-		unlink(p);
-		}
+    if(okdel && !noexflag && !touchflag &&
+            (p = varptr("@")->varval) && exists(p)>0 && !isprecious(p) )
+    {
+        fprintf(stderr, "\n***  %s removed.", p);
+        unlink(p);
+    }
 
-if(junkname[0])
-	unlink(junkname);
-fprintf(stderr, "\n");
-exit(2);
+    if(junkname[0])
+        unlink(junkname);
+    fprintf(stderr, "\n");
+    exit(2);
 }
 
 
@@ -211,26 +221,26 @@ exit(2);
 
 int isprecious(char *p)
 {
-register struct lineblock *lp;
-register struct depblock *dp;
-register struct nameblock *np;
+    register struct lineblock *lp;
+    register struct depblock *dp;
+    register struct nameblock *np;
 
-if(np = srchname(".PRECIOUS"))
-	for(lp = np->linep ; lp ; lp = lp->nxtlineblock)
-		for(dp = lp->depp ; dp ; dp = dp->nxtdepblock)
-			if(! unequal(p, dp->depname->namep))
-				return(YES);
+    if(np = srchname(".PRECIOUS"))
+        for(lp = np->linep ; lp ; lp = lp->nxtlineblock)
+            for(dp = lp->depp ; dp ; dp = dp->nxtdepblock)
+                if(! unequal(p, dp->depname->namep))
+                    return(YES);
 
-return(NO);
+    return(NO);
 }
 
 
 void enbint(void (*k)(int signum))
 {
-if(sigivalue == 0)
-	signal(SIGINT,k);
-if(sigqvalue == 0)
-	signal(SIGQUIT,k);
+    if(sigivalue == 0)
+        signal(SIGINT,k);
+    if(sigqvalue == 0)
+        signal(SIGQUIT,k);
 }
 #endif
 
@@ -244,39 +254,40 @@ int firstrd	= 0;
 
 int rddescf(char *descfile)
 {
-FILE * k;
+    FILE * k;
 
-/* read and parse description */
+    /* read and parse description */
 
-if( !firstrd++ )
-	{
-	if( !noruleflag )
-		rdd1( (FILE *) NULL);
+    if( !firstrd++ )
+    {
+        if( !noruleflag )
+            rdd1( (FILE *) NULL);
 
 #ifdef pwb
-		{
-		char *nlog, s[100];
-		nlog = logdir();
-		if ( (k=fopen( concat(nlog,"/makecomm",s), "r")) != NULL)
-			rdd1(k);
-		else if ( (k=fopen( concat(nlog,"/Makecomm",s), "r")) != NULL)
-			rdd1(k);
-	
-		if ( (k=fopen("makecomm", "r")) != NULL)
-			rdd1(k);
-		else if ( (k=fopen("Makecomm", "r")) != NULL)
-			rdd1(k);
-		}
+        {
+            char *nlog, s[100];
+            nlog = logdir();
+            if ( (k=fopen( concat(nlog,"/makecomm",s), "r")) != NULL)
+                rdd1(k);
+            else if ( (k=fopen( concat(nlog,"/Makecomm",s), "r")) != NULL)
+                rdd1(k);
+
+            if ( (k=fopen("makecomm", "r")) != NULL)
+                rdd1(k);
+            else if ( (k=fopen("Makecomm", "r")) != NULL)
+                rdd1(k);
+        }
 #endif
 
-	}
-if(! unequal(descfile, "-"))
-	return( rdd1(stdin) );
+    }
+    if(! unequal(descfile, "-"))
+        return( rdd1(stdin) );
 
-if( (k = fopen(descfile,"r")) != NULL)
-	return( rdd1(k) );
+    if( (k = fopen(descfile,"r")) != NULL)
+        return( rdd1(k) );
+	
 
-return(1);
+    return(1);
 }
 
 
@@ -284,65 +295,65 @@ return(1);
 
 int rdd1(FILE *k)
 {
-fin = k;
-yylineno = 0;
-zznextc = 0;
+    fin = k;
+    yylineno = 0;
+    zznextc = 0;
 
-if( yyparse() )
-	fatal("Description file error");
+    if( yyparse() )
+        fatal("Description file error");
 
-if(fin != NULL)
-	fclose(fin);
+    if(fin != NULL)
+        fclose(fin);
 
-return(0);
+    return(0);
 }
-
+
 void printdesc(int prntflag)
 {
-struct nameblock *p;
-struct depblock *dp;
-struct varblock *vp;
-struct opendir *od;
-struct shblock *sp;
-struct lineblock *lp;
+    struct nameblock *p;
+    struct depblock *dp;
+    struct varblock *vp;
+    struct opendir *od;
+    struct shblock *sp;
+    struct lineblock *lp;
 
 #ifdef unix
-if(prntflag)
-	{
-	printf("Open directories:\n");
-	for(od = firstod ; od ; od = od->nxtopendir)
-		printf("\t%d: %s\n", fileno(od->dirfc), od->dirn);
-	}
+    if(prntflag)
+    {
+        printf("Open directories:\n");
+        for(od = firstod ; od ; od = od->nxtopendir)
+            printf("\t%d: %s\n", fileno(od->dirfc), od->dirn);
+    }
 #endif
 
-if(firstvar != 0) printf("Macros:\n");
-for(vp = firstvar; vp ; vp = vp->nxtvarblock)
-	printf("\t%s = %s\n" , vp->varname , vp->varval);
+    if(firstvar != 0) printf("Macros:\n");
+    for(vp = firstvar; vp ; vp = vp->nxtvarblock)
+        printf("\t%s = %s\n", vp->varname, vp->varval);
 
-for(p = firstname; p; p = p->nxtnameblock)
-	{
-	printf("\n\n%s",p->namep);
-	if(p->linep != 0) printf(":");
-	if(prntflag) printf("  done=%d",p->done);
-	if(p==mainname) printf("  (MAIN NAME)");
-	for(lp = p->linep ; lp ; lp = lp->nxtlineblock)
-		{
-		if( dp = lp->depp )
-			{
-			printf("\n depends on:");
-			for(; dp ; dp = dp->nxtdepblock)
-				if(dp->depname != 0)
-					printf(" %s ", dp->depname->namep);
-			}
-	
-		if(sp = lp->shp)
-			{
-			printf("\n commands:\n");
-			for( ; sp!=0 ; sp = sp->nxtshblock)
-				printf("\t%s\n", sp->shbp);
-			}
-		}
-	}
-printf("\n");
-fflush(stdout);
+    for(p = firstname; p; p = p->nxtnameblock)
+    {
+        printf("\n\n%s",p->namep);
+        if(p->linep != 0) printf(":");
+        if(prntflag) printf("  done=%d",p->done);
+        if(p==mainname) printf("  (MAIN NAME)");
+        for(lp = p->linep ; lp ; lp = lp->nxtlineblock)
+        {
+            if( dp = lp->depp )
+            {
+                printf("\n depends on:");
+                for(; dp ; dp = dp->nxtdepblock)
+                    if(dp->depname != 0)
+                        printf(" %s ", dp->depname->namep);
+            }
+
+            if(sp = lp->shp)
+            {
+                printf("\n commands:\n");
+                for( ; sp!=0 ; sp = sp->nxtshblock)
+                    printf("\t%s\n", sp->shbp);
+            }
+        }
+    }
+    printf("\n");
+    fflush(stdout);
 }
