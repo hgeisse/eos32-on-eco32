@@ -14,8 +14,6 @@
 %type <ynameblock> NAME namelist
 %type <ydepblock> deplist dlist
 
-
-
 %{
 struct depblock *pp;
 FSTATIC struct shblock *prevshp;
@@ -75,8 +73,8 @@ comline:  START
 	| error
 	;
 
-namelist: NAME { lefts[0] = $1; nlefts = 1; }
-	| namelist NAME { lefts[nlefts++] = $2;
+namelist: NAME	{ lefts[0] = $1; nlefts = 1; }
+	| namelist NAME	{ lefts[nlefts++] = $2;
 	    	if(nlefts>NLEFTS) fatal("Too many lefts"); }
 	;
 
@@ -90,7 +88,7 @@ deplist:
 	;
 
 dlist:  sepchar	{ prevdep = 0;  $$ = 0; }
-	| dlist NAME {
+	| dlist NAME	{
 			  pp = ALLOC(depblock);
 			  pp->nxtdepblock = NULL;
 			  pp->depname = $2;
@@ -104,7 +102,7 @@ sepchar:  COLON 	{ sepc = ALLDEPS; }
 	| DOUBLECOLON	{ sepc = SOMEDEPS; }
 	;
 
-shellist:	 {$$ = 0; }
+shellist:	{$$ = 0; }
 	| shlist { $$ = $1; }
 	;
 
@@ -116,7 +114,7 @@ shlist:	SHELLINE   { $$ = $1;  prevshp = $1; }
 	;
 
 %%
-
+
 char *zznextc;	/* zero if need another line; otherwise points to next char */
 int yylineno;
 extern FILE * fin;

@@ -204,6 +204,20 @@ src         d--755 0 0
             $
         $
     bin         d--755 0 0
+        make        d--755 0 0
+        	doname.c            ---644 0 0 ../../usr/src/bin/make/doname.c
+            Makefile            ---644 0 0 ../../usr/src/bin/make/Makefile
+            ar.h                ---644 0 0 ../../usr/src/bin/make/ar.h
+            ident.c             ---644 0 0 ../../usr/src/bin/make/ident.c
+            dosys.c             ---644 0 0 ../../usr/src/bin/make/dosys.c
+            files.c             ---644 0 0 ../../usr/src/bin/make/files.c
+            main.c              ---644 0 0 ../../usr/src/bin/make/main.c
+            yacc.acts           ---644 0 0 ../../usr/src/bin/make/yacc.acts
+            misc.c              ---644 0 0 ../../usr/src/bin/make/misc.c
+            defs                ---644 0 0 ../../usr/src/bin/make/defs
+            a.out.h             ---644 0 0 ../../usr/src/bin/make/a.out.h
+            gram.y              ---644 0 0 ../../usr/src/bin/make/gram.y
+            $
         tail        d--755 0 0
             Makefile        ---644 0 0 ../../usr/src/bin/tail/Makefile
             tail.c          ---644 0 0 ../../usr/src/bin/tail/tail.c
