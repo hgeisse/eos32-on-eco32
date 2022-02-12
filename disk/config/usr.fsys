@@ -172,7 +172,6 @@ src         d--755 0 0
             start.h             ---755 0 0 ../../usr/src/kernel/src/start.h
             machdep.h           ---755 0 0 ../../usr/src/kernel/src/machdep.h
             tt.c                ---755 0 0 ../../usr/src/kernel/src/tt.c
-            eos32               ---755 0 0 ../../usr/src/kernel/src/eos32
             console.c           ---755 0 0 ../../usr/src/kernel/src/console.c
             xtest.h             ---755 0 0 ../../usr/src/kernel/src/xtest.h
             sig.h               ---755 0 0 ../../usr/src/kernel/src/sig.h
@@ -182,7 +181,6 @@ src         d--755 0 0
             alloc.h             ---755 0 0 ../../usr/src/kernel/src/alloc.h
             keyboard.s          ---755 0 0 ../../usr/src/kernel/src/keyboard.s
             keyboard.h          ---755 0 0 ../../usr/src/kernel/src/keyboard.h
-            eos32.bin           ---755 0 0 ../../usr/src/kernel/src/eos32.bin
             mem.c               ---755 0 0 ../../usr/src/kernel/src/mem.c
             sys3.c              ---755 0 0 ../../usr/src/kernel/src/sys3.c
             malloc.h            ---755 0 0 ../../usr/src/kernel/src/malloc.h
@@ -194,18 +192,12 @@ src         d--755 0 0
             sysent.c            ---755 0 0 ../../usr/src/kernel/src/sysent.c
             icode               d--755 0 0 
                 dump.c              ---755 0 0 ../../usr/src/kernel/src/icode/dump.c
-                dump                ---755 0 0 ../../usr/src/kernel/src/icode/dump
                 Makefile            ---755 0 0 ../../usr/src/kernel/src/icode/Makefile
-                icode.bin           ---755 0 0 ../../usr/src/kernel/src/icode/icode.bin
-                icode.dump          ---755 0 0 ../../usr/src/kernel/src/icode/icode.dump
                 icode.s             ---755 0 0 ../../usr/src/kernel/src/icode/icode.s
-                icode.o             ---755 0 0 ../../usr/src/kernel/src/icode/icode.o
                 default.lnk         ---755 0 0 ../../usr/src/kernel/src/icode/default.lnk
-                icode               ---755 0 0 ../../usr/src/kernel/src/icode/icode
                 $
             logfile.c           ---755 0 0 ../../usr/src/kernel/src/logfile.c
             klib.h              ---755 0 0 ../../usr/src/kernel/src/klib.h
-            eos32.map           ---755 0 0 ../../usr/src/kernel/src/eos32.map
             fio.c               ---755 0 0 ../../usr/src/kernel/src/fio.c
             sys.h               ---755 0 0 ../../usr/src/kernel/src/sys.h
             ramdsk.h            ---755 0 0 ../../usr/src/kernel/src/ramdsk.h

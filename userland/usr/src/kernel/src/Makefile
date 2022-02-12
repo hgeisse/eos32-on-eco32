@@ -52,8 +52,8 @@ $(EXE):		$(INC) $(SRC) icode/icode.dump
 		  -Wo-ldmap=$(MAP) -o $(EXE) $(SRC)
 
 icode/icode.dump:
-		$(MAKE) -C icode all
+		make -C icode all
 
 clean:
-		$(MAKE) -C icode clean
+		make -C icode clean
 		rm -f *~ $(EXE) $(BIN) $(MAP) run.log
