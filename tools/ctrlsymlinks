@@ -197,7 +197,9 @@ def main():
                 print("{:20}".format(file), end="")
                 os.unlink(arg_slavePath + file)
                 print("COPY removed\t", end="")
-                os.symlink(relBasePath + file, arg_slavePath + file)
+                os.symlink(
+                    path.relpath(path=arg_masterPath + file, start=path.dirname(arg_slavePath + file)), 
+                    arg_slavePath + file)
                 print("LINK created")
                 counter += 1
         print(f"\n\t{color.BOLD}{counter} files processed{color.ENDC}\n")
