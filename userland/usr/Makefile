@@ -13,5 +13,5 @@ BUILD = ../../build
 .PHONY:		install
 
 install:
-		cp -r . $(BUILD)/usr
+		cp -r --dereference . $(BUILD)/usr
 		rm $(BUILD)/usr/Makefile
