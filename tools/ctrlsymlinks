@@ -1,0 +1,221 @@
+#!/usr/bin/env python 
+from os import path
+import os
+import filecmp
+import getopt
+import sys
+import shutil
+
+class color:
+    BLUE = '\033[94m'
+    CYAN = '\033[96m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    ENDC = '\033[0m'
+
+HELP = f"""{color.BOLD}OVERVIEW{color.ENDC}
+
+    Welcome! This tool will replace all identical files in a slave 
+    directory with a relative symbolic link to the corresponding 
+    file in the master directory.
+    It was created to simplify the porting of various userland 
+    commands from cross-compiled to self-hosted WITHOUT
+    having to make each change on a source file at more than one place.
+
+    This tool is part of the EOS32 on ECO32 project.
+
+{color.BOLD}SYNOPSIS{color.ENDC}
+
+    ctrlsymlinks --master path --slave path --link|--copy [--quiet] 
+
+{color.BOLD}DESCRIPTION{color.ENDC}
+
+    {color.BOLD}--master, -m{color.ENDC} <path>
+        path to the master directory, which will be used as reference
+        this should be a path like 'eos32-on-eco32/userland/cmds/...'
+
+    {color.BOLD}--slave, -s{color.ENDC} <path>
+        path to the slave directory, which will be modified
+        this should be a path like 'eos32-on-eco32/userland/usr/src/...'
+
+    {color.BOLD}--link, -l{color.ENDC}
+        replace each equal file in the slave directory with a relative symbolic 
+        link to the corresponding file in the master directory
+        {color.UNDERLINE}NOTE:{color.ENDC} use this after writing a port from crosscompiling to selfhosting!
+
+    {color.BOLD}--copy, -c{color.ENDC}
+        replace each link in the slave directory to the master directory
+        with a copy of the master file
+        {color.UNDERLINE}NOTE:{color.ENDC} this is the opposite of --link. use like a working mode!
+
+    {color.BOLD}--examine, -e{color.ENDC}
+        just show the current state of the master/slave relation
+        if you don't supply --link or --copy, --examine is assumed
+
+    {color.BOLD}--quiet, -q{color.ENDC}
+        by default, the user must confirm what will be done
+        this switch suppresses the confirmation dialogue, 
+        which will be helpful if this tool is ever used in a script
+    """
+
+
+#defaults
+arg_masterPath = "" #"/home/sebastian/Entwicklung/eos/eos32-on-eco32/userland/cmds/make/"
+arg_slavePath = ""  #"/home/sebastian/Entwicklung/eos/eos32-on-eco32/userland/usr/src/bin/make/"
+arg_action = "examine"
+arg_quiet = False
+
+def parseArgs():
+    global arg_masterPath, arg_slavePath, arg_action, arg_quiet
+    try:
+        options, arguments = getopt.getopt(
+            sys.argv[1:],                      # Arguments
+            'hm:s:lceq', #short
+            ["help", "master=", "slave=", "binary=", "link", "copy", "examine", "quiet"]) #long
+    except getopt.GetoptError as err:
+        print(f"{color.RED}ARGUMENT ERROR{color.ENDC}")
+        print("\t", err)
+        print("\t", "see --help for more information")
+        sys.exit(1)
+
+    if not options or arguments:
+        print(f"{color.RED}ARGUMENT ERROR{color.ENDC}")
+        print("\t", "no arguments specified")
+        print("\t", "see --help for more information")
+        sys.exit(1)
+
+    # real parsing
+    isset_master =  False
+    isset_slave =   False
+    isset_action =  False
+    for opt, arg in options:
+        if opt in ("-h", "--help"):
+            print(HELP)
+            sys.exit(0)
+        if opt in ("-m", "--master"):
+            arg_masterPath = arg.rstrip("/") + "/"
+            isset_master = True
+        if opt in ("-s", "--slave"):
+            arg_slavePath = arg.rstrip("/") + "/"
+            isset_slave = True
+        if opt in ("--binary"): #shortcut for master/slave with binary
+            arg_masterPath = "../userland/cmds/" + arg.rstrip("/") + "/"
+            arg_slavePath = "../userland/usr/src/bin/" + arg.rstrip("/") + "/"
+            isset_master = True
+            isset_slave = True
+        if opt in ("-l", "--link"):
+            arg_action = "link"
+            isset_action = True
+        if opt in ("-c", "--copy"):
+            arg_action = "copy"
+            isset_action = True
+        if opt in ("-e", "--examine"):
+            arg_action = "examine"
+            isset_action = True
+        if opt in ("-q", "--quiet"):
+            arg_quiet = True
+
+    if not (isset_master and isset_slave):
+        print(f"{color.RED}ARGUMENT ERROR{color.ENDC}")
+        print("\t", "some must-have arguments are missing")
+        print("\t", "see --help for more information")
+        sys.exit(1)
+    return
+
+def listDifferent(diff: filecmp.dircmp, subPath = ""):
+    list = []
+    for file in diff.diff_files: #differences
+        list.append(subPath + file)
+    for file in diff.left_only: #just master
+        list.append(subPath + file)
+    for file in diff.right_only: #just slave
+        list.append(subPath + file)
+    for dir in diff.subdirs: #recursion
+        list.extend(listDifferent(diff.subdirs[dir], subPath + dir + "/"))
+    return list
+
+def listEqual(diff: filecmp.dircmp, subPath = ""):
+    list = []
+    for file in diff.same_files: #equal!
+        list.append(subPath + file)
+    for dir in diff.subdirs: #recursion
+        list.extend(listEqual(diff.subdirs[dir], subPath + dir + "/"))
+    return list
+
+def main():
+    global arg_masterPath, arg_slavePath, arg_action, arg_quiet
+    parseArgs()
+    print("")
+    print(color.GREEN + "master path: " + color.ENDC + arg_masterPath)
+    print(color.GREEN + "slave path:  " + color.ENDC + arg_slavePath)
+    print("")
+
+    diff = filecmp.dircmp(arg_masterPath, arg_slavePath)
+    filesDifferent = listDifferent(diff)
+    filesEqual = listEqual(diff)
+
+    print(color.RED + "DIFFERENT FILES" + color.ENDC + " (just for your information)")
+    print("\n".join(filesDifferent))
+    print("")
+    print(color.BLUE + "EQUAL FILES" + color.ENDC + " (our working objects)")
+    for file in filesEqual:
+        print("{:20}".format(file), end="")
+        if path.islink(arg_slavePath + file):
+            print("LINK", "->", os.readlink(arg_slavePath + file))
+        else:
+            print("COPY")
+    print("")
+
+    if arg_action == "examine": #just show the current state. we're done here!
+        print("use --copy to replace all LINK entries with COPY entries")
+        print("use --link to replace all COPY entries with LINK entries")
+        sys.exit(0)
+
+    if not arg_quiet:
+        while True:
+            if arg_action == "link":
+                print("Really replace all files marked with COPY with a LINK? [y/n] ", end="")
+            if arg_action == "copy":
+                print("Really replace all files marked with LINK with a COPY? [y/n] ", end="")
+            confirm = input()
+            if confirm == "y": 
+                print("")
+                break
+            if confirm == "n":
+                print("abort by user!")
+                sys.exit(0)
+
+    if arg_action == "link": #the real action! replace copies with links
+        relBasePath = path.relpath(path=arg_masterPath, start=arg_slavePath) + "/"
+        counter = 0
+        print(f"{color.BOLD}PROGRESS{color.ENDC}")
+        for file in filesEqual:
+            if not path.islink(arg_slavePath + file):
+                print("{:20}".format(file), end="")
+                os.unlink(arg_slavePath + file)
+                print("COPY removed\t", end="")
+                os.symlink(relBasePath + file, arg_slavePath + file)
+                print("LINK created")
+                counter += 1
+        print(f"\n\t{color.BOLD}{counter} files processed{color.ENDC}\n")
+        sys.exit(0)
+    
+    if arg_action == "copy": #undo mode
+        counter = 0
+        print(f"{color.BOLD}PROGRESS{color.ENDC}")
+        for file in filesEqual:
+            if path.islink(arg_slavePath + file):
+                print("{:20}".format(file), end="")
+                os.unlink(arg_slavePath + file)
+                print("LINK removed\t", end="")
+                shutil.copy(arg_masterPath + file, arg_slavePath + file)
+                print("COPY created")
+                counter += 1
+        print(f"\n\t{color.BOLD}{counter} files processed{color.ENDC}\n")
+        sys.exit(0)
+
+if __name__ == "__main__":
+    main()
