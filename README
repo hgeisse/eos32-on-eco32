@@ -20,6 +20,11 @@ the ECO32 project, which is also available here on GitHub:
 
         http://github.com/hgeisse/eco32
 
+NOTE 2a: The ECO32 project is currently switching to a more
+advanced version of the processor. You have to use the "fp"
+branch of the ECO32 project for EOS32 for the time being.
+So please do a "git checkout fp" before proceeding.
+
 NOTE 3: After building ECO32 you can build EOS32-on-ECO32. In
 order to utilize the various tools from the ECO32 project, you
 will be asked to supply a path to the "build" directory of the
