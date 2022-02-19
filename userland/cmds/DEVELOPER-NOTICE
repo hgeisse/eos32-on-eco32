@@ -1,0 +1,41 @@
+IMPORTANT DEVELOPER NOTICE  -  PLEASE READ 
+=======================================================
+
+As the name says, the goal of the selfhosting branch is
+to make EOS32 capable of compiling itself.
+This plan includes various different parts of the operating 
+system. By name, there are: 
+
+- kernel
+- libraries
+- commands (binaries)
+- games 
+
+To have a base for the selfhosting approach, we need
+to put the sources of the above mentioned system parts
+into the target machine's file system. 
+
+It is important to understand, that the source code
+for the cross-compile version of a command slightly
+differs from the self-hosted version.
+In example, there are some build paths in Makefiles which
+are pointing to the cross-compiling environment under 
+Linux, but need to point to something like /bin/... under 
+EOS32. 
+
+Besides that, our goal is to provide the exact same
+binaries from the cross-compiling attempt and from
+the self-hosting attempt. All other behaviour will
+irritate the user to the maximum.
+
+To prevent some accidents like forgetting to change
+BOTH versions of a command if you modify something,
+we LINK (as in symbolic link) equal source files
+under userland/usr/src to their corresponding files
+under userland/cmds. 
+
+To automate and control this, we created a tool
+named 'ctrlsymlinks'. You will find it in the
+project root in a subfolder called 'tools'.
+
+Please don't mess up with this system!

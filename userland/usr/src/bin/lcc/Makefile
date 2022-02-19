@@ -60,8 +60,8 @@ build/x86.c:	src/x86.md
 
 lburg/gram.c:	lburg/gram.y
 		yacc lburg/gram.y
-		cp lburg/y.tab.c lburg/gram.c
-		rm lburg/y.tab.c
+		cp y.tab.c lburg/gram.c
+		rm y.tab.c
 
 build/lburg:	$(LBURGSRCS)
 		lcc -A -o build/lburg $(LBURGSRCS)
