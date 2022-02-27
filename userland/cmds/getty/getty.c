@@ -6,11 +6,18 @@
 #include <stdlib.h>
 #include <signal.h>
 
-#define ERASE	'#'
-#define KILL	'@'
+#define ERASE	'\010'
+#define KILL	'\025'
 
 struct sgttyb tmode;
-struct tchars tchars = { '\177', '\034', '\021', '\023', '\004', '\377' };
+struct tchars tchars = {
+	'\003',			/* interrupt */
+	'\034',			/* quit */
+	'\021',			/* start output */
+	'\023',			/* stop output */
+	'\004',			/* end-of-file */
+	'\377'			/* input delimiter (like nl) */
+};
 
 struct	tab {
 	char	tname;		/* this table name */

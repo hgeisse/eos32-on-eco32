@@ -37,8 +37,8 @@ int main(int argc, char **argv)
 	nice(20);
 	nice(0);
 	gtty(0, &ttyb);
-	ttyb.sg_erase = '#';
-	ttyb.sg_kill = '@';
+	ttyb.sg_erase = '\010';
+	ttyb.sg_kill = '\025';
 	stty(0, &ttyb);
 	for (t=3; t<20; t++)
 		close(t);

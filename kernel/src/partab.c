@@ -4,6 +4,21 @@
 
 #include "partab.h"
 
+/*
+ * Entries in this table are of the form d0000xyz.
+ * If d is set, sending the character to the teletype
+ * needs a delay. This feature is not used any longer.
+ * The xyz bits encode the character type:
+ * 000  ordinary
+ * 001  non-printing
+ * 010  backspace
+ * 011  newline
+ * 100  tab
+ * 101  vertical motion
+ * 110  carriage return
+ * 111  - not used -
+ */
+
 unsigned char partab[] = {
 	0001,0201,0201,0001,0201,0001,0001,0201,
 	0202,0004,0003,0201,0005,0206,0201,0001,
