@@ -7,19 +7,19 @@ BUILD = ../../../build
 CC = $(BUILD)/bin/lcc
 CCFLAGS = -A -I../include/math -I../include
 
-SRCS = sinf.c
-#SRCS = asfloat.c asuint.c \
-#			 copysignf.c \
-#			 fabsf.c s_floorf.c scalbnf.c \
-#			 e_rem_pio2f.c k_rem_pio2f.c \
-#			 k_cosf.c k_sinf.c s_cosf.c s_sinf.c
+SRCS = sin.c cos.c \
+	fabs.c floor.c \
+	scalbn.c \
+	rem_pio2.c copysign.c
 
-OBJS = $(patsubst %.c,%.o,$(SRCS))
-#LIB = libm.a
+OBJS = $(patsubst %.c,%.o,$(SRCS)) env.o
 
 .PHONY:		all clean
 
 all:		$(OBJS)
+
+env.o: env.s
+	$(BUILD)/bin/as -o env.o env.s
 
 %.o:		%.c
 		$(BUILD)/bin/lcc $(CCFLAGS) -o $@ -c $<

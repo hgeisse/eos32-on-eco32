@@ -24,9 +24,9 @@
 
 /* prototypes for internal math library functions */
 
-float __kernel_cosf(float x, float y);
-float __kernel_sinf(float x, float y, int iy);
-int __ieee754_rem_pio2f(float x, float *y);
-int __kernel_rem_pio2f(float *x, float *y, int e0, int nx, int prec, const int *ipio2);
+float __kernel_cos(float x, float y);
+float __kernel_sin(float x, float y, int iy);
+int __ieee754_rem_pio2(float x, float *y);
+int __kernel_rem_pio2(float *x, float *y, int e0, int nx, int prec, const int *ipio2);
 
 #endif /* __LIBM_H_ */

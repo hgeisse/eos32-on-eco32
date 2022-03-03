@@ -1,33 +1,42 @@
 #
-# Makefile for EOS32 library tests
+# Makefile for EOS32 math library tests
 #
 
 CC=../../../build/bin/lcc
 BUILD=../../../build
-#SRCS = expf.c expm1f.c logf.c log10f.c rintf.c \
-#			 scalbf.c scalblnf.c scalbnf.c sinf.c cosf.c \
-#			 tanf.c sqrtf.c asinf.c fabsf.c acosf.c atanf.c atan2f.c \
-#			 sinhf.c coshf.c tanhf.c powf.c
+
+SRCS=sin.c foo.c
+
 BINS=$(patsubst %.c,%,$(SRCS))
 
-SRCS=sinf.c
+DIRS=common
+INCLUDES=-I$(BUILD)/include/ -I./common/ -I./
 
-INCLUDES=-I$(BUILD)/include/
-#INCLUDES=-I../../../lib/include/ -I../../../lib/include/math/ -I../common/ -I../
+.PHONY: all dirs install installdirs clean cleandirs
 
-.PHONY: all install clean
+all: dirs $(BINS)
 
-all: $(BINS)
+sin: sin.c
+	$(CC) $(INCLUDES) -o sin sin.c ./common/mtest.o -lm
 
-#copysignf.o: copysignf.c
-#	$(CC) $(INCLUDES) -o copysignf.o -c copysignf.c
-
-sinf: sinf.c
-	$(CC) $(INCLUDES) -o sinf sinf.c -lm
-
-install:	$(BINS)
+install:	installdirs $(BINS)
 		mkdir -p $(BUILD)/tests/libm
 		cp $(BINS) $(BUILD)/tests/libm
 
-clean:
+dirs:
+	for i in $(DIRS) ; do \
+		$(MAKE) -C $$i all ; \
+	done
+
+installdirs:
+	for i in $(DIRS) ; do \
+		$(MAKE) -C $$i install ; \
+	done
+
+cleandirs:
+	for i in $(DIRS) ; do \
+		$(MAKE) -C $$i clean ; \
+	done
+
+clean: cleandirs
 	rm -f $(BINS) 

@@ -167,7 +167,7 @@ tst       d--755 0 0
                     time            ---755 0 0 ../../tests/lib/time
                     $
           libm      d--755 0 0
-                    sinf            ---755 0 0 ../../tests/libm/sinf
+                    sin            ---755 0 0 ../../tests/libm/sin
                     $
           sc        d--755 0 0
                     sc00            ---755 0 0 ../../tests/sc/sc00
