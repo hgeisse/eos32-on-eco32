@@ -5,19 +5,23 @@
 CC=../../../build/bin/lcc
 BUILD=../../../build
 
-SRCS=sin.c foo.c
+SRCS=cos.c sin.c
 
 BINS=$(patsubst %.c,%,$(SRCS))
 
 DIRS=common
 INCLUDES=-I$(BUILD)/include/ -I./common/ -I./
+LIBS=./common/mtest.o -lm
 
 .PHONY: all dirs install installdirs clean cleandirs
 
 all: dirs $(BINS)
 
 sin: sin.c
-	$(CC) $(INCLUDES) -o sin sin.c ./common/mtest.o -lm
+	$(CC) $(INCLUDES) -o sin sin.c $(LIBS)
+
+cos: cos.c
+	$(CC) $(INCLUDES) -o cos cos.c $(LIBS)
 
 install:	installdirs $(BINS)
 		mkdir -p $(BUILD)/tests/libm
