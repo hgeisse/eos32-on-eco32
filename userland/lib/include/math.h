@@ -16,6 +16,11 @@
 #define FE_UNDERFLOW 0x0020
 #define FE_INEXACT   0x0010
 
+#define FE_TONEARAEST 0x0000
+#define FE_TOWARDZERO 0x0001
+#define FE_DOWNWARD   0x0002
+#define FE_UPWARD     0x0003
+
 
 static unsigned __FLOAT_BITS(float __f)
 {
