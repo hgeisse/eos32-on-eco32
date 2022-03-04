@@ -5,7 +5,7 @@
 CC=../../../build/bin/lcc
 BUILD=../../../build
 
-SRCS=cos.c sin.c
+SRCS=cos.c sin.c tan.c
 
 BINS=$(patsubst %.c,%,$(SRCS))
 
@@ -17,11 +17,14 @@ LIBS=./common/mtest.o -lm
 
 all: dirs $(BINS)
 
-sin: sin.c
-	$(CC) $(INCLUDES) -o sin sin.c $(LIBS)
+# sin: sin.c
+# 	$(CC) $(INCLUDES) -o sin sin.c $(LIBS)
+# 
+# cos: cos.c
+# 	$(CC) $(INCLUDES) -o cos cos.c $(LIBS)
 
-cos: cos.c
-	$(CC) $(INCLUDES) -o cos cos.c $(LIBS)
+%:	%.c
+	$(CC) $(INCLUDES) -o $@ $< $(LIBS)
 
 install:	installdirs $(BINS)
 		mkdir -p $(BUILD)/tests/libm

@@ -41,5 +41,5 @@ float fabs(float x);
 float floor(float x);
 float sin(float x);
 float scalbn(float x, int n);
-
+float tan(float x);
 #endif /* _MATH_H_ */
