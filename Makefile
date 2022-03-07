@@ -11,6 +11,8 @@ all:		clean-dirs
 		for i in $(DIRS) ; do \
 		  $(MAKE) -C $$i install ; \
 		done
+		mkdir -p $(BUILD)/home
+		cp -rp home/* $(BUILD)/home
 
 clean-dirs:	build-link
 		rm -rf $(BUILD)/include/*
@@ -19,9 +21,11 @@ clean-dirs:	build-link
 build-link:
 		./make-link $(BUILD)
 
-clean:
+mostly-clean:
 		for i in $(DIRS) ; do \
 		  $(MAKE) -C $$i clean ; \
 		done
-		rm -f build
 		rm -f *~
+
+clean:		mostly-clean
+		rm -f build

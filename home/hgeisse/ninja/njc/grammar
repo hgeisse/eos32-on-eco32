@@ -1,0 +1,170 @@
+program			: glob_dec_list
+			;
+
+glob_dec_list		: /* empty */
+			| glob_dec glob_dec_list
+			;
+
+glob_dec		: type_dec
+			| gvar_dec
+			| func_dec
+			;
+
+void			: VOID
+			;
+
+type			: IDENT
+			| IDENT LBRACK RBRACK more_dims
+			| RECORD LCURL memb_dec_list RCURL
+			;
+
+more_dims		: /* empty */
+			| LBRACK RBRACK more_dims
+			;
+
+memb_dec_list		: /* empty */
+			| memb_dec memb_dec_list
+			;
+
+memb_dec		: type IDENT SEMIC
+			;
+
+type_dec		: TYPE IDENT ASGN type SEMIC
+			;
+
+gvar_dec		: GLOBAL type IDENT SEMIC
+			;
+
+func_dec		: void IDENT LPAREN par_dec_list RPAREN
+			  LCURL lvar_dec_list stm_list RCURL
+			| type IDENT LPAREN par_dec_list RPAREN
+			  LCURL lvar_dec_list stm_list RCURL
+			;
+
+par_dec_list		: /* empty */
+			| non_empty_par_dec_list
+			;
+
+non_empty_par_dec_list	: par_dec
+			| par_dec COMMA non_empty_par_dec_list
+			;
+
+par_dec			: type IDENT
+			;
+
+lvar_dec_list		: /* empty */
+			| lvar_dec lvar_dec_list
+			;
+
+lvar_dec		: LOCAL type IDENT SEMIC
+			;
+
+stm_list		: /* empty */
+			| stm stm_list
+			;
+
+stm			: empty_stm
+			| compound_stm
+			| assign_stm
+			| if_stm
+			| while_stm
+			| do_stm
+			| break_stm
+			| call_stm
+			| return_stm
+			;
+
+empty_stm		: SEMIC
+			;
+
+compound_stm		: LCURL stm_list RCURL
+			;
+
+assign_stm		: var ASGN exp SEMIC
+			;
+
+if_stm			: IF LPAREN exp RPAREN stm
+			| IF LPAREN exp RPAREN stm ELSE stm
+			;
+
+while_stm		: WHILE LPAREN exp RPAREN stm
+			;
+
+do_stm			: DO stm WHILE LPAREN exp RPAREN SEMIC
+			;
+
+break_stm		: BREAK SEMIC
+			;
+
+call_stm		: IDENT LPAREN arg_list RPAREN SEMIC
+			;
+
+return_stm		: RETURN SEMIC
+			| RETURN exp SEMIC
+			;
+
+exp			: or_exp
+			;
+
+or_exp			: and_exp
+			| or_exp LOGOR and_exp
+			;
+
+and_exp			: rel_exp
+			| and_exp LOGAND rel_exp
+			;
+
+rel_exp			: add_exp
+			| add_exp EQ add_exp
+			| add_exp NE add_exp
+			| add_exp LT add_exp
+			| add_exp LE add_exp
+			| add_exp GT add_exp
+			| add_exp GE add_exp
+			;
+
+add_exp			: mul_exp
+			| add_exp PLUS mul_exp
+			| add_exp MINUS mul_exp
+			;
+
+mul_exp			: unary_exp
+			| mul_exp STAR unary_exp
+			| mul_exp SLASH unary_exp
+			| mul_exp PERCENT unary_exp
+			;
+
+unary_exp		: primary_exp
+			| PLUS unary_exp
+			| MINUS unary_exp
+			| LOGNOT unary_exp
+			;
+
+primary_exp		: NIL
+			| INTEGERLIT
+			| CHARACTERLIT
+			| BOOLEANLIT
+			| STRINGLIT
+			| NEW LPAREN new_obj_spec RPAREN
+			| SIZEOF LPAREN exp RPAREN
+			| LPAREN exp RPAREN
+			| var
+			| IDENT LPAREN arg_list RPAREN
+			;
+
+new_obj_spec		: IDENT
+			| IDENT LBRACK exp RBRACK more_dims
+			;
+
+var			: IDENT
+			| primary_exp LBRACK exp RBRACK
+			| primary_exp DOT IDENT
+			;
+
+arg_list		: /* empty */
+			| non_empty_arg_list
+			;
+
+non_empty_arg_list	: exp
+			| exp COMMA non_empty_arg_list
+			;

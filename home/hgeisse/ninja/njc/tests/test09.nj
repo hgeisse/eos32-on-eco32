@@ -1,0 +1,11 @@
+//
+// function declaration, three parameters, two local variables
+//
+
+void f(Integer a, Boolean b, Integer c) {
+  local Integer d;
+  local Boolean e;
+}
+
+void main() {
+}

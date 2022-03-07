@@ -1,0 +1,27 @@
+//
+// compute the factorial of a number iteratively
+//
+
+void main() {
+  local Integer n;
+  local Integer m;
+  n = readInteger();
+  m = factorial(n);
+  writeInteger(n);
+  writeCharacter('!');
+  writeCharacter(' ');
+  writeCharacter('=');
+  writeCharacter(' ');
+  writeInteger(m);
+  writeCharacter('\n');
+}
+
+Integer factorial(Integer n) {
+  local Integer r;
+  r = 1;
+  while (n > 0) {
+    r = r * n;
+    n = n - 1;
+  }
+  return r;
+}

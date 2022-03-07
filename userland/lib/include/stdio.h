@@ -74,10 +74,10 @@ void setbuf(FILE *stream, char *buf);
  * formatted output
  */
 
-int vfprintf(FILE *stream, const char *format, va_list ap);
-int fprintf(FILE *stream, const char *format, ...);
 int vprintf(const char *format, va_list ap);
 int printf(const char *format, ...);
+int vfprintf(FILE *stream, const char *format, va_list ap);
+int fprintf(FILE *stream, const char *format, ...);
 int vsprintf(char *s, const char *format, va_list ap);
 int sprintf(char *s, const char *format, ...);
 

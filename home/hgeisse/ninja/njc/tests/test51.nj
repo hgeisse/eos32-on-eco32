@@ -1,0 +1,25 @@
+//
+// compute the factorial of a number recursively
+//
+
+void main() {
+  local Integer n;
+  local Integer m;
+  n = readInteger();
+  m = factorial(n);
+  writeInteger(n);
+  writeCharacter('!');
+  writeCharacter(' ');
+  writeCharacter('=');
+  writeCharacter(' ');
+  writeInteger(m);
+  writeCharacter('\n');
+}
+
+Integer factorial(Integer n) {
+  if (n == 0) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}

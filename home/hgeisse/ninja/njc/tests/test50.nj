@@ -1,0 +1,8 @@
+//
+// read and write an integer
+//
+
+void main() {
+  writeInteger(readInteger());
+  writeCharacter('\n');
+}

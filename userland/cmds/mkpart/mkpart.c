@@ -13,11 +13,12 @@
 #define SECTOR_SIZE	512
 #define NPE		(SECTOR_SIZE / sizeof(PartEntry))
 #define DESCR_SIZE	20
+#define PART_MAGIC	0xF5A5F2F9
 
 #define LINE_SIZE	100
 
 
-unsigned char buf[8 * SECTOR_SIZE];
+unsigned char buf[32 * SECTOR_SIZE];
 
 
 typedef struct {
@@ -28,6 +29,17 @@ typedef struct {
 } PartEntry;
 
 PartEntry ptr[NPE];
+
+/*
+ * NOTE: The last entry ptr[NPE - 1] is not used for
+ * any real partition, but holds the magic number which
+ * identifies the ECO32 partitioning scheme. The struct
+ * members 'type' and 'size' must each contain PART_MAGIC,
+ * and 'start' must contain the bitwise complement of it.
+ */
+
+
+/**************************************************************/
 
 
 void error(char *fmt, ...) {
@@ -40,6 +52,9 @@ void error(char *fmt, ...) {
   va_end(ap);
   exit(1);
 }
+
+
+/**************************************************************/
 
 
 void convertNumber(unsigned char *p, unsigned long val) {
@@ -61,6 +76,9 @@ void convertPartitionTable(PartEntry *e, int n) {
     convertNumber(p + 8, e[i].size);
   }
 }
+
+
+/**************************************************************/
 
 
 int parseNumber(char **pc, unsigned long *pi) {
@@ -146,6 +164,9 @@ int parseString(char **pc, char *dst) {
 }
 
 
+/**************************************************************/
+
+
 int main(int argc, char *argv[]) {
   char *diskName;
   char *confName;
@@ -204,10 +225,10 @@ int main(int argc, char *argv[]) {
       fseek(mbootblk, 0, SEEK_END);
       mbootblkSize = ftell(mbootblk);
       fseek(mbootblk, 0, SEEK_SET);
-      if (mbootblkSize > 8 * SECTOR_SIZE) {
-        error("master boot block file '%s' is bigger than 8 sectors", p);
+      if (mbootblkSize > 32 * SECTOR_SIZE) {
+        error("master boot block file '%s' is bigger than 32 sectors", p);
       }
-      for (i = 0; i < 8 * SECTOR_SIZE; i++) {
+      for (i = 0; i < 32 * SECTOR_SIZE; i++) {
         buf[i] = '\0';
       }
       if (fread(buf, 1, mbootblkSize, mbootblk) != mbootblkSize) {
@@ -218,7 +239,7 @@ int main(int argc, char *argv[]) {
       if (dskfd < 0) {
         error("cannot open disk '%s'", diskName);
       }
-      if (write(dskfd, buf, 8 * SECTOR_SIZE) != 8 * SECTOR_SIZE) {
+      if (write(dskfd, buf, 32 * SECTOR_SIZE) != 32 * SECTOR_SIZE) {
         error("cannot write master boot block to disk '%s'", diskName);
       }
       close(dskfd);
@@ -239,7 +260,7 @@ int main(int argc, char *argv[]) {
       error("cannot read partition number in config file '%s', line %d",
             confName, lineNumber);
     }
-    if (partNum >= 16) {
+    if (partNum >= NPE - 1) {
       error("illegal partition number in config file '%s', line %d",
             confName, lineNumber);
     }
@@ -261,7 +282,7 @@ int main(int argc, char *argv[]) {
       error("cannot read start sector in config file '%s', line %d",
             confName, lineNumber);
     }
-    if (partStart < 8) {
+    if (partStart < 32) {
       error("illegal start sector in config file '%s', line %d",
             confName, lineNumber);
     }
@@ -299,7 +320,7 @@ int main(int argc, char *argv[]) {
   /* next, show partition table */
   printf("Partitions:\n");
   printf(" # b type       start      last       size       description\n");
-  for (partNum = 0; partNum < NPE; partNum++) {
+  for (partNum = 0; partNum < NPE - 1; partNum++) {
     if (ptr[partNum].type != 0) {
       partLast = ptr[partNum].start + ptr[partNum].size - 1;
     } else {
@@ -314,6 +335,10 @@ int main(int argc, char *argv[]) {
            ptr[partNum].size,
            ptr[partNum].descr);
   }
+  /* set magic number */
+  ptr[NPE - 1].type = PART_MAGIC;
+  ptr[NPE - 1].start = ~PART_MAGIC;
+  ptr[NPE - 1].size = PART_MAGIC;
   /* finally, write partition table record */
   convertPartitionTable(ptr, NPE);
   dskfd = open(diskName, O_RDWR);

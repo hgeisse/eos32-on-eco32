@@ -1,0 +1,35 @@
+//
+// compute the Collatz sequence for starting numbers 1..32
+//
+
+void main() {
+  local Integer i;
+  i = 1;
+  while (i <= 32) {
+    writeCharacter('n');
+    writeCharacter('(');
+    writeInteger(i);
+    writeCharacter(')');
+    writeCharacter(' ');
+    writeCharacter('=');
+    writeCharacter(' ');
+    collatz(i);
+    writeInteger(steps);
+    writeCharacter('\n');
+    i = i + 1;
+  }
+}
+
+global Integer steps;
+
+Integer collatz(Integer n) {
+  steps = 0;
+  while (n != 1) {
+    if (n % 2 == 0) {
+      n = n / 2;
+    } else {
+      n = 3 * n + 1;
+    }
+    steps = steps + 1;
+  }
+}

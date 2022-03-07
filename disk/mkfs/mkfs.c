@@ -454,7 +454,8 @@ unsigned int fsStart;		/* file system start sector */
 void rdfs(EOS32_daddr_t bno, unsigned char *bf, int blkType) {
   int n;
 
-  fseek(fs, fsStart * SSIZE + bno * BSIZE, SEEK_SET);
+  fseek(fs, (unsigned long) fsStart * SSIZE +
+        (unsigned long) bno * BSIZE, SEEK_SET);
   n = fread(bf, 1, BSIZE, fs);
   if (n != BSIZE) {
     printf("read error: %d\n", bno);
@@ -512,7 +513,8 @@ void wtfs(EOS32_daddr_t bno, unsigned char *bf, int blkType) {
       error("illegal block type %d in wtfs()", blkType);
       break;
   }
-  fseek(fs, fsStart * SSIZE + bno * BSIZE, SEEK_SET);
+  fseek(fs, (unsigned long) fsStart * SSIZE +
+        (unsigned long) bno * BSIZE, SEEK_SET);
   n = fwrite(bf, 1, BSIZE, fs);
   if(n != BSIZE) {
     printf("write error: %d\n", bno);

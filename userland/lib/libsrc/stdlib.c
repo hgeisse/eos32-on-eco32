@@ -10,6 +10,7 @@
 #include <limits.h>
 #include <ctype.h>
 #include <eos32.h>
+#include <assert.h>
 
 
 /**************************************************************/
@@ -52,6 +53,7 @@ long atol(const char *s) {
 
 double strtod(const char *s, char **endp) {
   /* !!!!! */
+  assert(1 == 0);
   return 0.0;
 }
 
@@ -138,12 +140,83 @@ long strtol(const char *s, char **endp, int base) {
 
 
 /*
- * ?????
+ * Convert a string to an unsigned long, using a given base.
  */
 
 unsigned long strtoul(const char *s, char **endp, int base) {
-  /* !!!!! */
-  return 0;
+  int c;
+  int negative;
+  int overflow;
+  unsigned long limit1;
+  unsigned long limit2;
+  unsigned long value;
+
+  /* skip white space */
+  do {
+    c = *s++;
+  } while (isspace(c));
+  /* handle sign */
+  negative = 0;
+  if (c == '+') {
+    c = *s++;
+  } else
+  if (c == '-') {
+    negative = 1;
+    c = *s++;
+  }
+  /* determine base */
+  if (base == 0) {
+    /* must figure it out from input string */
+    if (c == '0') {
+      if (*s == 'x' || *s == 'X') {
+        base = 16;
+        s++;
+        c = *s++;
+      } else {
+        base = 8;
+        c = *s++;
+      }
+    } else {
+      base = 10;
+    }
+  }
+  /* iterate through digits */
+  overflow = 0;
+  value = ULONG_MAX;
+  limit1 = value / base;
+  limit2 = value % base;
+  value = 0;
+  while (1) {
+    if (isdigit(c)) {
+      c = c - '0';
+    } else
+    if (isalpha(c)) {
+      c = tolower(c) - 'a' + 10;
+    } else {
+      break;
+    }
+    if (c >= base) {
+      break;
+    }
+    if (!overflow) {
+      if (value > limit1 || (value == limit1 && c > limit2)) {
+        overflow = 1;
+      } else {
+        value *= base;
+        value += c;
+      }
+    }
+    c = *s++;
+  }
+  /* store address of suffix */
+  if (endp != NULL) {
+    *endp = (char *) --s;
+  }
+  /* return value */
+  if (overflow) {
+    return ULONG_MAX;
+  }
+  return negative ? -value : value;
 }
 
 

@@ -1,6 +1,119 @@
 -noboot-
 1000 700
 d--755 0 0
-hellwig     d--755 10 10
+hgeisse     d--755 10 10
+    disk.part   ---755 10 10 ../../home/hgeisse/disk.part
+    retval      d--755 10 10
+        retval.c    ---755 10 10 ../../home/hgeisse/retval/retval.c
+        $
+    simple      d--755 10 10
+        simple.c    ---755 10 10 ../../home/hgeisse/simple/simple.c
+        $
+    hello       d--755 10 10
+        hello.c     ---755 10 10 ../../home/hgeisse/hello/hello.c
+        $
+    ninja       d--755 10 10
+        nja         d--755 10 10
+            Makefile    ---755 10 10 ../../home/hgeisse/ninja/nja/Makefile
+            coder.c     ---755 10 10 ../../home/hgeisse/ninja/nja/coder.c
+            coder.h     ---755 10 10 ../../home/hgeisse/ninja/nja/coder.h
+            common.h    ---755 10 10 ../../home/hgeisse/ninja/nja/common.h
+            main.c      ---755 10 10 ../../home/hgeisse/ninja/nja/main.c
+            parser.h    ---755 10 10 ../../home/hgeisse/ninja/nja/parser.h
+            parser.y    ---755 10 10 ../../home/hgeisse/ninja/nja/parser.y
+            scanner.h   ---755 10 10 ../../home/hgeisse/ninja/nja/scanner.h
+            scanner.l   ---755 10 10 ../../home/hgeisse/ninja/nja/scanner.l
+            table.c     ---755 10 10 ../../home/hgeisse/ninja/nja/table.c
+            table.h     ---755 10 10 ../../home/hgeisse/ninja/nja/table.h
+            utils.c     ---755 10 10 ../../home/hgeisse/ninja/nja/utils.c
+            utils.h     ---755 10 10 ../../home/hgeisse/ninja/nja/utils.h
+            $
+        njc         d--755 10 10
+            Makefile    ---755 10 10 ../../home/hgeisse/ninja/njc/Makefile
+            absyn.c     ---755 10 10 ../../home/hgeisse/ninja/njc/absyn.c
+            absyn.h     ---755 10 10 ../../home/hgeisse/ninja/njc/absyn.h
+            codegen.c   ---755 10 10 ../../home/hgeisse/ninja/njc/codegen.c
+            codegen.h   ---755 10 10 ../../home/hgeisse/ninja/njc/codegen.h
+            common.h    ---755 10 10 ../../home/hgeisse/ninja/njc/common.h
+            grammar     ---755 10 10 ../../home/hgeisse/ninja/njc/grammar
+            main.c      ---755 10 10 ../../home/hgeisse/ninja/njc/main.c
+            parser.h    ---755 10 10 ../../home/hgeisse/ninja/njc/parser.h
+            parser.y    ---755 10 10 ../../home/hgeisse/ninja/njc/parser.y
+            predef      ---755 10 10 ../../home/hgeisse/ninja/njc/predef
+            scanner.h   ---755 10 10 ../../home/hgeisse/ninja/njc/scanner.h
+            scanner.l   ---755 10 10 ../../home/hgeisse/ninja/njc/scanner.l
+            semant.c    ---755 10 10 ../../home/hgeisse/ninja/njc/semant.c
+            semant.h    ---755 10 10 ../../home/hgeisse/ninja/njc/semant.h
+            sym.c       ---755 10 10 ../../home/hgeisse/ninja/njc/sym.c
+            sym.h       ---755 10 10 ../../home/hgeisse/ninja/njc/sym.h
+            table.c     ---755 10 10 ../../home/hgeisse/ninja/njc/table.c
+            table.h     ---755 10 10 ../../home/hgeisse/ninja/njc/table.h
+            tokens      ---755 10 10 ../../home/hgeisse/ninja/njc/tokens
+            types.c     ---755 10 10 ../../home/hgeisse/ninja/njc/types.c
+            types.h     ---755 10 10 ../../home/hgeisse/ninja/njc/types.h
+            utils.c     ---755 10 10 ../../home/hgeisse/ninja/njc/utils.c
+            utils.h     ---755 10 10 ../../home/hgeisse/ninja/njc/utils.h
+            tests       d--755 10 10
+                test01.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test01.nj
+                test02.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test02.nj
+                test03.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test03.nj
+                test04.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test04.nj
+                test05.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test05.nj
+                test06.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test06.nj
+                test07.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test07.nj
+                test08.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test08.nj
+                test09.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test09.nj
+                test10.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test10.nj
+                test11.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test11.nj
+                test12.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test12.nj
+                test13.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test13.nj
+                test14.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test14.nj
+                test15.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test15.nj
+                test16.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test16.nj
+                test17.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test17.nj
+                test18.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test18.nj
+                test19.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test19.nj
+                test20.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test20.nj
+                test21.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test21.nj
+                test22.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test22.nj
+                test23.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test23.nj
+                test24.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test24.nj
+                test25.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test25.nj
+                test26.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test26.nj
+                test27.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test27.nj
+                test28.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test28.nj
+                test29.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test29.nj
+                test30.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test30.nj
+                test31.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test31.nj
+                test32.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test32.nj
+                test33.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test33.nj
+                test34.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test34.nj
+                test35.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test35.nj
+                test36.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test36.nj
+                test37.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test37.nj
+                test38.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test38.nj
+                test39.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test39.nj
+                test40.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test40.nj
+                test41.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test41.nj
+                test42.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test42.nj
+                test43.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test43.nj
+                test44.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test44.nj
+                test45.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test45.nj
+                test46.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test46.nj
+                test47.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test47.nj
+                test48.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test48.nj
+                test49.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test49.nj
+                test50.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test50.nj
+                test51.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test51.nj
+                test52.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test52.nj
+                test53.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test53.nj
+                test54.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test54.nj
+                test55.nj   ---755 10 10 ../../home/hgeisse/ninja/njc/tests/test55.nj
+                $
+            $
+        $
+    $
+swalter     d--755 11 10
+    first.c     ---755 11 10 ../../home/swalter/first.c
     $
 $

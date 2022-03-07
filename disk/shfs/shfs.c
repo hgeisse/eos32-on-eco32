@@ -66,7 +66,8 @@ unsigned int fsStart;		/* file system start sector */
 void readBlock(FILE *disk,
                EOS32_daddr_t blockNum,
                unsigned char *blockBuffer) {
-  fseek(disk, fsStart * SECTOR_SIZE + blockNum * BLOCK_SIZE, SEEK_SET);
+  fseek(disk, (unsigned long) fsStart * SECTOR_SIZE +
+        (unsigned long) blockNum * BLOCK_SIZE, SEEK_SET);
   if (fread(blockBuffer, BLOCK_SIZE, 1, disk) != 1) {
     error("cannot read block %lu (0x%lX)", blockNum, blockNum);
   }
@@ -78,6 +79,14 @@ unsigned int get4Bytes(unsigned char *addr) {
          (unsigned int) addr[1] << 16 |
          (unsigned int) addr[2] <<  8 |
          (unsigned int) addr[3] <<  0;
+}
+
+
+char *timeStr(EOS32_time_t tim) {
+  time_t t;
+
+  t = (time_t) tim;
+  return ctime(&t);
 }
 
 
@@ -209,7 +218,7 @@ void superBlock(unsigned char *p) {
   }
   tim = get4Bytes(p);
   p += 4;
-  dat = ctime((time_t *) &tim);
+  dat = timeStr(tim);
   dat[strlen(dat) - 1] = '\0';
   printf("last super block update = %d (%s)\n", tim, dat);
   if (checkBatch(1)) return;
@@ -303,7 +312,7 @@ void inodeBlock(unsigned char *p) {
     }
     tim = get4Bytes(p);
     p += 4;
-    dat = ctime((time_t *) &tim);
+    dat = timeStr(tim);
     dat[strlen(dat) - 1] = '\0';
     if (mode != 0) {
       printf("  time inode created = %d (%s)\n", tim, dat);
@@ -311,7 +320,7 @@ void inodeBlock(unsigned char *p) {
     }
     tim = get4Bytes(p);
     p += 4;
-    dat = ctime((time_t *) &tim);
+    dat = timeStr(tim);
     dat[strlen(dat) - 1] = '\0';
     if (mode != 0) {
       printf("  time last modified = %d (%s)\n", tim, dat);
@@ -319,7 +328,7 @@ void inodeBlock(unsigned char *p) {
     }
     tim = get4Bytes(p);
     p += 4;
-    dat = ctime((time_t *) &tim);
+    dat = timeStr(tim);
     dat[strlen(dat) - 1] = '\0';
     if (mode != 0) {
       printf("  time last accessed = %d (%s)\n", tim, dat);

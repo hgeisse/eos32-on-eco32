@@ -1,0 +1,9 @@
+//
+// function declaration, two parameters
+//
+
+void f(Integer a, Boolean b) {
+}
+
+void main() {
+}

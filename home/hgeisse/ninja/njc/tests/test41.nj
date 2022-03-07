@@ -1,0 +1,21 @@
+//
+// function declaration, global vars, parameters, and local vars
+//
+
+Integer func(Integer a, Boolean b) {
+  local Boolean c;
+  local Integer d;
+  local Integer e;
+
+  f = a + f + e;
+  g = '*';
+  c = h && b;
+  h = !c;
+}
+
+global Integer f;
+global Character g;
+global Boolean h;
+
+void main() {
+}

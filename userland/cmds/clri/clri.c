@@ -21,7 +21,7 @@ int isnumber(char *s);
 
 int main(int argc, char *argv[])
 {
-	register i, f;
+	int i, f;
 	unsigned n;
 	int j, k;
 	long off;
@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 
 int isnumber(char *s)
 {
-	register c;
+	int c;
 
 	while(c = *s++)
 		if(c < '0' || c > '9')

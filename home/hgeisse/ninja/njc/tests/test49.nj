@@ -1,0 +1,35 @@
+//
+// recursive types and functions
+//
+
+global R gr;
+global S gs;
+
+R f(S s) {
+  return f(g(gr));
+}
+
+S g(R r) {
+  return g(f(gs));
+}
+
+void main() {
+}
+
+type Z = record {
+  Z z;
+};
+
+type R = record {
+  S s;
+  A a;
+};
+
+type S = record {
+  R r;
+};
+
+type A = B;
+type B = C;
+type C = D;
+type D = Integer;

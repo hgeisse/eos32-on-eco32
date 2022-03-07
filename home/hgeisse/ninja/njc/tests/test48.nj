@@ -1,0 +1,58 @@
+//
+// records
+//
+
+type R = record {
+  Integer i;
+  Character ch;
+  Integer[] a;
+};
+
+type S = record {
+  Integer i;
+};
+
+type T = record {
+  Integer i;
+};
+
+void g() {
+  local S s;
+  local T t;
+  t = s;
+}
+
+void main() {
+  local R r;
+  r = new(R);
+  r.i = 123;
+  r.ch = 'a';
+  r.a = new(Integer[3]);
+  r.a[0] = 100;
+  r.a[1] = 101;
+  r.a[2] = 102;
+  f(r);
+  writeString("r.i = ");
+  writeInteger(r.i);
+  writeString("\n");
+  writeString("r.ch = '");
+  writeCharacter(r.ch);
+  writeString("'\n");
+  writeString("r.a[0] = ");
+  writeInteger(r.a[0]);
+  writeString("\n");
+  writeString("r.a[1] = ");
+  writeInteger(r.a[1]);
+  writeString("\n");
+  writeString("r.a[2] = ");
+  writeInteger(r.a[2]);
+  writeString("\n");
+}
+
+void f(R r) {
+  local Integer i;
+  i = r.a[2];
+  r.a[2] = r.a[1] + r.i;
+  r.a[1] = r.a[0] + r.i;
+  r.a[0] = i + r.i;
+}

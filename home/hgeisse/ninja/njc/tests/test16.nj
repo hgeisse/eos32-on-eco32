@@ -1,0 +1,13 @@
+//
+// if statement
+//
+
+void f(Boolean b) {
+  local Integer a;
+  if (b) {
+    a = 2;
+  }
+}
+
+void main() {
+}

@@ -1,6 +1,8 @@
 -noboot-
 5000 3400
 d--755 0 0
+bin         d--755 0 0
+    $
 data        d--777 0 0
     1           ---644 0 0 ../../data/0x000001
     2           ---644 0 0 ../../data/0x000002
@@ -45,6 +47,7 @@ include     d--755 0 0
         user.h      ---644 0 0 ../../include/sys/user.h
         $
     a.out.h     ---644 0 0 ../../include/a.out.h
+    ar.h        ---644 0 0 ../../include/ar.h
     assert.h    ---644 0 0 ../../include/assert.h
     core.h      ---644 0 0 ../../include/core.h
     ctype.h     ---644 0 0 ../../include/ctype.h
@@ -66,5 +69,14 @@ include     d--755 0 0
     time.h      ---644 0 0 ../../include/time.h
     $
 lib         d--755 0 0
+    crt0.o          ---644 0 0 ../../lib/crt0.o
+    default.lnk     ---644 0 0 ../../lib/default.lnk
+    libc.a          ---644 0 0 ../../lib/libc.a
+    lex         d--755 0 0
+        ncform          ---644 0 0 ../../lib/lex/ncform
+        $
+    yacc        d--755 0 0
+        yaccpar         ---644 0 0 ../../lib/yacc/yaccpar
+        $
     $
 $

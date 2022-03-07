@@ -10,12 +10,9 @@
 	struct nameblock *ynameblock;
 	}
 
-%type <yshblock> SHELLINE, shlist, shellist
-%type <ynameblock> NAME, namelist
-%type <ydepblock> deplist, dlist
-
-
-%%
+%type <yshblock> SHELLINE shlist shellist
+%type <ynameblock> NAME namelist
+%type <ydepblock> deplist dlist
 
 %{
 struct depblock *pp;
@@ -30,6 +27,7 @@ FSTATIC struct depblock *prevdep;
 FSTATIC int sepc;
 %}
 
+%%
 
 file:
 	| file comline
@@ -37,7 +35,7 @@ file:
 
 comline:  START
 	| MACRODEF
-	| START namelist deplist shellist = {
+	| START namelist deplist shellist {
 	    while( --nlefts >= 0)
 		{
 		leftp = lefts[nlefts];
@@ -75,8 +73,8 @@ comline:  START
 	| error
 	;
 
-namelist: NAME	= { lefts[0] = $1; nlefts = 1; }
-	| namelist NAME	= { lefts[nlefts++] = $2;
+namelist: NAME	{ lefts[0] = $1; nlefts = 1; }
+	| namelist NAME	{ lefts[nlefts++] = $2;
 	    	if(nlefts>NLEFTS) fatal("Too many lefts"); }
 	;
 
@@ -89,8 +87,8 @@ deplist:
 	| dlist
 	;
 
-dlist:  sepchar	= { prevdep = 0;  $$ = 0; }
-	| dlist NAME	= {
+dlist:  sepchar	{ prevdep = 0;  $$ = 0; }
+	| dlist NAME	{
 			  pp = ALLOC(depblock);
 			  pp->nxtdepblock = NULL;
 			  pp->depname = $2;
@@ -100,16 +98,16 @@ dlist:  sepchar	= { prevdep = 0;  $$ = 0; }
 			  }
 	;
 
-sepchar:  COLON 	= { sepc = ALLDEPS; }
-	| DOUBLECOLON	= { sepc = SOMEDEPS; }
+sepchar:  COLON 	{ sepc = ALLDEPS; }
+	| DOUBLECOLON	{ sepc = SOMEDEPS; }
 	;
 
-shellist:	= {$$ = 0; }
-	| shlist = { $$ = $1; }
+shellist:	{$$ = 0; }
+	| shlist { $$ = $1; }
 	;
 
-shlist:	SHELLINE   = { $$ = $1;  prevshp = $1; }
-	| shlist SHELLINE = { $$ = $1;
+shlist:	SHELLINE   { $$ = $1;  prevshp = $1; }
+	| shlist SHELLINE { $$ = $1;
 			prevshp->nxtshblock = $2;
 			prevshp = $2;
 			}

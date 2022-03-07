@@ -61,9 +61,13 @@ build/x86linux.c:	src/x86linux.md
 build/x86.c:	src/x86.md
 		$(BUILD)/bin/lburg src/x86.md build/x86.c
 
+lburg/gram.c:	lburg/gram.y
+		bison -o lburg/gram.c lburg/gram.y
+
 build/lburg:	$(LBURGSRCS)
 		$(BUILD)/bin/lcc -A -o build/lburg $(LBURGSRCS)
 
 clean:
 		rm -f *~
+		rm -f ./lburg/gram.c
 		rm -rf ./build
