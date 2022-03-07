@@ -39,6 +39,7 @@ float copysign(float x, float y);
 float cos(float x);
 float fabs(float x);
 float floor(float x);
+float pow(float x, float y);
 float sin(float x);
 float scalbn(float x, int n);
 float tan(float x);

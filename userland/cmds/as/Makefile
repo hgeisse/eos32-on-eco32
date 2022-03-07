@@ -11,7 +11,7 @@ install:	as
 		cp as $(BUILD)/cmds
 
 as:		as.c
-		$(BUILD)/bin/lcc -A -o as as.c
+		$(BUILD)/bin/lcc -A -o as as.c -lm
 
 clean:
 		rm -f *~ as
