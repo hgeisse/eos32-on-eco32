@@ -174,8 +174,11 @@ tst       d--755 0 0
                     time            ---755 0 0 ../../tests/lib/time
                     $
           libm      d--755 0 0
-                    sin            ---755 0 0 ../../tests/libm/sin
+                    acos           ---755 0 0 ../../tests/libm/acos
                     cos            ---755 0 0 ../../tests/libm/cos
+                    pow            ---755 0 0 ../../tests/libm/pow
+                    sin            ---755 0 0 ../../tests/libm/sin
+                    sqrt           ---755 0 0 ../../tests/libm/sqrt
                     tan            ---755 0 0 ../../tests/libm/tan
                     $
           sc        d--755 0 0

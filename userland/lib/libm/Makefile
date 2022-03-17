@@ -7,10 +7,13 @@ BUILD = ../../../build
 CC = $(BUILD)/bin/lcc
 CCFLAGS = -A -I../include/math -I../include
 
-SRCS = sin.c cos.c tan.c pow.c \
+SRCS = acos.c \
+	copysign.c cos.c pow.c tan.c \
 	fabs.c floor.c \
-	scalbn.c \
-	rem_pio2.c copysign.c
+	pow.c \
+	rem_pio2.c \
+	scalbn.c sin.c sqrt.c \
+	tan.c
 
 OBJS = $(patsubst %.c,%.o,$(SRCS)) env.o
 

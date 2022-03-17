@@ -21,6 +21,7 @@ int main(void) {
 
     all++;
     resetfe();
+    setrnd(p->r);
     y = tan(FLOAT(p->x));
     e = statusfe();
 

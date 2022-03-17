@@ -16,7 +16,7 @@
 #define FE_UNDERFLOW 0x0020
 #define FE_INEXACT   0x0010
 
-#define FE_TONEARAEST 0x0000
+#define FE_TONEAREST  0x0000
 #define FE_TOWARDZERO 0x0001
 #define FE_DOWNWARD   0x0002
 #define FE_UPWARD     0x0003
@@ -35,6 +35,12 @@ static unsigned __FLOAT_BITS(float __f)
 
 #define signbit(x) ((int)(__FLOAT_BITS(x)>>31))
 
+void resetfe(void);
+unsigned int statusfe(void);
+void setrnd(unsigned int);
+
+
+float acos(float x);
 float copysign(float x, float y);
 float cos(float x);
 float fabs(float x);
@@ -42,5 +48,6 @@ float floor(float x);
 float pow(float x, float y);
 float sin(float x);
 float scalbn(float x, int n);
+float sqrt(float x);
 float tan(float x);
 #endif /* _MATH_H_ */

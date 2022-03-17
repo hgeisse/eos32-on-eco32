@@ -21,6 +21,7 @@ int main(void)
 
     all++;
     resetfe();
+    setrnd(p->r);
     y = cos(FLOAT(p->x));
     e = statusfe();
 

@@ -75,7 +75,7 @@
 struct d_d {POS int r; double x; double y; float dy; int e; };
 struct f_f {POS int r; unsigned int x; unsigned int y; unsigned int dy; int e; };
 struct l_l {POS int r; long double x; long double y; float dy; int e; };
-struct ff_f {POS int r; float x; float x2; float y; float dy; int e; };
+struct ff_f {POS int r; unsigned int x; unsigned int x2; unsigned int y; unsigned int dy; int e; };
 struct dd_d {POS int r; double x; double x2; double y; float dy; int e; };
 struct ll_l {POS int r; long double x; long double x2; long double y; float dy; int e; };
 struct d_di {POS int r; double x; double y; float dy; long long i; int e; };

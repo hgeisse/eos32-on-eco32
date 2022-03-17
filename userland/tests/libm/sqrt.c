@@ -2,14 +2,12 @@
 #include "mtest.h"
 
 static struct f_f t[] = {
-#include "sanity/sin.h"
-#include "special/sin.h" 
-#include "ucb/sin.h"
+#include "ucb/sqrt.h"
+#include "sanity/sqrt.h"
+#include "special/sqrt.h"
 };
 
-int main(void)
-{
-  #pragma STDC FENV_ACCESS ON
+int main(void) {
   float y;
   float d;
   int e, i, err = 0, all = 0;
@@ -24,20 +22,19 @@ int main(void)
     all++;
     resetfe();
     setrnd(p->r);
-    y = sin(FLOAT(p->x));
+    y = sqrt(FLOAT(p->x));
     e = statusfe();
 
-    /* printf("bfranken DEBUG %s:%d sin(%f) = %f\n", p->file, p->line, FLOAT(p->x), y); */
-    if (!checkexcept(e, p->e, p->r)) {
-      printf("%s:%d: bad fp exception: %s sin(%f)=%f, want %s",
+    if (!checkexceptall(e, p->e, p->r)) {
+      printf("%s:%d: bad fp exception: %s sqrt(%f)=%f, want %s",
         p->file, p->line, rstr(p->r), FLOAT(p->x), FLOAT(p->y), estr(p->e));
       printf(" got %s\n", estr(e));
       err++;
     }
     d = ulperrf(y, FLOAT(p->y), FLOAT(p->dy));
-    if (!checkulp(d, p->r)) {
-      printf("%s:%d: %s sin(%f) want %f got %f ulperr %.3f = %f + %f\n",
-        p->file, p->line, rstr(p->r), p->x, FLOAT(p->y), y, d, d-FLOAT(p->dy), FLOAT(p->dy));
+    if (!checkcr(y, FLOAT(p->y), p->r)) {
+      printf("%s:%d: %s sqrt(%f) want %f got %f ulperr %.3f = %f + %f\n",
+        p->file, p->line, rstr(p->r), FLOAT(p->x), FLOAT(p->y), y, d, d-FLOAT(p->dy), FLOAT(p->dy));
       err++;
     }
   }
