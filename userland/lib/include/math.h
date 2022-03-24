@@ -43,6 +43,7 @@ void setrnd(unsigned int);
 float acos(float x);
 float copysign(float x, float y);
 float cos(float x);
+float expm1(float x);
 float fabs(float x);
 float floor(float x);
 float pow(float x, float y);
@@ -50,4 +51,5 @@ float sin(float x);
 float scalbn(float x, int n);
 float sqrt(float x);
 float tan(float x);
+float tanh(float x);
 #endif /* _MATH_H_ */

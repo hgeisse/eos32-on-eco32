@@ -176,10 +176,12 @@ tst       d--755 0 0
           libm      d--755 0 0
                     acos           ---755 0 0 ../../tests/libm/acos
                     cos            ---755 0 0 ../../tests/libm/cos
+                    expm1          ---755 0 0 ../../tests/libm/expm1
                     pow            ---755 0 0 ../../tests/libm/pow
                     sin            ---755 0 0 ../../tests/libm/sin
                     sqrt           ---755 0 0 ../../tests/libm/sqrt
                     tan            ---755 0 0 ../../tests/libm/tan
+                    tanh           ---755 0 0 ../../tests/libm/tanh
                     $
           sc        d--755 0 0
                     sc00            ---755 0 0 ../../tests/sc/sc00

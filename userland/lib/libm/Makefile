@@ -9,11 +9,12 @@ CCFLAGS = -A -I../include/math -I../include
 
 SRCS = acos.c \
 	copysign.c cos.c pow.c tan.c \
+	expm1.c \
 	fabs.c floor.c \
 	pow.c \
 	rem_pio2.c \
 	scalbn.c sin.c sqrt.c \
-	tan.c
+	tan.c tanh.c
 
 OBJS = $(patsubst %.c,%.o,$(SRCS)) env.o
 
