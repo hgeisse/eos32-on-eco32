@@ -7,7 +7,7 @@ BUILD = ../../../build
 CC = $(BUILD)/bin/lcc
 CCFLAGS = -A -I../include/math -I../include
 
-SRCS = acos.c asin.c atan.c \
+SRCS = acos.c asin.c atan.c atan2.c \
 	copysign.c cos.c pow.c tan.c \
 	expm1.c \
 	fabs.c floor.c \
