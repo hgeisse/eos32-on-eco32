@@ -22,6 +22,21 @@
 }
 
 
+/* FORCE_EVAL(x)
+ * prevent optimization (=elimination) of expressions without
+ * sideeffects */
+#ifndef fp_force_eval
+#define fp_force_eval fp_force_eval
+static void fp_force_eval(float x) {
+  volatile float y;
+  y = x;
+}
+#endif /* fp_force_eval */
+
+#define FORCE_EVAL(x) do { \
+  fp_force_eval(x); \
+} while (0);
+
 /* prototypes for internal math library functions */
 
 float __kernel_cos(float x, float y);
