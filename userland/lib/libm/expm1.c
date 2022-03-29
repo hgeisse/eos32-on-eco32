@@ -76,7 +76,7 @@ float expm1(float x)
     c = (hi-x)-lo;
   } else if (hx < 0x33000000) {  /* when |x|<2**-25, return x */
     if (hx < 0x00800000)
-      x*x; /* TODO bfranken FORCE_EVAL(x*x); */
+      FORCE_EVAL(x*x);
 
     return x;
   } else

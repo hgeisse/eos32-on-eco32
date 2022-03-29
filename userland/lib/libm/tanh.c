@@ -34,7 +34,7 @@ float tanh(float x) {
     t = -t/(t+2);
   } else {
     /* |x| is subnormal */
-    x*x; /* TODO bfranken FORCE_EVAL(x*x); */
+    FORCE_EVAL(x*x);
     t = x;
   }
   return sign ? -t : t;
