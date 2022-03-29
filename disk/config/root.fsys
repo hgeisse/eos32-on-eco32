@@ -176,6 +176,7 @@ tst       d--755 0 0
           libm      d--755 0 0
                     acos           ---755 0 0 ../../tests/libm/acos
                     asin           ---755 0 0 ../../tests/libm/asin
+                    atan           ---755 0 0 ../../tests/libm/atan
                     cos            ---755 0 0 ../../tests/libm/cos
                     expm1          ---755 0 0 ../../tests/libm/expm1
                     pow            ---755 0 0 ../../tests/libm/pow

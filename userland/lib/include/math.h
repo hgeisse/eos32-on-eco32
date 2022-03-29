@@ -42,6 +42,7 @@ void setrnd(unsigned int);
 
 float acos(float x);
 float asin(float x);
+float atan(float x);
 float copysign(float x, float y);
 float cos(float x);
 float expm1(float x);
