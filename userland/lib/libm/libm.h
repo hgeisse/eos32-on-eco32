@@ -39,6 +39,7 @@ static void fp_force_eval(float x) {
 
 /* prototypes for internal math library functions */
 
+float __expo2(float x, float sign);
 float __kernel_cos(float x, float y);
 float __kernel_sin(float x, float y, int iy);
 int __ieee754_rem_pio2(float x, float *y);

@@ -8,13 +8,14 @@ CC = $(BUILD)/bin/lcc
 CCFLAGS = -A -I../include/math -I../include
 
 SRCS = acos.c asin.c atan.c atan2.c \
-	copysign.c cos.c \
+	copysign.c cos.c cosh.c \
 	exp.c expm1.c \
 	fabs.c floor.c \
 	pow.c \
 	rem_pio2.c \
-	scalbn.c sin.c sqrt.c \
-	tan.c tanh.c
+	scalbn.c sin.c sinh.c sqrt.c \
+	tan.c tanh.c \
+	__expo2.c
 
 OBJS = $(patsubst %.c,%.o,$(SRCS)) env.o
 
