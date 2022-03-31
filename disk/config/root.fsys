@@ -179,6 +179,7 @@ tst       d--755 0 0
                     atan           ---755 0 0 ../../tests/libm/atan
                     atan2          ---755 0 0 ../../tests/libm/atan2
                     cos            ---755 0 0 ../../tests/libm/cos
+                    exp            ---755 0 0 ../../tests/libm/exp
                     expm1          ---755 0 0 ../../tests/libm/expm1
                     pow            ---755 0 0 ../../tests/libm/pow
                     sin            ---755 0 0 ../../tests/libm/sin
