@@ -51,6 +51,7 @@ float exp(float x);
 float expm1(float x);
 float fabs(float x);
 float floor(float x);
+float log(float x);
 float pow(float x, float y);
 float sin(float x);
 float sinh(float x);
