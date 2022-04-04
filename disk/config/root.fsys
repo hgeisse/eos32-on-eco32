@@ -178,6 +178,7 @@ tst       d--755 0 0
                     asin           ---755 0 0 ../../tests/libm/asin
                     atan           ---755 0 0 ../../tests/libm/atan
                     atan2          ---755 0 0 ../../tests/libm/atan2
+                    ceil           ---755 0 0 ../../tests/libm/ceil
                     cos            ---755 0 0 ../../tests/libm/cos
                     cosh           ---755 0 0 ../../tests/libm/cosh
                     exp            ---755 0 0 ../../tests/libm/exp
