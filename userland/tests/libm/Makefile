@@ -6,7 +6,7 @@ CC=../../../build/bin/lcc
 BUILD=../../../build
 
 SRCS=acos.c asin.c atan.c atan2.c ceil.c cos.c cosh.c \
-	exp.c expm1.c fabs.c floor.c frexp.c ldexp.c log.c log10.c \
+	exp.c expm1.c fabs.c floor.c fmod.c frexp.c ldexp.c log.c log10.c \
 	modf.c pow.c sin.c sinh.c sqrt.c tan.c tanh.c
 
 BINS=$(patsubst %.c,%,$(SRCS))

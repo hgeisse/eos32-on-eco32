@@ -53,6 +53,7 @@ float cosh(float x);
 float exp(float x);
 float expm1(float x);
 float fabs(float x);
+float fmod(float x, float y);
 float floor(float x);
 float frexp(float x, int *e);
 float ldexp(float x, int n);

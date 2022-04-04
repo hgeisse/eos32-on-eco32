@@ -184,8 +184,9 @@ tst       d--755 0 0
                     exp            ---755 0 0 ../../tests/libm/exp
                     expm1          ---755 0 0 ../../tests/libm/expm1
                     fabs           ---755 0 0 ../../tests/libm/fabs
-                    frexp          ---755 0 0 ../../tests/libm/frexp
                     floor          ---755 0 0 ../../tests/libm/floor
+                    fmod           ---755 0 0 ../../tests/libm/fmod
+                    frexp          ---755 0 0 ../../tests/libm/frexp
                     ldexp          ---755 0 0 ../../tests/libm/ldexp
                     log            ---755 0 0 ../../tests/libm/log
                     log10          ---755 0 0 ../../tests/libm/log10
