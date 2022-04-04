@@ -70,6 +70,7 @@
  */
 #define T5(A, B, C, D, E) {__FILE__, __LINE__, A, B, C, D, E},
 #define T6(A, B, C, D, E, F) {__FILE__, __LINE__, A, B, C, D, E, F},
+#define T7(A, B, C, D, E, F, G) {__FILE__, __LINE__, A, B, C, D, E, F, G},
 
 #define POS char *file; int line;
 struct d_d {POS int r; double x; double y; float dy; int e; };
@@ -88,7 +89,7 @@ struct d_i {POS int r; double x; long long i; int e; };
 struct f_i {POS int r; float x; long long i; int e; };
 struct l_i {POS int r; long double x; long long i; int e; };
 struct d_dd {POS int r; double x; double y; float dy; double y2; float dy2; int e; };
-struct f_ff {POS int r; float x; float y; float dy; float y2; float dy2; int e; };
+struct f_ff {POS int r; unsigned int x; unsigned int y; unsigned int dy; unsigned int y2; unsigned int dy2; int e; };
 struct l_ll {POS int r; long double x; long double y; float dy; long double y2; float dy2; int e; };
 struct ff_fi {POS int r; float x; float x2; float y; float dy; long long i; int e; };
 struct dd_di {POS int r; double x; double x2; double y; float dy; long long i; int e; };

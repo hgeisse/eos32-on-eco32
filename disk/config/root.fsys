@@ -189,6 +189,7 @@ tst       d--755 0 0
                     ldexp          ---755 0 0 ../../tests/libm/ldexp
                     log            ---755 0 0 ../../tests/libm/log
                     log10          ---755 0 0 ../../tests/libm/log10
+                    modf           ---755 0 0 ../../tests/libm/modf
                     pow            ---755 0 0 ../../tests/libm/pow
                     sin            ---755 0 0 ../../tests/libm/sin
                     sinh           ---755 0 0 ../../tests/libm/sinh

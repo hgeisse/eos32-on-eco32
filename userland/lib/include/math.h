@@ -59,6 +59,7 @@ float ldexp(float x, int n);
 float log(float x);
 float log10(float x);
 float log10(float x);
+float modf(float x, float *iptr);
 float pow(float x, float y);
 float sin(float x);
 float sinh(float x);

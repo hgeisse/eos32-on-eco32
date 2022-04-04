@@ -12,6 +12,7 @@ SRCS = acos.c asin.c atan.c atan2.c \
 	exp.c expm1.c \
 	floor.c frexp.c \
 	ldexp.c log.c log10.c \
+	modf.c \
 	pow.c \
 	rem_pio2.c \
 	scalbn.c sin.c sinh.c sqrt.c \
