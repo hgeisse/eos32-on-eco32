@@ -52,6 +52,7 @@ float exp(float x);
 float expm1(float x);
 float fabs(float x);
 float floor(float x);
+float ldexp(float x, int n);
 float log(float x);
 float log10(float x);
 float log10(float x);
@@ -60,7 +61,6 @@ float sin(float x);
 float sinh(float x);
 float scalbn(float x, int n);
 float sqrt(float x);
-float atan(float x);
 float tan(float x);
 float tanh(float x);
 #endif /* _MATH_H_ */

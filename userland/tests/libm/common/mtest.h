@@ -82,7 +82,7 @@ struct d_di {POS int r; double x; double y; float dy; long long i; int e; };
 struct f_fi {POS int r; float x; float y; float dy; long long i; int e; };
 struct l_li {POS int r; long double x; long double y; float dy; long long i; int e; };
 struct di_d {POS int r; double x; long long i; double y; float dy; int e; };
-struct fi_f {POS int r; float x; long long i; float y; float dy; int e; };
+struct fi_f {POS int r; unsigned int x; long long i; unsigned int y; unsigned int dy; int e; };
 struct li_l {POS int r; long double x; long long i; long double y; float dy; int e; };
 struct d_i {POS int r; double x; long long i; int e; };
 struct f_i {POS int r; float x; long long i; int e; };
