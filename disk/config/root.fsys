@@ -182,6 +182,7 @@ tst       d--755 0 0
                     cosh           ---755 0 0 ../../tests/libm/cosh
                     exp            ---755 0 0 ../../tests/libm/exp
                     expm1          ---755 0 0 ../../tests/libm/expm1
+                    floor          ---755 0 0 ../../tests/libm/floor
                     log            ---755 0 0 ../../tests/libm/log
                     log10          ---755 0 0 ../../tests/libm/log10
                     pow            ---755 0 0 ../../tests/libm/pow
