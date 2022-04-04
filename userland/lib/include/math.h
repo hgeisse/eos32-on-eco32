@@ -33,6 +33,8 @@ static unsigned __FLOAT_BITS(float __f)
 
 #define isinf(x) ( (__FLOAT_BITS(x) & 0x7fffffff) == 0x7f800000 )  
 
+#define isfinite(x) ( (__FLOAT_BITS(x) & 0x7fffffff) < 0x7f800000 )
+
 #define signbit(x) ((int)(__FLOAT_BITS(x)>>31))
 
 void resetfe(void);
@@ -52,6 +54,7 @@ float exp(float x);
 float expm1(float x);
 float fabs(float x);
 float floor(float x);
+float frexp(float x, int *e);
 float ldexp(float x, int n);
 float log(float x);
 float log10(float x);
