@@ -3,6 +3,7 @@
 #include <limits.h>
 
 
+
 /**************************************************************/
 
 /*
@@ -21,6 +22,9 @@
 #define SIZE_NORMAL	1		/* no length modifier */
 #define SIZE_SHORT	2		/* 'h' length modifier */
 #define SIZE_LONG	3		/* 'l' length modifier */
+
+
+#include "grisu.c"
 
 
 static int printString(char *str, int flags,
@@ -232,104 +236,6 @@ static int printUnsigned(unsigned long unum, int base, int flags,
   /* return number of chars actually printed */
   return width > length ? width : length;
 }
-
-
-
-
-
-
-static int printFloat(double fnum, int flags,
-                       int width, int prec, FILE *stream) {
-  int isZero;
-  int isNegative;
-  int numDigits;
-  int digits[10];
-  int numZeroes;	/* number of leading zeroes */
-  int length;		/* output length, without padding */
-  int i;
-
-  /* remember if number is equal to 0 */
-  isZero = (fnum == 0.0);
-  /* remember if number is less than 0; if so, negate */
-  isNegative = (fnum < 0.0);
-  if (isNegative) {
-    fnum = -fnum;
-  }
-  /* if fnum and prec are both zero, print nothing but padding spaces */
-  if (isZero && (flags & FLAG_PREC) && prec == 0) {
-    for (i = 0; i < width; i++) {
-      putc(' ', stream);
-    }
-    return width;
-  }
-
-  
-  /* compute digits in reverse order */
-  /* NOTE: this covers just the whole part of a float */
-  numDigits = 0;
-  do {
-    digits[numDigits++] = ((int)fnum) % 10;
-    fnum /= 10;
-  } while ((int) fnum);
-  /* determine the length of the string */
-  numZeroes = 0;
-  length = numDigits;
-  /* if more digits are needed, these are zeroes */
-  i = numZeroes + numDigits;
-  if ((flags & FLAG_PREC) && prec > i) {
-    numZeroes += prec - i;
-    length += prec - i;
-  }
-  /* don't forget the sign */
-  if (isNegative || (flags & (FLAG_PLUS | FLAG_SPACE))) {
-    length++;
-  }
-  /* pad to the left if necessary */
-  if (!(flags & FLAG_LEFT) && width > length) {
-    if (flags & FLAG_ZERO) {
-      /* pad with zeroes, after the sign */
-      numZeroes += width - length;
-    } else {
-      /* pad with spaces, now */
-      for (i = 0; i < width - length; i++) {
-        putc(' ', stream);
-      }
-    }
-  }
-  /* print the sign if necessary */
-  if (isNegative) {
-    putc('-', stream);
-  } else
-  if (flags & FLAG_PLUS) {
-    putc('+', stream);
-  } else
-  if (flags & FLAG_SPACE) {
-    putc(' ', stream);
-  }
-  /* print the leading zeroes */
-  for (i = 0; i < numZeroes; i++) {
-    putc('0', stream);
-  }
-  /* print the digits proper */
-  while (numDigits--) {
-    fputc('0' + digits[numDigits], stream);
-  }
-  /* pad to the right if necessary */
-  if (flags & FLAG_LEFT) {
-    for (i = 0; i < width - length; i++) {
-      putc(' ', stream);
-    }
-  }
-  /* return number of chars actually printed */
-  return width > length ? width : length;
-}
-
-
-
-
-
-
-
 
 static int doPrintf(FILE *stream, const char *format, va_list ap) {
   int count;
@@ -583,3 +489,4 @@ int sprintf(char *s, const char *format, ...) {
   putc('\0', &stream);
   return count;
 }
+

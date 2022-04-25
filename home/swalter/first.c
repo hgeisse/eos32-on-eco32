@@ -1,12 +1,8 @@
-/*
- * first.c -- a first challenge
- */
-
-
+#include <stdlib.h>
 #include <stdio.h>
 
-
-int main(int argc, char *argv[]) {
-  printf("Bring me up, please!\n");
-  return 0;
+int main(void) {
+    double myVal = 123.456;
+    printf("myVal = %f\n", myVal);
+    return 0;
 }
