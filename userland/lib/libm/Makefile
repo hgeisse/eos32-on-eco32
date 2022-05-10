@@ -15,11 +15,11 @@ SRCS = acos.c asin.c atan.c atan2.c \
 	modf.c \
 	pow.c \
 	rem_pio2.c \
-	scalbn.c sin.c sinh.c sqrt.c \
+	scalbn.c sin.c sinh.c \
 	tan.c tanh.c \
 	__expo2.c
 
-OBJS = $(patsubst %.c,%.o,$(SRCS)) env.o fabs.o
+OBJS = $(patsubst %.c,%.o,$(SRCS)) env.o fabs.o sqrt.o
 
 .PHONY:		all clean
 
@@ -30,6 +30,9 @@ env.o: env.s
 
 fabs.o: fabs.s
 	$(BUILD)/bin/as -o fabs.o fabs.s
+
+sqrt.o: sqrt.s
+	$(BUILD)/bin/as -o sqrt.o sqrt.s
 
 %.o:		%.c
 		$(BUILD)/bin/lcc $(CCFLAGS) -o $@ -c $<
