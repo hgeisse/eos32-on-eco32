@@ -15,10 +15,7 @@
  * ====================================================
  */
 
-
 #include "libm.h"
-/* bfranken TODO remove stdio include */
-#include <stdio.h>
 
 static const float
 half =  5.0000000000e-01,/* 0x3f000000 */
