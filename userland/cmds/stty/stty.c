@@ -197,8 +197,8 @@ int main(int argc, char *argv[])
 
 		arg = *++argv;
 		if (eq("ek")){
-			mode.sg_erase = '#';
-			mode.sg_kill = '@';
+			mode.sg_erase = '\010';
+			mode.sg_kill = '\025';
 		}
 		if (eq("erase")) {
 			if (**++argv == '^')

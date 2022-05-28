@@ -176,6 +176,31 @@ tst       d--755 0 0
                     string          ---755 0 0 ../../tests/lib/string
                     time            ---755 0 0 ../../tests/lib/time
                     $
+          libm      d--755 0 0
+                    acos           ---755 0 0 ../../tests/libm/acos
+                    asin           ---755 0 0 ../../tests/libm/asin
+                    atan           ---755 0 0 ../../tests/libm/atan
+                    atan2          ---755 0 0 ../../tests/libm/atan2
+                    ceil           ---755 0 0 ../../tests/libm/ceil
+                    cos            ---755 0 0 ../../tests/libm/cos
+                    cosh           ---755 0 0 ../../tests/libm/cosh
+                    exp            ---755 0 0 ../../tests/libm/exp
+                    expm1          ---755 0 0 ../../tests/libm/expm1
+                    fabs           ---755 0 0 ../../tests/libm/fabs
+                    floor          ---755 0 0 ../../tests/libm/floor
+                    fmod           ---755 0 0 ../../tests/libm/fmod
+                    frexp          ---755 0 0 ../../tests/libm/frexp
+                    ldexp          ---755 0 0 ../../tests/libm/ldexp
+                    log            ---755 0 0 ../../tests/libm/log
+                    log10          ---755 0 0 ../../tests/libm/log10
+                    modf           ---755 0 0 ../../tests/libm/modf
+                    pow            ---755 0 0 ../../tests/libm/pow
+                    sin            ---755 0 0 ../../tests/libm/sin
+                    sinh           ---755 0 0 ../../tests/libm/sinh
+                    sqrt           ---755 0 0 ../../tests/libm/sqrt
+                    tan            ---755 0 0 ../../tests/libm/tan
+                    tanh           ---755 0 0 ../../tests/libm/tanh
+                    $
           sc        d--755 0 0
                     sc00            ---755 0 0 ../../tests/sc/sc00
                     sc01            ---755 0 0 ../../tests/sc/sc01

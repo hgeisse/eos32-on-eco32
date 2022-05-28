@@ -84,15 +84,15 @@ struct	ttiocb {
 #define	TTIPRI	28
 #define	TTOPRI	29
 
-#define	CERASE	'#'		/* default special characters */
-#define	CEOT	004
-#define	CKILL	'@'
-#define	CQUIT	034		/* FS, cntl shift L */
-//#define	CINTR	0177		/* DEL */
-#define	CINTR	003		/* CTRL-C */
-#define	CSTOP	023		/* Stop output: ctl-s */
-#define	CSTART	021		/* Start output: ctl-q */
-#define	CBRK	0377
+/* default special characters */
+#define	CERASE	010		/* erase last char: CTRL-H */
+#define	CEOT	004		/* end of file: CTRL-D */
+#define	CKILL	025		/* kill command line: CTRL-U */
+#define	CQUIT	034		/* quit and dump core: CTRL-\ */
+#define	CINTR	003		/* interrupt program: CTRL-C */
+#define	CSTOP	023		/* stop output: CTRL-S */
+#define	CSTART	021		/* start output: CTRL-Q */
+#define	CBRK	0377		/* input delimiter, like newline: -1 */
 
 /* limits */
 #define	TTHIWAT	100

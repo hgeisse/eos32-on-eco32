@@ -9,8 +9,12 @@
 #include <limits.h>
 #include <errno.h>
 #include <eos32.h>
+#include <math.h>
 #include <assert.h>
 
+/* TODO: bfranken remove */
+static int printString(char *str, int flags, int width, int prec, FILE *stream);
+static int printUnsigned(unsigned long unum, int base, int flags, int width, int prec, FILE *stream);
 
 /**************************************************************/
 

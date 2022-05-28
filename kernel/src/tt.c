@@ -594,6 +594,9 @@ void ttyoutput(int c, struct tty *tp)
 	case 2:
 		if (*colp)
 			(*colp)--;
+		/* a single BS was already put into the output queue */
+		putc(' ', &tp->t_outq);
+		putc('\b', &tp->t_outq);
 		break;
 
 	/* newline */
