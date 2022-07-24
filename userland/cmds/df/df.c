@@ -12,8 +12,9 @@
 daddr_t	blkno	= 1;
 char	*dargv[] = {
 	0,
-	"/dev/idedsk0",
-	"/dev/idedsk2",
+	"/dev/idediskp0",
+	"/dev/idediskp2",
+	"/dev/idediskp3",
 	0
 };
 
