@@ -257,7 +257,7 @@ start:
 	add	$9,$0,MONITOR_START
 	stw	$8,$9,4			; MONITOR_START + 4: j exception
 	stw	$8,$9,8			; MONITOR_START + 8: j user_miss
-	cctl	7			; sync caches
+	ccs					; sync caches
 
 	; initialize TLB
 	jal	flushAll		; invalidate all TLB entries
@@ -466,7 +466,7 @@ setTLB:
 
 	; void syncCaches(void);
 syncCaches:
-	cctl	7			; invalidate icache, flush dcache
+	ccs			; invalidate icache, flush dcache
 	jr	$31
 
 ;***************************************************************
