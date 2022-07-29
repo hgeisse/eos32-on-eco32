@@ -1,0 +1,1 @@
+../../../../../cmds/mkmboot/stage2/c0.s

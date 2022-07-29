@@ -1,0 +1,1 @@
+../../../../../cmds/mkmboot/stage2/stdarg.h

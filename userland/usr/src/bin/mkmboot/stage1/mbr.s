@@ -1,0 +1,1 @@
+../../../../../cmds/mkmboot/stage1/mbr.s

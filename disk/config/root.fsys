@@ -15,6 +15,7 @@ bin       d--755 0 0
           cpp             ---755 0 0 ../../cmds/cpp
           date            ---755 0 0 ../../cmds/date
           dcheck          ---755 0 0 ../../cmds/dcheck
+          dd              ---755 0 0 ../../cmds/dd
           df              ---755 0 0 ../../cmds/df
           dof             ---755 0 0 ../../cmds/dof
           du              ---755 0 0 ../../cmds/du
