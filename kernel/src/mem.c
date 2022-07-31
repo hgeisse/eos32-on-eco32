@@ -7,6 +7,7 @@
  *	minor device 0 is physical memory
  *	minor device 1 is kernel virtual memory
  *	minor device 2 is EOF/RATHOLE
+ *  minor device 3 is zero-device
  */
 
 #include "../include/param.h"
@@ -38,9 +39,14 @@ void mmread(dev_t dev) {
   caddr_t addr;
   int c;
 
-  if(minor(dev) > 2) {
+  if(minor(dev) > 3) {
     /* illegal minor device */
     u.u_error = ENXIO;
+    return;
+  }
+  if(minor(dev) == 3) {
+    /* zero device */
+    passc(0);
     return;
   }
   if(minor(dev) == 2) {
@@ -63,9 +69,14 @@ void mmwrite(dev_t dev) {
   caddr_t addr;
   int c;
 
-  if(minor(dev) > 2) {
+  if(minor(dev) > 3) {
     /* illegal minor device */
     u.u_error = ENXIO;
+    return;
+  }
+  if(minor(dev) == 3) {
+    /* zero device */
+    u.u_count = 0;
     return;
   }
   if(minor(dev) == 2) {
