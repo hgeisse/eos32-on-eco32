@@ -33,6 +33,7 @@ start:
 	and	$5,$5,0x3FFFFFFF	; convert to physical address
 	add	$6,$0,30		; 30 sectors to load
 	jal	rdsct
+	ccs				; sync caches
 	add	$8,$0,loadaddr		; start executing the boot manager
 	jr	$8
 
@@ -104,7 +105,7 @@ strtmsg:
 dremsg:
 	.byte	"disk read error", 0x0D, 0x0A, 0
 hltmsg:
-	.byte	"bootstrap halted", 0x0D, 0x0A, 0
+	.byte	"Bootstrap halted", 0x0D, 0x0A, 0
 
 	; boot record signature
 	.locate	512-2

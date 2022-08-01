@@ -2,6 +2,8 @@
 # Makefile to build the master boot record
 #
 
+BUILD = ../../../../build
+
 all:		mbr.bin
 
 mbr.bin:	mbr
