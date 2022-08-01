@@ -46,7 +46,7 @@ void mmread(dev_t dev) {
   }
   if(minor(dev) == 3) {
     /* zero device */
-    passc(0);
+    while(u.u_count) passc(0);
     return;
   }
   if(minor(dev) == 2) {

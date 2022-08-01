@@ -11,7 +11,7 @@ install:	mbootblk
 		cp mbootblk $(BUILD)/run
 
 mbootblk:	stage1/mbr.bin stage2/mboot.bin
-		dd if=/dev/zero of=./zeroes bs=1 count=512
+		dd if=/dev/zero of=./zeroes bs=512 count=1
 		cat stage1/mbr.bin zeroes stage2/mboot.bin >mbootblk
 
 stage1/mbr.bin:
