@@ -225,6 +225,22 @@ src         d--755 0 0
                 $
             Makefile            ---644 0 0 ../../usr/src/bin/mkmboot/Makefile
             $
+        mkpboot     d--644 0 0
+            stage2              d--644 0 0
+                Makefile            ---644 0 0 ../../usr/src/bin/mkpboot/stage2/Makefile
+                stage2.lnk          ---644 0 0 ../../usr/src/bin/mkpboot/stage2/stage2.lnk
+                biolib.h            ---644 0 0 ../../usr/src/bin/mkpboot/stage2/biolib.h
+                c0.s                ---644 0 0 ../../usr/src/bin/mkpboot/stage2/c0.s
+                pboot.c             ---644 0 0 ../../usr/src/bin/mkpboot/stage2/pboot.c
+                biolib.s            ---644 0 0 ../../usr/src/bin/mkpboot/stage2/biolib.s
+                $
+            Makefile            ---644 0 0 ../../usr/src/bin/mkpboot/Makefile
+            stage1              d--644 0 0
+                Makefile            ---644 0 0 ../../usr/src/bin/mkpboot/stage1/Makefile
+                stage1.lnk          ---644 0 0 ../../usr/src/bin/mkpboot/stage1/stage1.lnk
+                pbr.s               ---644 0 0 ../../usr/src/bin/mkpboot/stage1/pbr.s
+                $
+            $
         make        d--755 0 0
         	doname.c            ---644 0 0 ../../usr/src/bin/make/doname.c
             Makefile            ---644 0 0 ../../usr/src/bin/make/Makefile
