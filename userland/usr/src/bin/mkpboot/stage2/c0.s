@@ -1,0 +1,1 @@
+../../../../../cmds/mkpboot/stage2/c0.s
