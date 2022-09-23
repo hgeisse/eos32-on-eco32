@@ -9,7 +9,10 @@ extern struct bdevsw bdevsw[];
 extern struct cdevsw cdevsw[];
 extern struct linesw linesw[];
 
-extern int	bootdsk;
+extern unsigned bootDisk;
+extern unsigned startSector;
+extern unsigned numSectors;
+
 extern dev_t    rootdev;
 extern dev_t    swapdev;
 extern dev_t    pipedev;

@@ -114,7 +114,10 @@ struct linesw linesw[] =
   { 0,       0,       0,      0,       0,     0,        0       },  /* end */
 };
 
-int	bootdsk;	/* this is set by the bootstrap/startup procedures */
+unsigned int bootDisk;		/* set by the bootstrap/startup procedures */
+unsigned int startSector;	/* set by the bootstrap/startup procedures */
+unsigned int numSectors;	/* set by the bootstrap/startup procedures */
+
 dev_t	rootdev;
 dev_t	swapdev;
 dev_t	pipedev;

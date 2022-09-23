@@ -369,26 +369,28 @@ void main(void) {
   clockInit();
 
   /* set root, swap, and pipe devices */
-  if (bootdsk == 0) {
+  printf("Boot info:\n"
+         "  disk           = %d\n"
+         "  start sector   = 0x%X\n"
+         "  number sectors = 0x%X\n",
+         bootDisk, startSector, numSectors);
+  if (bootDisk == 0) {
     rootdev = makedev(0, 0);
     swapdev = makedev(0, 1);
-    pipedev = makedev(0, 0);
   } else
-  if (bootdsk == 1) {
+  if (bootDisk == 1) {
     rootdev = makedev(1, 0);
     swapdev = makedev(1, 1);
-    pipedev = makedev(1, 0);
   } else
-  if (bootdsk == 2) {
+  if (bootDisk == 2) {
     rootdev = makedev(6, 0);
     swapdev = makedev(6, 1);
-    pipedev = makedev(6, 0);
   } else {
     printf("unknown boot disk, assuming disk 0\n");
     rootdev = makedev(0, 0);
     swapdev = makedev(0, 1);
-    pipedev = makedev(0, 0);
   }
+  pipedev = rootdev;
 
   /* determine swap size */
   numSwap = bdevsw[major(swapdev)].d_size(swapdev);
