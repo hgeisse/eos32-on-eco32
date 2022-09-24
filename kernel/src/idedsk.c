@@ -186,6 +186,41 @@ static void ideInitialize(void) {
 /**************************************************************/
 
 
+int ideGetRoot(unsigned startSector, unsigned numSectors) {
+  int i;
+
+  if (!ideInitialized) {
+    ideInitialize();
+  }
+  for (i = 0; i < NUM_PARTS; i++) {
+    if ((partTbl[i].type & 0x7FFFFFFF) == EOS32_FSYS &&
+        partTbl[i].start == startSector &&
+        partTbl[i].size == numSectors) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+
+int ideGetSwap(void) {
+  int i;
+
+  if (!ideInitialized) {
+    ideInitialize();
+  }
+  for (i = 0; i < NUM_PARTS; i++) {
+    if ((partTbl[i].type & 0x7FFFFFFF) == EOS32_SWAP) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+
+/**************************************************************/
+
+
 /*
  * Determine the size of the device in blocks.
  */

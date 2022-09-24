@@ -682,6 +682,41 @@ done:
 /**************************************************************/
 
 
+int sdcGetRoot(unsigned startSector, unsigned numSectors) {
+  int i;
+
+  if (!sdcInitialized) {
+    sdcInitialize();
+  }
+  for (i = 0; i < NUM_PARTS; i++) {
+    if ((partTbl[i].type & 0x7FFFFFFF) == EOS32_FSYS &&
+        partTbl[i].start == startSector &&
+        partTbl[i].size == numSectors) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+
+int sdcGetSwap(void) {
+  int i;
+
+  if (!sdcInitialized) {
+    sdcInitialize();
+  }
+  for (i = 0; i < NUM_PARTS; i++) {
+    if ((partTbl[i].type & 0x7FFFFFFF) == EOS32_SWAP) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+
+/**************************************************************/
+
+
 /*
  * Determine the size of the device in blocks.
  */

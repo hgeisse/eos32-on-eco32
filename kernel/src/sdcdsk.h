@@ -21,6 +21,9 @@ extern Bool debugSdcDisk;
 extern struct buf sdcTab;
 
 
+int sdcGetRoot(unsigned startSector, unsigned numSectors);
+int sdcGetSwap(void);
+
 int sdcSize(dev_t dev);
 void sdcOpen(dev_t dev, int flag);
 void sdcClose(dev_t dev, int flag);

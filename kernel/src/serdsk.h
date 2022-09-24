@@ -21,6 +21,9 @@ extern Bool debugSerDisk;
 extern struct buf serTab;
 
 
+int serGetRoot(unsigned startSector, unsigned numSectors);
+int serGetSwap(void);
+
 int serSize(dev_t dev);
 void serOpen(dev_t dev, int flag);
 void serClose(dev_t dev, int flag);

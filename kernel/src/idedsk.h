@@ -39,6 +39,9 @@ extern Bool debugIdeDisk;
 extern struct buf ideTab;
 
 
+int ideGetRoot(unsigned startSector, unsigned numSectors);
+int ideGetSwap(void);
+
 int ideSize(dev_t dev);
 void ideOpen(dev_t dev, int flag);
 void ideClose(dev_t dev, int flag);

@@ -308,6 +308,10 @@ void main(void) {
   int numFree;		/* free memory given to user processes */
   int numUnused;	/* memory that will not be used */
   int maxMem;		/* max number of frames per process */
+  int rootMajor;	/* major device number of root device */
+  int rootMinor;	/* minor device number of root device */
+  int swapMajor;	/* major device number of swap device */
+  int swapMinor;	/* minor device number of swap device */
   int numSwap;		/* number of blocks on swap device */
 
   /* control where kernel output should appear */
@@ -374,22 +378,47 @@ void main(void) {
          "  start sector   = 0x%X\n"
          "  number sectors = 0x%X\n",
          bootDisk, startSector, numSectors);
+  printf("\n");
   if (bootDisk == 0) {
-    rootdev = makedev(0, 0);
-    swapdev = makedev(0, 1);
+    /* IDE disk */
+    rootMajor = 0;
+    rootMinor = ideGetRoot(startSector, numSectors);
+    swapMajor = 0;
+    swapMinor = ideGetSwap();
   } else
   if (bootDisk == 1) {
-    rootdev = makedev(1, 0);
-    swapdev = makedev(1, 1);
+    /* serial line disk server */
+    rootMajor = 1;
+    rootMinor = serGetRoot(startSector, numSectors);
+    swapMajor = 1;
+    swapMinor = serGetSwap();
   } else
   if (bootDisk == 2) {
-    rootdev = makedev(6, 0);
-    swapdev = makedev(6, 1);
+    /* SDC disk */
+    rootMajor = 6;
+    rootMinor = sdcGetRoot(startSector, numSectors);
+    swapMajor = 6;
+    swapMinor = sdcGetSwap();
   } else {
     printf("unknown boot disk, assuming disk 0\n");
-    rootdev = makedev(0, 0);
-    swapdev = makedev(0, 1);
+    /* IDE disk */
+    rootMajor = 0;
+    rootMinor = ideGetRoot(startSector, numSectors);
+    swapMajor = 0;
+    swapMinor = ideGetSwap();
   }
+  printf("Disk devices:\n");
+  printf("  root = (%d, %d)\n", rootMajor, rootMinor);
+  printf("  swap = (%d, %d)\n", swapMajor, swapMinor);
+  printf("\n");
+  if (rootMinor < 0) {
+    panic("root device not found");
+  }
+  if (swapMinor < 0) {
+    panic("swap device not found");
+  }
+  rootdev = makedev(rootMajor, rootMinor);
+  swapdev = makedev(swapMajor, swapMinor);
   pipedev = rootdev;
 
   /* determine swap size */

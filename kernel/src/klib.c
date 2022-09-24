@@ -521,12 +521,12 @@ void printf(char *fmt, ...) {
 /*
  * panic is called on unresolvable
  * fatal errors.
- * It syncs, prints "kernel panic: mesg"
- * and then loops.
+ * It prints "kernel panic: mesg",
+ * syncs, and then loops.
  */
 void panic(char *s) {
-  update();
   printf("kernel panic: %s\n", s);
+  update();
   for (;;) {
     idle();
   }
