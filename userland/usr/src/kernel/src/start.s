@@ -45,7 +45,10 @@
 	.import	main
 	.import	trapISR
 	.import	runrun
-	.import	bootdsk
+
+	.import	bootDisk
+	.import	startSector
+	.import	numSectors
 
 	.import	_bcode
 	.import	_ecode
@@ -257,7 +260,7 @@ start:
 	add	$9,$0,MONITOR_START
 	stw	$8,$9,4			; MONITOR_START + 4: j exception
 	stw	$8,$9,8			; MONITOR_START + 8: j user_miss
-	ccs					; sync caches
+	ccs				; sync caches
 
 	; initialize TLB
 	jal	flushAll		; invalidate all TLB entries
@@ -309,8 +312,10 @@ clrp0u:
 	; setup kernel stack for process 0
 	add	$29,$0,U_KSTK_TOP	; sp gets decremented before write
 
-	; store boot disk
-	stw	$16,$0,bootdsk
+	; store boot info
+	stw	$16,$0,bootDisk
+	stw	$17,$0,startSector
+	stw	$18,$0,numSectors
 
 	; call main
 	jal	main			; call main, fork off init process
@@ -466,7 +471,7 @@ setTLB:
 
 	; void syncCaches(void);
 syncCaches:
-	ccs			; invalidate icache, flush dcache
+	ccs				; invalidate icache, flush dcache
 	jr	$31
 
 ;***************************************************************

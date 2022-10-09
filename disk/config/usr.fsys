@@ -71,6 +71,7 @@ include     d--755 0 0
 install     d--755 0 0
     install1.sh     ---755 0 0 ../../usr/install/install1.sh
     install2.sh     ---755 0 0 ../../usr/install/install2.sh
+    install3.sh     ---755 0 0 ../../usr/install/install3.sh
     root.fsys       ---755 0 0 ../../usr/install/root.fsys
     $
 lib         d--755 0 0
@@ -209,6 +210,42 @@ src         d--755 0 0
             $
         $
     bin         d--755 0 0
+        init        d--644 0 0
+        	init.c              ---644 0 0 ../usr/src/bin/init/init.c
+            Makefile            ---644 0 0 ../usr/src/bin/init/Makefile
+            $
+        sh          d--644 0 0
+        	word.c              ---644 0 0 ../usr/src/bin/sh/word.c
+            expand.c            ---644 0 0 ../usr/src/bin/sh/expand.c
+            name.h              ---644 0 0 ../usr/src/bin/sh/name.h
+            brkincr.h           ---644 0 0 ../usr/src/bin/sh/brkincr.h
+            fault.c             ---644 0 0 ../usr/src/bin/sh/fault.c
+            Makefile            ---644 0 0 ../usr/src/bin/sh/Makefile
+            blok.c              ---644 0 0 ../usr/src/bin/sh/blok.c
+            ctyp.h              ---644 0 0 ../usr/src/bin/sh/ctyp.h
+            io.c                ---644 0 0 ../usr/src/bin/sh/io.c
+            mac.h               ---644 0 0 ../usr/src/bin/sh/mac.h
+            ctyp.c              ---644 0 0 ../usr/src/bin/sh/ctyp.c
+            stak.h              ---644 0 0 ../usr/src/bin/sh/stak.h
+            macro.c             ---644 0 0 ../usr/src/bin/sh/macro.c
+            cmd.c               ---644 0 0 ../usr/src/bin/sh/cmd.c
+            builtin.c           ---644 0 0 ../usr/src/bin/sh/builtin.c
+            main.c              ---644 0 0 ../usr/src/bin/sh/main.c
+            msg.c               ---644 0 0 ../usr/src/bin/sh/msg.c
+            stak.c              ---644 0 0 ../usr/src/bin/sh/stak.c
+            sym.h               ---644 0 0 ../usr/src/bin/sh/sym.h
+            service.c           ---644 0 0 ../usr/src/bin/sh/service.c
+            mode.h              ---644 0 0 ../usr/src/bin/sh/mode.h
+            error.c             ---644 0 0 ../usr/src/bin/sh/error.c
+            timeout.h           ---644 0 0 ../usr/src/bin/sh/timeout.h
+            defs.h              ---644 0 0 ../usr/src/bin/sh/defs.h
+            string.c            ---644 0 0 ../usr/src/bin/sh/string.c
+            args.c              ---644 0 0 ../usr/src/bin/sh/args.c
+            xec.c               ---644 0 0 ../usr/src/bin/sh/xec.c
+            setbrk.c            ---644 0 0 ../usr/src/bin/sh/setbrk.c
+            print.c             ---644 0 0 ../usr/src/bin/sh/print.c
+            name.c              ---644 0 0 ../usr/src/bin/sh/name.c
+            $
         mkmboot     d--644 0 0
             stage1              d--644 0 0
                 Makefile            ---644 0 0 ../../usr/src/bin/mkmboot/stage1/Makefile
