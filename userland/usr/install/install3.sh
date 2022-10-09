@@ -1,18 +1,26 @@
-: PLEASE MODIFY THE FOLLOWING 4 LINES
-PART_ROOT=4
-PART_SWAP=5
-PART_USR=6
-PART_HOME=7
+ROOTFS=/usr/install/rootfs
 
-: INTERNAL
-DISK_FILE=/dev/idedisk
-DISK_MAJOR=0
+echo "This script prepares the minimal needed userland."
+echo "## Step 3.1: Compile the init binary"
+cd /usr/src/bin/init; make
+cd /usr/install
 
+echo "## Step 3.2: Compile getty"
+cd /usr/src/bin/getty; make
+cd /usr/install
 
-echo "## Step 2.1: Write new partition table to disk..."
-mkpart $DISK_FILE ./disk.part
-echo "## Step 2.2: Create devices under /dev for the new partitions..."
-mknod "${DISK_FILE}p${PART_ROOT}" b $DISK_MAJOR $PART_ROOT
-mknod "${DISK_FILE}p${PART_SWAP}" b $DISK_MAJOR $PART_SWAP
-mknod "${DISK_FILE}p${PART_USR}" b $DISK_MAJOR $PART_USR
-mknod "${DISK_FILE}p${PART_HOME}" b $DISK_MAJOR $PART_HOME
+echo "## Step 3.3: Compile the shell (sh)"
+cd /usr/src/bin/sh; make
+cd /usr/install
+
+echo "## Step 3.99: Copy binaries to the new partition"
+mkdir "${ROOTFS}/etc"
+cp /usr/src/bin/init/init "${ROOTFS}/etc/init"
+cp /usr/src/bin/getty/getty "${ROOTFS}/etc/getty"
+mkdir "${ROOTFS}/bin"
+cp /usr/src/bin/sh/sh "${ROOTFS}/bin/sh"
+sync
+
+echo "## Step 3.100: Copy config files to the new partition"
+cp /etc/rc "${ROOTFS}/etc/rc"
+cp /etc/ttys "${ROOTFS}/etc/ttys"
