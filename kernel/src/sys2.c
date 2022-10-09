@@ -104,6 +104,7 @@ void open(void)
 
 	uap = (struct a *)u.u_ap;
 	u.u_dirp = uap->fname;
+	printf("sys2 open fname: %s\n", u.u_dirp);
 	ip = namei(uchar, 0);
 	if(ip == NULL)
 		return;

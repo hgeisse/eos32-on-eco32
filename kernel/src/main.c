@@ -429,15 +429,19 @@ void main(void) {
 
   /* free all of swap space */
   mfree(swapmap, numSwap, 0);
+  printf("swlt16: swap space free\n");
 
   /* initialize character buffers */
   cinit();
+  printf("swlt16: cinit() check\n");
 
   /* initialize buffer cache */
   binit();
+  printf("swlt16: binit() check\n");
 
   /* initialize root file system */
   iinit();
+  printf("swlt16: root fsys init\n");
 
   /* set up known inodes */
   rootdir = iget(rootdev, (ino_t) ROOTINO);
@@ -454,6 +458,7 @@ void main(void) {
   /* make init process */
   if (newproc()) {
     /* this is executed by process 1 */
+    printf("swlt16: hello from init process\n");
     if (debugStartup) {
       showProcTable("proc table when proc 1 comes to life");
     }

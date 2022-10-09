@@ -25,7 +25,7 @@
 /*
  * Debugging.
  */
-Bool debugIdeDisk = FALSE;
+Bool debugIdeDisk = TRUE;
 
 
 /*
