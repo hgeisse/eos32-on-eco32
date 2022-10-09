@@ -1,6 +1,10 @@
 /usr/src/bin/mkpboot/pbootblk
 64000 42688
 d--777 1 1
+    boot      d--755 0 0
+        eos32.map       ---644 0 0 /usr/src/kernel/src/eos32.map
+        eos32.bin       ---644 0 0 /usr/src/kernel/src/eos32.bin
+        $
     dev       d--755 0 0
         console         c--644 0 0 0 0
         mem             c--600 0 0 8 0
@@ -12,5 +16,17 @@ d--777 1 1
         idedisk         b--644 0 0 0 16
         ramdisk         b--644 0 0 2 0
         swap            b--644 0 0 0 1
+        $
+    etc       d--755 0 0
+        init            ---755 0 0 /usr/src/bin/init/init
+        getty           ---755 0 0 /usr/src/bin/getty/getty
+        rc              ---644 0 0 /etc/rc
+        ttys            ---644 0 0 /etc/ttys
+        $
+    bin       d--755 0 0
+        sh              ---755 0 0 /usr/src/bin/sh/sh
+        ls              ---755 0 0 /usr/src/bin/ls/ls
+        echo            ---755 0 0 /usr/src/bin/echo/echo
+        cat             ---755 0 0 /usr/src/bin/cat/cat
         $
 $

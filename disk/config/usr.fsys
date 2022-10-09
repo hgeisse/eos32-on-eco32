@@ -210,6 +210,18 @@ src         d--755 0 0
             $
         $
     bin         d--755 0 0
+        ls       d--644 0 0
+            ls.c             ---644 0 0 ../../usr/src/bin/ls/ls.c
+            Makefile            ---644 0 0 ../../usr/src/bin/ls/Makefile
+            $
+        echo       d--644 0 0
+            echo.c             ---644 0 0 ../../usr/src/bin/echo/echo.c
+            Makefile            ---644 0 0 ../../usr/src/bin/echo/Makefile
+            $
+        cat       d--644 0 0
+            cat.c             ---644 0 0 ../../usr/src/bin/cat/cat.c
+            Makefile            ---644 0 0 ../../usr/src/bin/cat/Makefile
+            $
         getty       d--644 0 0
             getty.c             ---644 0 0 ../../usr/src/bin/getty/getty.c
             Makefile            ---644 0 0 ../../usr/src/bin/getty/Makefile
