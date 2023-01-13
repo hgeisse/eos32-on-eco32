@@ -1108,6 +1108,7 @@ int main(int argc, char *argv[]) {
     }
     numBlocks = getNum();
     numInodes = getNum();
+    if(numInodes == 0) numInodes = (numBlocks * BSIZE) / AFS;
   }
   if (numBlocks > maxBlocks) {
     error("file system exceeds available space");

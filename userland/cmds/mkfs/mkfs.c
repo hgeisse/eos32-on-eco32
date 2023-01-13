@@ -990,10 +990,12 @@ int main(int argc, char *argv[]) {
   long bootblkSize;
   unsigned char buf[BSIZE];
 
+  /* show size params */
   if (argc == 2 && strcmp(argv[1], "--sizes") == 0) {
     showSizes();
     exit(0);
   }
+  /* show usage info */
   if (argc != 3) {
     printf("Usage: %s <disk or partition special file> <prototype or size>\n",
            argv[0]);
@@ -1021,7 +1023,7 @@ int main(int argc, char *argv[]) {
       }
       numBlocks = numBlocks * 10 + (c - '0');
     }
-    numInodes = (numBlocks * BSIZE) / AFS;
+    numInodes = (numBlocks * BSIZE) / AFS; /* THE SECRET FORMULAR */
   } else {
     /* prototype file opened */
     charp = NULL;
@@ -1050,7 +1052,8 @@ int main(int argc, char *argv[]) {
       fclose(bootblk);
     }
     numBlocks = getNum();
-    numInodes = getNum();
+    numInodes = getNum(); /* this has to be modified */
+    if(numInodes == 0) numInodes = (numBlocks * BSIZE) / AFS;
   }
   filsys.s_fsize = numBlocks;
   filsys.s_isize = (numInodes + NIPB - 1) / NIPB;

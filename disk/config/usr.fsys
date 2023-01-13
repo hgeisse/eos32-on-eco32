@@ -1,5 +1,5 @@
 -noboot-
-5000 3400
+10000 0
 d--755 0 0
 bin         d--755 0 0
     $
@@ -210,6 +210,29 @@ src         d--755 0 0
             $
         $
     bin         d--755 0 0
+        joe      d--644 0 0
+        	asyncbsd.c          ---644 0 0 ../../usr/src/bin/joe/asyncbsd.c
+            joe.c               ---644 0 0 ../../usr/src/bin/joe/joe.c
+            asyncxenix.c        ---644 0 0 ../../usr/src/bin/joe/asyncxenix.c
+            INFO                ---644 0 0 ../../usr/src/bin/joe/INFO
+            joe.1               ---644 0 0 ../../usr/src/bin/joe/joe.1
+            Makefile            ---644 0 0 ../../usr/src/bin/joe/Makefile
+            asynchpux.c         ---644 0 0 ../../usr/src/bin/joe/asynchpux.c
+            buffer.h            ---644 0 0 ../../usr/src/bin/joe/buffer.h
+            COPYING             ---644 0 0 ../../usr/src/bin/joe/COPYING
+            blocks.h            ---644 0 0 ../../usr/src/bin/joe/blocks.h
+            asyncsvr3.c         ---644 0 0 ../../usr/src/bin/joe/asyncsvr3.c
+            buffer.c            ---644 0 0 ../../usr/src/bin/joe/buffer.c
+            asyncesix.c         ---644 0 0 ../../usr/src/bin/joe/asyncesix.c
+            joe.h               ---644 0 0 ../../usr/src/bin/joe/joe.h
+            cruddy.c            ---644 0 0 ../../usr/src/bin/joe/cruddy.c
+            README              ---644 0 0 ../../usr/src/bin/joe/README
+            asynclinux.c        ---644 0 0 ../../usr/src/bin/joe/asynclinux.c
+            blocks.c            ---644 0 0 ../../usr/src/bin/joe/blocks.c
+            asyncposix.c        ---644 0 0 ../../usr/src/bin/joe/asyncposix.c
+            x.joerc             ---644 0 0 ../../usr/src/bin/joe/x.joerc
+            async.h             ---644 0 0 ../../usr/src/bin/joe/async.h
+            $
         ls       d--644 0 0
             ls.c             ---644 0 0 ../../usr/src/bin/ls/ls.c
             Makefile            ---644 0 0 ../../usr/src/bin/ls/Makefile
