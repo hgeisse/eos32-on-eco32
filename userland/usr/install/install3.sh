@@ -20,3 +20,7 @@ mkfs "${DISK_FILE}p${PART_ROOT}" ./root.fsys
 echo "## Step 3.4: Mount new root partition..."
 mkdir ./rootfs
 mount "${DISK_FILE}p${PART_ROOT}" ./rootfs
+
+echo "## Step 3.5: Generate welcome message..."
+echo "This version of EOS32 was installed on: " > ./rootfs/WELCOME
+date >> ./rootfs/WELCOME

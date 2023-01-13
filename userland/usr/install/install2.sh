@@ -18,3 +18,5 @@ echo " echo..."
 cd /usr/src/bin/echo; make
 echo " cat..."
 cd /usr/src/bin/cat; make
+echo " joe..."
+cd /usr/src/bin/joe; make

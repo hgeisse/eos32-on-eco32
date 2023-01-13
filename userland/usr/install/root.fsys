@@ -1,5 +1,5 @@
 /usr/src/bin/mkpboot/pbootblk
-64000 42688
+64000 0
 d--777 1 1
     boot      d--755 0 0
         eos32.map       ---644 0 0 /usr/src/kernel/src/eos32.map
@@ -22,11 +22,13 @@ d--777 1 1
         getty           ---755 0 0 /usr/src/bin/getty/getty
         rc              ---644 0 0 /etc/rc
         ttys            ---644 0 0 /etc/ttys
+        joerc           ---644 0 0 /etc/joerc
         $
     bin       d--755 0 0
         sh              ---755 0 0 /usr/src/bin/sh/sh
         ls              ---755 0 0 /usr/src/bin/ls/ls
         echo            ---755 0 0 /usr/src/bin/echo/echo
         cat             ---755 0 0 /usr/src/bin/cat/cat
+        joe             ---755 0 0 /usr/src/bin/joe/joe
         $
 $
