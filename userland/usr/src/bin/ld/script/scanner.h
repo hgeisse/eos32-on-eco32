@@ -1,0 +1,1 @@
+../../../../../cmds/ld/script/scanner.h

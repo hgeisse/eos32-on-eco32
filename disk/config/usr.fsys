@@ -212,6 +212,23 @@ src         d--755 0 0
             $
         $
     bin         d--755 0 0
+        ld       d--644 0 0
+            Makefile            ---644 0 0 ../../usr/src/bin/ld/Makefile
+            ld.c                ---644 0 0 ../../usr/src/bin/ld/ld.c
+            script              d--644 0 0
+                    Makefile            ---644 0 0 ../../usr/src/bin/ld/script/Makefile
+                    scanner.h           ---644 0 0 ../../usr/src/bin/ld/script/scanner.h
+                    readscript.h        ---644 0 0 ../../usr/src/bin/ld/script/readscript.h
+                    utils.h             ---644 0 0 ../../usr/src/bin/ld/script/utils.h
+                    parser.h            ---644 0 0 ../../usr/src/bin/ld/script/parser.h
+                    utils.c             ---644 0 0 ../../usr/src/bin/ld/script/utils.c
+                    parser.y            ---644 0 0 ../../usr/src/bin/ld/script/parser.y
+                    readscript.c        ---644 0 0 ../../usr/src/bin/ld/script/readscript.c
+                    script.c            ---644 0 0 ../../usr/src/bin/ld/script/script.c
+                    scanner.l           ---644 0 0 ../../usr/src/bin/ld/script/scanner.l
+                    script.h            ---644 0 0 ../../usr/src/bin/ld/script/script.h
+                    $
+            $
         as       d--644 0 0
         	Makefile            ---644 0 0 ../../usr/src/bin/as/Makefile
             as.c                ---644 0 0 ../../usr/src/bin/as/as.c

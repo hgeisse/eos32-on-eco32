@@ -34,6 +34,8 @@ cp /bin/rcc /usr/src/bin/lcc/build/rcc
 cp /bin/lburg /usr/src/bin/lcc/build/lburg
 echo " as..."
 cp /bin/as /usr/src/bin/as/as
+echo " ld..."
+cp /bin/ld /usr/src/bin/ld/ld
 
 echo "## Step 2.4: Compile the C standard library"
 cp /usr/lib/libc.a /usr/src/lib/libc.a
