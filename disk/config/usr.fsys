@@ -433,6 +433,102 @@ src         d--755 0 0
             CPYRIGHT            ---644 0 0 ../../usr/src/bin/lcc/CPYRIGHT
             $
         $
+    lib     d--644 0 0
+        Makefile            ---644 0 0 ../../usr/src/lib/Makefile
+        setjmp              d--644 0 0
+                setjmp.s            ---644 0 0 ../../usr/src/lib/setjmp/setjmp.s
+                Makefile            ---644 0 0 ../../usr/src/lib/setjmp/Makefile
+                $
+        scripts             d--644 0 0
+                default.lnk         ---644 0 0 ../../usr/src/lib/scripts/default.lnk
+                $
+        include             d--644 0 0
+                locale.h            ---644 0 0 ../../usr/src/lib/include/locale.h
+                limits.h            ---644 0 0 ../../usr/src/lib/include/limits.h
+                string.h            ---644 0 0 ../../usr/src/lib/include/string.h
+                ctype.h             ---644 0 0 ../../usr/src/lib/include/ctype.h
+                time.h              ---644 0 0 ../../usr/src/lib/include/time.h
+                eos32.h             ---644 0 0 ../../usr/src/lib/include/eos32.h
+                setjmp.h            ---644 0 0 ../../usr/src/lib/include/setjmp.h
+                ar.h                ---644 0 0 ../../usr/src/lib/include/ar.h
+                errno.h             ---644 0 0 ../../usr/src/lib/include/errno.h
+                stdarg.h            ---644 0 0 ../../usr/src/lib/include/stdarg.h
+                math.h              ---644 0 0 ../../usr/src/lib/include/math.h
+                eos32sys.h          ---644 0 0 ../../usr/src/lib/include/eos32sys.h
+                stdlib.h            ---644 0 0 ../../usr/src/lib/include/stdlib.h
+                signal.h            ---644 0 0 ../../usr/src/lib/include/signal.h
+                stddef.h            ---644 0 0 ../../usr/src/lib/include/stddef.h
+                float.h             ---644 0 0 ../../usr/src/lib/include/float.h
+                README              ---644 0 0 ../../usr/src/lib/include/README
+                a.out.h             ---644 0 0 ../../usr/src/lib/include/a.out.h
+                stdio.h             ---644 0 0 ../../usr/src/lib/include/stdio.h
+                eos32lib.h          ---644 0 0 ../../usr/src/lib/include/eos32lib.h
+                core.h              ---644 0 0 ../../usr/src/lib/include/core.h
+                assert.h            ---644 0 0 ../../usr/src/lib/include/assert.h
+                $
+        eos32sys            d--644 0 0
+                Makefile            ---644 0 0 ../../usr/src/lib/eos32sys/Makefile
+                TODO                ---644 0 0 ../../usr/src/lib/eos32sys/TODO
+                eos32sys.s          ---644 0 0 ../../usr/src/lib/eos32sys/eos32sys.s
+                $
+        startup             d--644 0 0
+                crt0.s              ---644 0 0 ../../usr/src/lib/startup/crt0.s
+                Makefile            ---644 0 0 ../../usr/src/lib/startup/Makefile
+                $
+        libsrc              d--644 0 0
+                eos32lib.c          ---644 0 0 ../../usr/src/lib/libsrc/eos32lib.c
+                signal.c            ---644 0 0 ../../usr/src/lib/libsrc/signal.c
+                Makefile            ---644 0 0 ../../usr/src/lib/libsrc/Makefile
+                stdio.c             ---644 0 0 ../../usr/src/lib/libsrc/stdio.c
+                errno.c             ---644 0 0 ../../usr/src/lib/libsrc/errno.c
+                ctype.c             ---644 0 0 ../../usr/src/lib/libsrc/ctype.c
+                string.c            ---644 0 0 ../../usr/src/lib/libsrc/string.c
+                time.c              ---644 0 0 ../../usr/src/lib/libsrc/time.c
+                stdlib.c            ---644 0 0 ../../usr/src/lib/libsrc/stdlib.c
+                assert.c            ---644 0 0 ../../usr/src/lib/libsrc/assert.c
+                stdlib              d--644 0 0
+                            strtod.c            ---644 0 0 ../../usr/src/lib/libsrc/stdlib/strtod.c
+                            $
+                stdio               d--644 0 0
+                            grisu.c             ---644 0 0 ../../usr/src/lib/libsrc/stdio/grisu.c
+                            printf.c            ---644 0 0 ../../usr/src/lib/libsrc/stdio/printf.c
+                            printf_grisu.c      ---644 0 0 ../../usr/src/lib/libsrc/stdio/printf_grisu.c
+                            $
+                $
+        libm                d--644 0 0
+                ldexp.c             ---644 0 0 ../../usr/src/lib/libm/ldexp.c
+                sinh.c              ---644 0 0 ../../usr/src/lib/libm/sinh.c
+                pow.c               ---644 0 0 ../../usr/src/lib/libm/pow.c
+                frexp.c             ---644 0 0 ../../usr/src/lib/libm/frexp.c
+                __expo2.c           ---644 0 0 ../../usr/src/lib/libm/__expo2.c
+                cosh.c              ---644 0 0 ../../usr/src/lib/libm/cosh.c
+                env.s               ---644 0 0 ../../usr/src/lib/libm/env.s
+                acos.c              ---644 0 0 ../../usr/src/lib/libm/acos.c
+                fabs.s              ---644 0 0 ../../usr/src/lib/libm/fabs.s
+                Makefile            ---644 0 0 ../../usr/src/lib/libm/Makefile
+                atan.c              ---644 0 0 ../../usr/src/lib/libm/atan.c
+                ceil.c              ---644 0 0 ../../usr/src/lib/libm/ceil.c
+                cos.c               ---644 0 0 ../../usr/src/lib/libm/cos.c
+                copysign.c          ---644 0 0 ../../usr/src/lib/libm/copysign.c
+                floor.c             ---644 0 0 ../../usr/src/lib/libm/floor.c
+                asin.c              ---644 0 0 ../../usr/src/lib/libm/asin.c
+                rem_pio2.c          ---644 0 0 ../../usr/src/lib/libm/rem_pio2.c
+                tan.c               ---644 0 0 ../../usr/src/lib/libm/tan.c
+                sin.c               ---644 0 0 ../../usr/src/lib/libm/sin.c
+                tanh.c              ---644 0 0 ../../usr/src/lib/libm/tanh.c
+                scalbn.c            ---644 0 0 ../../usr/src/lib/libm/scalbn.c
+                log.c               ---644 0 0 ../../usr/src/lib/libm/log.c
+                sqrt.s              ---644 0 0 ../../usr/src/lib/libm/sqrt.s
+                modf.c              ---644 0 0 ../../usr/src/lib/libm/modf.c
+                fmod.c              ---644 0 0 ../../usr/src/lib/libm/fmod.c
+                libm.h              ---644 0 0 ../../usr/src/lib/libm/libm.h
+                exp.c               ---644 0 0 ../../usr/src/lib/libm/exp.c
+                expm1.c             ---644 0 0 ../../usr/src/lib/libm/expm1.c
+                log10.c             ---644 0 0 ../../usr/src/lib/libm/log10.c
+                atan2.c             ---644 0 0 ../../usr/src/lib/libm/atan2.c
+                $
+        $
+    $
     games       d--755 0 0
         wump        d--755 0 0
             Makefile        ---644 0 0 ../../usr/src/games/wump/Makefile

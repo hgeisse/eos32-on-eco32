@@ -1,0 +1,1 @@
+../../../../lib/libsrc/eos32lib.c

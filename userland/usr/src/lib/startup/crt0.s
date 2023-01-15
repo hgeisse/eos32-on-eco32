@@ -1,0 +1,1 @@
+../../../../lib/startup/crt0.s
