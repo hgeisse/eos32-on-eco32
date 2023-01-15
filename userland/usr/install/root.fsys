@@ -35,7 +35,8 @@ d--777 1 1
         lcc             ---755 0 0 /usr/src/bin/lcc/build/lcc
         cpp             ---755 0 0 /usr/src/bin/lcc/build/cpp
         rcc             ---755 0 0 /usr/src/bin/lcc/build/rcc
-        lburg             ---755 0 0 /usr/src/bin/lcc/build/lburg
+        lburg           ---755 0 0 /usr/src/bin/lcc/build/lburg
+        as              ---755 0 0 /usr/src/bin/as/as
         $
     usr       d--755 0 0 
         include       d--755 0 0

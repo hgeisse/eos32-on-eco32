@@ -79,6 +79,7 @@ lib         d--755 0 0
     crt0.o          ---644 0 0 ../../lib/crt0.o
     default.lnk     ---644 0 0 ../../lib/default.lnk
     libc.a          ---644 0 0 ../../lib/libc.a
+    libm.a          ---644 0 0 ../../lib/libm.a
     lex         d--755 0 0
         ncform          ---644 0 0 ../../lib/lex/ncform
         $
@@ -211,6 +212,10 @@ src         d--755 0 0
             $
         $
     bin         d--755 0 0
+        as       d--644 0 0
+        	Makefile            ---644 0 0 ../../usr/src/bin/as/Makefile
+            as.c                ---644 0 0 ../../usr/src/bin/as/as.c
+            $
         joe      d--644 0 0
         	asyncbsd.c          ---644 0 0 ../../usr/src/bin/joe/asyncbsd.c
             joe.c               ---644 0 0 ../../usr/src/bin/joe/joe.c

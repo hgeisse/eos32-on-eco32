@@ -22,6 +22,8 @@ echo " joe..."
 cd /usr/src/bin/joe; make
 echo " lcc..."
 cd /usr/src/bin/lcc; make
+echo " as..."
+cd /usr/src/bin/as; make
 
 echo "## Step 2.4: Compile the C standard library"
 cd /usr/src/lib; make
