@@ -6,16 +6,18 @@ d--777 1 1
         eos32.bin       ---644 0 0 /usr/src/kernel/src/eos32.bin
         $
     dev       d--755 0 0
-        console         c--644 0 0 0 0
-        mem             c--600 0 0 8 0
-        kmem            c--600 0 0 8 1
-        null            c--666 0 0 8 2
-        zero            c--666 0 0 8 3
-        idediskp1       b--644 0 0 0 1
-        idediskp4       b--644 0 0 0 4
+        console         c--644 0 0 0  0
+        mem             c--600 0 0 8  0
+        kmem            c--600 0 0 8  1
+        null            c--666 0 0 8  2
+        zero            c--666 0 0 8  3
+        idediskp1       b--644 0 0 0  1
+        idediskp4       b--644 0 0 0  4
         idedisk         b--644 0 0 0 16
-        ramdisk         b--644 0 0 2 0
-        swap            b--644 0 0 0 1
+        ramdisk         b--644 0 0 2  0
+        swap            b--644 0 0 0  1
+        $
+    tmp       d--755 0 0
         $
     etc       d--755 0 0
         init            ---755 0 0 /usr/src/bin/init/init
@@ -30,5 +32,65 @@ d--777 1 1
         echo            ---755 0 0 /usr/src/bin/echo/echo
         cat             ---755 0 0 /usr/src/bin/cat/cat
         joe             ---755 0 0 /usr/src/bin/joe/joe
+        lcc             ---755 0 0 /usr/src/bin/lcc/build/lcc
+        cpp             ---755 0 0 /usr/src/bin/lcc/build/cpp
+        rcc             ---755 0 0 /usr/src/bin/lcc/build/rcc
+        lburg             ---755 0 0 /usr/src/bin/lcc/build/lburg
+        $
+    usr       d--755 0 0 
+        include       d--755 0 0
+            sys         d--755 0 0
+                acct.h      ---644 0 0 /usr/src/kernel/include/acct.h
+                blk.h       ---644 0 0 /usr/src/kernel/include/blk.h
+                buf.h       ---644 0 0 /usr/src/kernel/include/buf.h
+                callo.h     ---644 0 0 /usr/src/kernel/include/callo.h
+                conf.h      ---644 0 0 /usr/src/kernel/include/conf.h
+                dev.h       ---644 0 0 /usr/src/kernel/include/dev.h
+                dir.h       ---644 0 0 /usr/src/kernel/include/dir.h
+                fblk.h      ---644 0 0 /usr/src/kernel/include/fblk.h
+                file.h      ---644 0 0 /usr/src/kernel/include/file.h
+                filsys.h    ---644 0 0 /usr/src/kernel/include/filsys.h
+                inode.h     ---644 0 0 /usr/src/kernel/include/inode.h
+                ino.h       ---644 0 0 /usr/src/kernel/include/ino.h
+                map.h       ---644 0 0 /usr/src/kernel/include/map.h
+                mount.h     ---644 0 0 /usr/src/kernel/include/mount.h
+                off.h       ---644 0 0 /usr/src/kernel/include/off.h
+                param.h     ---644 0 0 /usr/src/kernel/include/param.h
+                proc.h      ---644 0 0 /usr/src/kernel/include/proc.h
+                reg.h       ---644 0 0 /usr/src/kernel/include/reg.h
+                seg.h       ---644 0 0 /usr/src/kernel/include/seg.h
+                stat.h      ---644 0 0 /usr/src/kernel/include/stat.h
+                stdarg.h    ---644 0 0 /usr/src/kernel/include/stdarg.h
+                systm.h     ---644 0 0 /usr/src/kernel/include/systm.h
+                text.h      ---644 0 0 /usr/src/kernel/include/text.h
+                tim.h       ---644 0 0 /usr/src/kernel/include/tim.h
+                tty.h       ---644 0 0 /usr/src/kernel/include/tty.h
+                user.h      ---644 0 0 /usr/src/kernel/include/user.h
+                $
+            a.out.h     ---644 0 0 /usr/src/lib/include/a.out.h
+            ar.h        ---644 0 0 /usr/src/lib/include/ar.h
+            assert.h    ---644 0 0 /usr/src/lib/include/assert.h
+            core.h      ---644 0 0 /usr/src/lib/include/core.h
+            ctype.h     ---644 0 0 /usr/src/lib/include/ctype.h
+            eos32.h     ---644 0 0 /usr/src/lib/include/eos32.h
+            eos32lib.h  ---644 0 0 /usr/src/lib/include/eos32lib.h
+            eos32sys.h  ---644 0 0 /usr/src/lib/include/eos32sys.h
+            errno.h     ---644 0 0 /usr/src/lib/include/errno.h
+            float.h     ---644 0 0 /usr/src/lib/include/float.h
+            limits.h    ---644 0 0 /usr/src/lib/include/limits.h
+            locale.h    ---644 0 0 /usr/src/lib/include/locale.h
+            math.h      ---644 0 0 /usr/src/lib/include/math.h
+            setjmp.h    ---644 0 0 /usr/src/lib/include/setjmp.h
+            signal.h    ---644 0 0 /usr/src/lib/include/signal.h
+            stdarg.h    ---644 0 0 /usr/src/lib/include/stdarg.h
+            stddef.h    ---644 0 0 /usr/src/lib/include/stddef.h
+            stdio.h     ---644 0 0 /usr/src/lib/include/stdio.h
+            stdlib.h    ---644 0 0 /usr/src/lib/include/stdlib.h
+            string.h    ---644 0 0 /usr/src/lib/include/string.h
+            time.h      ---644 0 0 /usr/src/lib/include/time.h
+            $
+        lib           d--755 0 0
+            libc.a      ---644 0 0 /usr/src/lib/libc.a
+            $
         $
 $

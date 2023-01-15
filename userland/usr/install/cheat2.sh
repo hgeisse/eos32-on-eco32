@@ -26,3 +26,12 @@ echo " cat..."
 cp /bin/cat /usr/src/bin/cat/cat
 echo " joe..."
 cp /bin/joe /usr/src/bin/joe/joe
+echo " lcc..."
+mkdir /usr/src/bin/lcc/build
+cp /bin/lcc /usr/src/bin/lcc/build/lcc
+cp /bin/cpp /usr/src/bin/lcc/build/cpp
+cp /bin/rcc /usr/src/bin/lcc/build/rcc
+cp /bin/lburg /usr/src/bin/lcc/build/lburg
+
+echo "## Step 2.4: Compile the C standard library"
+cp /usr/lib/libc.a /usr/src/lib/libc.a
