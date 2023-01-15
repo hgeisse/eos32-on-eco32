@@ -72,6 +72,7 @@ install     d--755 0 0
     install1.sh     ---755 0 0 ../../usr/install/install1.sh
     install2.sh     ---755 0 0 ../../usr/install/install2.sh
     install3.sh     ---755 0 0 ../../usr/install/install3.sh
+    cheat2.sh     ---755 0 0 ../../usr/install/cheat2.sh
     root.fsys       ---755 0 0 ../../usr/install/root.fsys
     $
 lib         d--755 0 0
