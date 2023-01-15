@@ -92,7 +92,9 @@ d--777 1 1
             time.h      ---644 0 0 /usr/src/lib/include/time.h
             $
         lib           d--755 0 0
-            libc.a      ---644 0 0 /usr/src/lib/libc.a
+            libc.a          ---644 0 0 /usr/src/lib/libc.a
+            crt0.o     ---644 0 0 /usr/src/lib/startup/crt0.o
+            default.lnk     ---644 0 0 /usr/src/lib/scripts/default.lnk
             $
         $
 $

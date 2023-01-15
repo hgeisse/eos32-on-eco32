@@ -39,3 +39,4 @@ cp /bin/ld /usr/src/bin/ld/ld
 
 echo "## Step 2.4: Compile the C standard library"
 cp /usr/lib/libc.a /usr/src/lib/libc.a
+cp /usr/lib/crt0.o /usr/src/lib/startup/crt0.o
