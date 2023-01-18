@@ -22,6 +22,7 @@ bin       d--755 0 0
           echo            ---755 0 0 ../../cmds/echo
           ed              ---755 0 0 ../../cmds/ed
           grep            ---755 0 0 ../../cmds/grep
+          hangman         ---755 0 0 ../../cmds/hangman
           icheck          ---755 0 0 ../../cmds/icheck
           joe             ---755 0 0 ../../cmds/joe
           kill            ---755 0 0 ../../cmds/kill

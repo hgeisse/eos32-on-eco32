@@ -17,6 +17,9 @@ data        d--777 0 0
     400         ---644 0 0 ../../data/0x000400
     800         ---644 0 0 ../../data/0x000800
     $
+dict        d--777 0 0
+    words       ---644 0 0 ../../usr/dict/words
+    $
 include     d--755 0 0
     sys         d--755 0 0
         acct.h      ---644 0 0 ../../include/sys/acct.h
