@@ -10,7 +10,8 @@
 #include <ctype.h>
 #include <eos32.h>
 #include <math.h>
-#include <a.out.h>
+
+#include "../include/a.out.h"
 
 
 /**************************************************************/
@@ -148,6 +149,8 @@
 #define XOP_CFIT	0x03
 #define XOP_CFIF	0x04
 #define XOP_CFIC	0x05
+#define XOP_NEGF	0x06
+#define XOP_ABSF	0x07
 
 #define OP_FCMP		0x3D
 #define XOP_EQF		0x00
@@ -2015,10 +2018,11 @@ Instr instrTable[] = {
   { "cfit",    formatXRR1, OP_FAR1, XOP_CFIT },
   { "cfif",    formatXRR1, OP_FAR1, XOP_CFIF },
   { "cfic",    formatXRR1, OP_FAR1, XOP_CFIC },
-
+  { "negf",    formatXRR1, OP_FAR1, XOP_NEGF },
+  { "absf",    formatXRR1, OP_FAR1, XOP_ABSF },
 
   { "eqf",     formatXRR2, OP_FCMP, XOP_EQF  },
-  { "neqf",    formatXRR2, OP_FCMP, XOP_NEF  },
+  { "nef",     formatXRR2, OP_FCMP, XOP_NEF  },
   { "lef",     formatXRR2, OP_FCMP, XOP_LEF  },
   { "ltf",     formatXRR2, OP_FCMP, XOP_LTF  },
   { "ulef",    formatXRR2, OP_FCMP, XOP_ULEF },
