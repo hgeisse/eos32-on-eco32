@@ -10,22 +10,22 @@ echo "## Step 2.2: Compile getty"
 cd /usr/src/bin/getty; make
 
 echo "## Step 2.3: Compile userland commands"
-echo " sh..."
-cd /usr/src/bin/sh; make
-echo " ls..."
-cd /usr/src/bin/ls; make
-echo " echo..."
-cd /usr/src/bin/echo; make
-echo " cat..."
-cd /usr/src/bin/cat; make
-echo " joe..."
-cd /usr/src/bin/joe; make
-echo " lcc..."
-cd /usr/src/bin/lcc; make
 echo " as..."
 cd /usr/src/bin/as; make
+echo " cat..."
+cd /usr/src/bin/cat; make
+echo " echo..."
+cd /usr/src/bin/echo; make
+echo " joe..."
+cd /usr/src/bin/joe; make
+echo " lcc (includes cpp, rcc, lburg)..."
+cd /usr/src/bin/lcc; make
 echo " ld..."
 cd /usr/src/bin/ld; make
+echo " ls..."
+cd /usr/src/bin/ls; make
+echo " sh..."
+cd /usr/src/bin/sh; make
 echo " stty..."
 cd /usr/src/bin/stty; make
 

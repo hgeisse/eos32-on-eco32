@@ -27,17 +27,17 @@ d--777 1 1
         joerc           ---644 0 0 /etc/joerc
         $
     bin       d--755 0 0
-        sh              ---755 0 0 /usr/src/bin/sh/sh
-        ls              ---755 0 0 /usr/src/bin/ls/ls
-        echo            ---755 0 0 /usr/src/bin/echo/echo
+        as              ---755 0 0 /usr/src/bin/as/as
         cat             ---755 0 0 /usr/src/bin/cat/cat
+        echo            ---755 0 0 /usr/src/bin/echo/echo
         joe             ---755 0 0 /usr/src/bin/joe/joe
         lcc             ---755 0 0 /usr/src/bin/lcc/build/lcc
         cpp             ---755 0 0 /usr/src/bin/lcc/build/cpp
         rcc             ---755 0 0 /usr/src/bin/lcc/build/rcc
         lburg           ---755 0 0 /usr/src/bin/lcc/build/lburg
-        as              ---755 0 0 /usr/src/bin/as/as
         ld              ---755 0 0 /usr/src/bin/ld/ld
+        ls              ---755 0 0 /usr/src/bin/ls/ls
+        sh              ---755 0 0 /usr/src/bin/sh/sh
         stty            ---755 0 0 /usr/src/bin/stty/stty
         $
     usr       d--755 0 0 

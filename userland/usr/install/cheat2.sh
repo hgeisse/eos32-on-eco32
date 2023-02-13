@@ -16,26 +16,26 @@ echo "## Step 2.2: Compile getty"
 cd /usr/src/bin/getty; make
 
 echo "## Step 2.3: Compile userland commands"
-echo " sh..."
-cp /bin/sh /usr/src/bin/sh/sh
-echo " ls..."
-cp /bin/ls /usr/src/bin/ls/ls
-echo " echo..."
-cp /bin/echo /usr/src/bin/echo/echo
+echo " as..."
+cp /bin/as /usr/src/bin/as/as
 echo " cat..."
 cp /bin/cat /usr/src/bin/cat/cat
+echo " echo..."
+cp /bin/echo /usr/src/bin/echo/echo
 echo " joe..."
 cp /bin/joe /usr/src/bin/joe/joe
-echo " lcc..."
+echo " lcc (includes cpp, rcc, lburg)..."
 mkdir /usr/src/bin/lcc/build
 cp /bin/lcc /usr/src/bin/lcc/build/lcc
 cp /bin/cpp /usr/src/bin/lcc/build/cpp
 cp /bin/rcc /usr/src/bin/lcc/build/rcc
 cp /bin/lburg /usr/src/bin/lcc/build/lburg
-echo " as..."
-cp /bin/as /usr/src/bin/as/as
 echo " ld..."
 cp /bin/ld /usr/src/bin/ld/ld
+echo " ls..."
+cp /bin/ls /usr/src/bin/ls/ls
+echo " sh..."
+cp /bin/sh /usr/src/bin/sh/sh
 echo " stty..."
 cp /bin/stty /usr/src/bin/stty/stty
 
