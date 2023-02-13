@@ -31,7 +31,7 @@ char *dictfile;
 int alive,lost;
 FILE *dict;
 long int dictlen;
-float errors=0, words=0;
+int errors=0, words=0;
 long int freq[] = 
 	{	42066,	9228,	24412,	14500,	55162,
 		6098,	11992,	12648,	48241,	639,
@@ -67,7 +67,7 @@ void main(int argc, char **argv) {
 			debug("get guess");
 			getguess();
 		}
-		words++;
+		words += 1;
 		if(lost) {
 			wordout();
 		} else {
@@ -159,15 +159,15 @@ void getguess(void) {
 
 void wordout(void) {
 	errors=errors+2;
-	printf("the answer was %s, you blew it\n",realword);
+	printf("the answer was %s, you blew it\n", realword);
 }
 
 void youwon(void) {
-	printf("you win, the word is %s\n",realword);
+	printf("you win, the word is %s\n", realword);
 }
 
 void fatal(char *s) {
-	fprintf(stderr,"%s\n",s);
+	fprintf(stderr, "%s\n", s);
 	exit(1);
 }
 
@@ -198,7 +198,7 @@ void getword(void) {
 	for(j = 0; j < i; j++) {
 		c = wbuf[j];
 		if(c < 'a' || c > 'z') {
-			printf("DEBUG: INVALID CHARACTER FOUND: %c (%d)\n", c, c);
+			if(DEBUG) printf("DEBUG: INVALID CHARACTER FOUND: %c (%d)\n", c, c);
 			goto loop;
 		}
 	}
@@ -209,5 +209,7 @@ void getword(void) {
 }
 
 void pscore(void) {
-	if(words != 0) printf("(%4.2f/%.0f) ", errors / words, words);
+	if(words != 0) {
+		printf("%d errors in %d words\n", errors, words);
+	}
 }
