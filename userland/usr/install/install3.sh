@@ -24,3 +24,4 @@ mount "${DISK_FILE}p${PART_ROOT}" ./rootfs
 echo "## Step 3.5: Generate welcome message..."
 echo "This version of EOS32 was installed on: " > ./rootfs/WELCOME
 date >> ./rootfs/WELCOME
+echo "Have fun using this NATIVE COMPILED version!" >> ./rootfs/WELCOME

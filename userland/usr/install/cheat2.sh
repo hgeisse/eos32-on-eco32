@@ -20,6 +20,12 @@ echo " as..."
 cp /bin/as /usr/src/bin/as/as
 echo " cat..."
 cp /bin/cat /usr/src/bin/cat/cat
+echo " cp..."
+cp /bin/cp /usr/src/bin/cp/cp
+echo " date..."
+cp /bin/date /usr/src/bin/date/date
+echo " hangman..."
+cp /bin/hangman /usr/src/bin/hangman/hangman
 echo " echo..."
 cp /bin/echo /usr/src/bin/echo/echo
 echo " joe..."
@@ -32,12 +38,26 @@ cp /bin/rcc /usr/src/bin/lcc/build/rcc
 cp /bin/lburg /usr/src/bin/lcc/build/lburg
 echo " ld..."
 cp /bin/ld /usr/src/bin/ld/ld
+echo " login..."
+cp /bin/login /usr/src/bin/login/login
 echo " ls..."
 cp /bin/ls /usr/src/bin/ls/ls
+echo " make..."
+cp /bin/make /usr/src/bin/make/make
+echo " mkdir..."
+cp /bin/mkdir /usr/src/bin/mkdir/mkdir
+echo " mv..."
+cp /bin/mv /usr/src/bin/mv/mv
+echo " passwd..."
+cp /bin/passwd /usr/src/bin/passwd/passwd
+echo " rm..."
+cp /bin/rm /usr/src/bin/rm/rm
 echo " sh..."
 cp /bin/sh /usr/src/bin/sh/sh
 echo " stty..."
 cp /bin/stty /usr/src/bin/stty/stty
+echo " sync..."
+cp /bin/sync /usr/src/bin/sync/sync
 
 echo "## Step 2.4: Compile the C standard library"
 cp /usr/lib/libc.a /usr/src/lib/libc.a

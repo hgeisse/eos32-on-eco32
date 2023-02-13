@@ -20,8 +20,10 @@ d--777 1 1
     tmp       d--755 0 0
         $
     etc       d--755 0 0
-        init            ---755 0 0 /usr/src/bin/init/init
         getty           ---755 0 0 /usr/src/bin/getty/getty
+        group           ---644 0 0 /usr/install/etc/group
+        passwd          ---644 0 0 /usr/install/etc/passwd
+        init            ---755 0 0 /usr/src/bin/init/init
         rc              ---644 0 0 /etc/rc
         ttys            ---644 0 0 /etc/ttys
         joerc           ---644 0 0 /etc/joerc
@@ -29,16 +31,26 @@ d--777 1 1
     bin       d--755 0 0
         as              ---755 0 0 /usr/src/bin/as/as
         cat             ---755 0 0 /usr/src/bin/cat/cat
+        cp              ---755 0 0 /usr/src/bin/cp/cp
+        date            ---755 0 0 /usr/src/bin/date/date
         echo            ---755 0 0 /usr/src/bin/echo/echo
+        hangman         ---755 0 0 /usr/src/bin/hangman/hangman
         joe             ---755 0 0 /usr/src/bin/joe/joe
         lcc             ---755 0 0 /usr/src/bin/lcc/build/lcc
         cpp             ---755 0 0 /usr/src/bin/lcc/build/cpp
         rcc             ---755 0 0 /usr/src/bin/lcc/build/rcc
         lburg           ---755 0 0 /usr/src/bin/lcc/build/lburg
         ld              ---755 0 0 /usr/src/bin/ld/ld
+        login           -u-755 0 0 /usr/src/bin/login/login
         ls              ---755 0 0 /usr/src/bin/ls/ls
+        make            ---755 0 0 /usr/src/bin/make/make
+        mkdir           -u-755 0 0 /usr/src/bin/mkdir/mkdir
+        mv              ---755 0 0 /usr/src/bin/mv/mv
+        passwd          -u-755 0 0 /usr/src/bin/passwd/passwd
+        rm              ---755 0 0 /usr/src/bin/rm/rm
         sh              ---755 0 0 /usr/src/bin/sh/sh
         stty            ---755 0 0 /usr/src/bin/stty/stty
+        sync            ---755 0 0 /usr/src/bin/sync/sync
         $
     usr       d--755 0 0 
         include       d--755 0 0
