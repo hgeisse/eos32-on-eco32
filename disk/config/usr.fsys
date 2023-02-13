@@ -236,6 +236,43 @@ src         d--755 0 0
         	Makefile            ---644 0 0 ../../usr/src/bin/as/Makefile
             as.c                ---644 0 0 ../../usr/src/bin/as/as.c
             $
+        cp       d--644 0 0
+        	Makefile            ---644 0 0 ../../usr/src/bin/cp/Makefile
+            cp.c                ---644 0 0 ../../usr/src/bin/cp/cp.c
+            $
+        date     d--644 0 0
+        	Makefile            ---644 0 0 ../../usr/src/bin/date/Makefile
+            date.c              ---644 0 0 ../../usr/src/bin/date/date.c
+            $
+        hangman  d--644 0 0
+        	Makefile            ---644 0 0 ../../usr/src/bin/hangman/Makefile
+            hangman.c           ---644 0 0 ../../usr/src/bin/hangman/hangman.c
+            $
+        login    d--644 0 0
+        	Makefile            ---644 0 0 ../../usr/src/bin/login/Makefile
+            login.c             ---644 0 0 ../../usr/src/bin/login/login.c
+            $
+        mkdir    d--644 0 0
+        	Makefile            ---644 0 0 ../../usr/src/bin/mkdir/Makefile
+            mkdir.c             ---644 0 0 ../../usr/src/bin/mkdir/mkdir.c
+            $
+        mv       d--644 0 0
+        	Makefile            ---644 0 0 ../../usr/src/bin/mv/Makefile
+            mv.c                ---644 0 0 ../../usr/src/bin/mv/mv.c
+            mv.h                ---644 0 0 ../../usr/src/bin/mv/mv.h
+            $     
+        passwd   d--644 0 0
+        	Makefile            ---644 0 0 ../../usr/src/bin/passwd/Makefile
+            passwd.c            ---644 0 0 ../../usr/src/bin/passwd/passwd.c
+            $                   
+        rm       d--644 0 0
+        	Makefile            ---644 0 0 ../../usr/src/bin/rm/Makefile
+            rm.c                ---644 0 0 ../../usr/src/bin/rm/rm.c
+            $
+        sync     d--644 0 0
+        	Makefile            ---644 0 0 ../../usr/src/bin/sync/Makefile
+            sync.c              ---644 0 0 ../../usr/src/bin/sync/sync.c
+            $                        
         joe      d--644 0 0
         	asyncbsd.c          ---644 0 0 ../../usr/src/bin/joe/asyncbsd.c
             joe.c               ---644 0 0 ../../usr/src/bin/joe/joe.c
