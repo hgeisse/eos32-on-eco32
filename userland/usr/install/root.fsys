@@ -38,6 +38,7 @@ d--777 1 1
         lburg           ---755 0 0 /usr/src/bin/lcc/build/lburg
         as              ---755 0 0 /usr/src/bin/as/as
         ld              ---755 0 0 /usr/src/bin/ld/ld
+        stty            ---755 0 0 /usr/src/bin/stty/stty
         $
     usr       d--755 0 0 
         include       d--755 0 0

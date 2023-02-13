@@ -363,6 +363,10 @@ src         d--755 0 0
             tail.c          ---644 0 0 ../../usr/src/bin/tail/tail.c
             tail.h          ---644 0 0 ../../usr/src/bin/tail/tail.h
             $
+        stty        d--755 0 0
+            Makefile        ---644 0 0 ../../usr/src/bin/stty/Makefile
+            stty.c          ---644 0 0 ../../usr/src/bin/stty/stty.c
+            $            
         lcc         d--755 0 0
             Makefile            ---644 0 0 ../../usr/src/bin/lcc/Makefile
             lburg               d--644 0 0 

@@ -36,6 +36,8 @@ echo " as..."
 cp /bin/as /usr/src/bin/as/as
 echo " ld..."
 cp /bin/ld /usr/src/bin/ld/ld
+echo " stty..."
+cp /bin/stty /usr/src/bin/stty/stty
 
 echo "## Step 2.4: Compile the C standard library"
 cp /usr/lib/libc.a /usr/src/lib/libc.a
