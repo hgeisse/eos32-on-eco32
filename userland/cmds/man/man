@@ -45,7 +45,6 @@ esac
 case $cmd in
 
 n)
-#	nroff $opt -man $all ;;
 	troff -a -man $all ;;
 ne)
 	neqn $all | nroff $opt -man ;;
