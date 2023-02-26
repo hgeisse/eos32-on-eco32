@@ -20,6 +20,333 @@ data        d--777 0 0
 dict        d--777 0 0
     words       ---644 0 0 ../../usr/dict/words
     $
+man         d--777 0 0
+	man4                d--644 0 0
+	        hp.4                ---644 0 0 ../../usr/man/man4/hp.4
+	        rk.4                ---644 0 0 ../../usr/man/man4/rk.4
+	        tc.4                ---644 0 0 ../../usr/man/man4/tc.4
+	        pk.4                ---644 0 0 ../../usr/man/man4/pk.4
+	        mem.4               ---644 0 0 ../../usr/man/man4/mem.4
+	        null.4              ---644 0 0 ../../usr/man/man4/null.4
+	        rf.4                ---644 0 0 ../../usr/man/man4/rf.4
+	        vp.4                ---644 0 0 ../../usr/man/man4/vp.4
+	        rp.4                ---644 0 0 ../../usr/man/man4/rp.4
+	        hs.4                ---644 0 0 ../../usr/man/man4/hs.4
+	        dn.4                ---644 0 0 ../../usr/man/man4/dn.4
+	        cat.4               ---644 0 0 ../../usr/man/man4/cat.4
+	        ht.4                ---644 0 0 ../../usr/man/man4/ht.4
+	        tm.4                ---644 0 0 ../../usr/man/man4/tm.4
+	        tty.4               ---644 0 0 ../../usr/man/man4/tty.4
+	        du.4                ---644 0 0 ../../usr/man/man4/du.4
+	        $
+	man7                d--644 0 0
+	        ascii.7             ---644 0 0 ../../usr/man/man7/ascii.7
+	        man.7               ---644 0 0 ../../usr/man/man7/man.7
+	        term.7              ---644 0 0 ../../usr/man/man7/term.7
+	        hier.7              ---644 0 0 ../../usr/man/man7/hier.7
+	        ms.7                ---644 0 0 ../../usr/man/man7/ms.7
+	        eqnchar.7           ---644 0 0 ../../usr/man/man7/eqnchar.7
+	        $
+	man3                d--644 0 0
+	        abort.3             ---644 0 0 ../../usr/man/man3/abort.3
+	        end.3               ---644 0 0 ../../usr/man/man3/end.3
+	        fread.3s            ---644 0 0 ../../usr/man/man3/fread.3s
+	        popen.3s            ---644 0 0 ../../usr/man/man3/popen.3s
+	        getpass.3           ---644 0 0 ../../usr/man/man3/getpass.3
+	        l3tol.3             ---644 0 0 ../../usr/man/man3/l3tol.3
+	        fseek.3s            ---644 0 0 ../../usr/man/man3/fseek.3s
+	        sin.3m              ---644 0 0 ../../usr/man/man3/sin.3m
+	        pkopen.3            ---644 0 0 ../../usr/man/man3/pkopen.3
+	        ctime.3             ---644 0 0 ../../usr/man/man3/ctime.3
+	        monitor.3           ---644 0 0 ../../usr/man/man3/monitor.3
+	        mp.3x               ---644 0 0 ../../usr/man/man3/mp.3x
+	        getc.3s             ---644 0 0 ../../usr/man/man3/getc.3s
+	        hypot.3m            ---644 0 0 ../../usr/man/man3/hypot.3m
+	        rand.3              ---644 0 0 ../../usr/man/man3/rand.3
+	        abs.3               ---644 0 0 ../../usr/man/man3/abs.3
+	        getgrent.3          ---644 0 0 ../../usr/man/man3/getgrent.3
+	        ecvt.3              ---644 0 0 ../../usr/man/man3/ecvt.3
+	        putc.3s             ---644 0 0 ../../usr/man/man3/putc.3s
+	        fopen.3s            ---644 0 0 ../../usr/man/man3/fopen.3s
+	        plot.3x             ---644 0 0 ../../usr/man/man3/plot.3x
+	        setjmp.3            ---644 0 0 ../../usr/man/man3/setjmp.3
+	        nlist.3             ---644 0 0 ../../usr/man/man3/nlist.3
+	        gets.3s             ---644 0 0 ../../usr/man/man3/gets.3s
+	        malloc.3            ---644 0 0 ../../usr/man/man3/malloc.3
+	        swab.3              ---644 0 0 ../../usr/man/man3/swab.3
+	        mktemp.3            ---644 0 0 ../../usr/man/man3/mktemp.3
+	        assert.3x           ---644 0 0 ../../usr/man/man3/assert.3x
+	        perror.3            ---644 0 0 ../../usr/man/man3/perror.3
+	        sleep.3             ---644 0 0 ../../usr/man/man3/sleep.3
+	        dbm.3x              ---644 0 0 ../../usr/man/man3/dbm.3x
+	        j0.3m               ---644 0 0 ../../usr/man/man3/j0.3m
+	        system.3            ---644 0 0 ../../usr/man/man3/system.3
+	        setbuf.3s           ---644 0 0 ../../usr/man/man3/setbuf.3s
+	        ferror.3s           ---644 0 0 ../../usr/man/man3/ferror.3s
+	        sinh.3m             ---644 0 0 ../../usr/man/man3/sinh.3m
+	        puts.3s             ---644 0 0 ../../usr/man/man3/puts.3s
+	        ttyname.3           ---644 0 0 ../../usr/man/man3/ttyname.3
+	        getenv.3            ---644 0 0 ../../usr/man/man3/getenv.3
+	        ctype.3             ---644 0 0 ../../usr/man/man3/ctype.3
+	        frexp.3             ---644 0 0 ../../usr/man/man3/frexp.3
+	        atof.3              ---644 0 0 ../../usr/man/man3/atof.3
+	        stdio.3s            ---644 0 0 ../../usr/man/man3/stdio.3s
+	        scanf.3s            ---644 0 0 ../../usr/man/man3/scanf.3s
+	        getpw.3             ---644 0 0 ../../usr/man/man3/getpw.3
+	        crypt.3             ---644 0 0 ../../usr/man/man3/crypt.3
+	        ungetc.3s           ---644 0 0 ../../usr/man/man3/ungetc.3s
+	        intro.3             ---644 0 0 ../../usr/man/man3/intro.3
+	        getlogin.3          ---644 0 0 ../../usr/man/man3/getlogin.3
+	        getpwent.3          ---644 0 0 ../../usr/man/man3/getpwent.3
+	        string.3            ---644 0 0 ../../usr/man/man3/string.3
+	        floor.3m            ---644 0 0 ../../usr/man/man3/floor.3m
+	        fclose.3s           ---644 0 0 ../../usr/man/man3/fclose.3s
+	        printf.3s           ---644 0 0 ../../usr/man/man3/printf.3s
+	        qsort.3             ---644 0 0 ../../usr/man/man3/qsort.3
+	        exp.3m              ---644 0 0 ../../usr/man/man3/exp.3m
+	        $
+	man2                d--644 0 0
+	        nice.2              ---644 0 0 ../../usr/man/man2/nice.2
+	        signal.2            ---644 0 0 ../../usr/man/man2/signal.2
+	        ptrace.2            ---644 0 0 ../../usr/man/man2/ptrace.2
+	        pkon.2              ---644 0 0 ../../usr/man/man2/pkon.2
+	        exit.2              ---644 0 0 ../../usr/man/man2/exit.2
+	        chown.2             ---644 0 0 ../../usr/man/man2/chown.2
+	        wait.2              ---644 0 0 ../../usr/man/man2/wait.2
+	        access.2            ---644 0 0 ../../usr/man/man2/access.2
+	        time.2              ---644 0 0 ../../usr/man/man2/time.2
+	        kill.2              ---644 0 0 ../../usr/man/man2/kill.2
+	        creat.2             ---644 0 0 ../../usr/man/man2/creat.2
+	        getuid.2            ---644 0 0 ../../usr/man/man2/getuid.2
+	        write.2             ---644 0 0 ../../usr/man/man2/write.2
+	        stime.2             ---644 0 0 ../../usr/man/man2/stime.2
+	        chmod.2             ---644 0 0 ../../usr/man/man2/chmod.2
+	        read.2              ---644 0 0 ../../usr/man/man2/read.2
+	        link.2              ---644 0 0 ../../usr/man/man2/link.2
+	        close.2             ---644 0 0 ../../usr/man/man2/close.2
+	        indir.2             ---644 0 0 ../../usr/man/man2/indir.2
+	        setuid.2            ---644 0 0 ../../usr/man/man2/setuid.2
+	        open.2              ---644 0 0 ../../usr/man/man2/open.2
+	        mpxcall.2           ---644 0 0 ../../usr/man/man2/mpxcall.2
+	        mknod.2             ---644 0 0 ../../usr/man/man2/mknod.2
+	        lock.2              ---644 0 0 ../../usr/man/man2/lock.2
+	        times.2             ---644 0 0 ../../usr/man/man2/times.2
+	        intro.2             ---644 0 0 ../../usr/man/man2/intro.2
+	        phys.2              ---644 0 0 ../../usr/man/man2/phys.2
+	        fork.2              ---644 0 0 ../../usr/man/man2/fork.2
+	        mount.2             ---644 0 0 ../../usr/man/man2/mount.2
+	        alarm.2             ---644 0 0 ../../usr/man/man2/alarm.2
+	        pipe.2              ---644 0 0 ../../usr/man/man2/pipe.2
+	        dup.2               ---644 0 0 ../../usr/man/man2/dup.2
+	        exec.2              ---644 0 0 ../../usr/man/man2/exec.2
+	        getpid.2            ---644 0 0 ../../usr/man/man2/getpid.2
+	        acct.2              ---644 0 0 ../../usr/man/man2/acct.2
+	        unlink.2            ---644 0 0 ../../usr/man/man2/unlink.2
+	        chdir.2             ---644 0 0 ../../usr/man/man2/chdir.2
+	        ioctl.2             ---644 0 0 ../../usr/man/man2/ioctl.2
+	        lseek.2             ---644 0 0 ../../usr/man/man2/lseek.2
+	        pause.2             ---644 0 0 ../../usr/man/man2/pause.2
+	        sync.2              ---644 0 0 ../../usr/man/man2/sync.2
+	        umask.2             ---644 0 0 ../../usr/man/man2/umask.2
+	        brk.2               ---644 0 0 ../../usr/man/man2/brk.2
+	        stat.2              ---644 0 0 ../../usr/man/man2/stat.2
+	        utime.2             ---644 0 0 ../../usr/man/man2/utime.2
+	        mpx.2               ---644 0 0 ../../usr/man/man2/mpx.2
+	        profil.2            ---644 0 0 ../../usr/man/man2/profil.2
+	        $
+	man8                d--644 0 0
+	        boot.8              ---644 0 0 ../../usr/man/man8/boot.8
+	        getty.8             ---644 0 0 ../../usr/man/man8/getty.8
+	        cron.8              ---644 0 0 ../../usr/man/man8/cron.8
+	        makekey.8           ---644 0 0 ../../usr/man/man8/makekey.8
+	        init.8              ---644 0 0 ../../usr/man/man8/init.8
+	        crash.8             ---644 0 0 ../../usr/man/man8/crash.8
+	        update.8            ---644 0 0 ../../usr/man/man8/update.8
+	        $
+	man5                d--644 0 0
+	        plot.5              ---644 0 0 ../../usr/man/man5/plot.5
+	        filsys.5            ---644 0 0 ../../usr/man/man5/filsys.5
+	        a.out.5             ---644 0 0 ../../usr/man/man5/a.out.5
+	        passwd.5            ---644 0 0 ../../usr/man/man5/passwd.5
+	        types.5             ---644 0 0 ../../usr/man/man5/types.5
+	        utmp.5              ---644 0 0 ../../usr/man/man5/utmp.5
+	        group.5             ---644 0 0 ../../usr/man/man5/group.5
+	        ar.5                ---644 0 0 ../../usr/man/man5/ar.5
+	        dump.5              ---644 0 0 ../../usr/man/man5/dump.5
+	        mpxio.5             ---644 0 0 ../../usr/man/man5/mpxio.5
+	        dir.5               ---644 0 0 ../../usr/man/man5/dir.5
+	        tp.5                ---644 0 0 ../../usr/man/man5/tp.5
+	        ttys.5              ---644 0 0 ../../usr/man/man5/ttys.5
+	        environ.5           ---644 0 0 ../../usr/man/man5/environ.5
+	        mtab.5              ---644 0 0 ../../usr/man/man5/mtab.5
+	        core.5              ---644 0 0 ../../usr/man/man5/core.5
+	        acct.5              ---644 0 0 ../../usr/man/man5/acct.5
+	        $
+	man6                d--644 0 0
+	        wump.6              ---644 0 0 ../../usr/man/man6/wump.6
+	        bcd.6               ---644 0 0 ../../usr/man/man6/bcd.6
+	        quiz.6              ---644 0 0 ../../usr/man/man6/quiz.6
+	        backgammon.6        ---644 0 0 ../../usr/man/man6/backgammon.6
+	        arithmetic.6        ---644 0 0 ../../usr/man/man6/arithmetic.6
+	        chess.6             ---644 0 0 ../../usr/man/man6/chess.6
+	        bj.6                ---644 0 0 ../../usr/man/man6/bj.6
+	        words.6             ---644 0 0 ../../usr/man/man6/words.6
+	        banner.6            ---644 0 0 ../../usr/man/man6/banner.6
+	        moo.6               ---644 0 0 ../../usr/man/man6/moo.6
+	        ttt.6               ---644 0 0 ../../usr/man/man6/ttt.6
+	        cubic.6             ---644 0 0 ../../usr/man/man6/cubic.6
+	        ching.6             ---644 0 0 ../../usr/man/man6/ching.6
+	        maze.6              ---644 0 0 ../../usr/man/man6/maze.6
+	        reversi.6           ---644 0 0 ../../usr/man/man6/reversi.6
+	        checkers.6          ---644 0 0 ../../usr/man/man6/checkers.6
+	        $
+	man0                d--644 0 0
+	        intro               ---644 0 0 ../../usr/man/man0/intro
+	        xx                  ---644 0 0 ../../usr/man/man0/xx
+	        title               ---644 0 0 ../../usr/man/man0/title
+	        permindex           ---644 0 0 ../../usr/man/man0/permindex
+	        ptxmac              ---644 0 0 ../../usr/man/man0/ptxmac
+	        pref                ---644 0 0 ../../usr/man/man0/pref
+	        $
+	man1                d--644 0 0
+	        cat.1               ---644 0 0 ../../usr/man/man1/cat.1
+	        time.1              ---644 0 0 ../../usr/man/man1/time.1
+	        factor.1            ---644 0 0 ../../usr/man/man1/factor.1
+	        tail.1              ---644 0 0 ../../usr/man/man1/tail.1
+	        expr.1              ---644 0 0 ../../usr/man/man1/expr.1
+	        mount.1m            ---644 0 0 ../../usr/man/man1/mount.1m
+	        roff.1              ---644 0 0 ../../usr/man/man1/roff.1
+	        bas.1               ---644 0 0 ../../usr/man/man1/bas.1
+	        refer.1             ---644 0 0 ../../usr/man/man1/refer.1
+	        m4.1                ---644 0 0 ../../usr/man/man1/m4.1
+	        make.1              ---644 0 0 ../../usr/man/man1/make.1
+	        icheck.1m           ---644 0 0 ../../usr/man/man1/icheck.1m
+	        uniq.1              ---644 0 0 ../../usr/man/man1/uniq.1
+	        pstat.1m            ---644 0 0 ../../usr/man/man1/pstat.1m
+	        units.1             ---644 0 0 ../../usr/man/man1/units.1
+	        cb.1                ---644 0 0 ../../usr/man/man1/cb.1
+	        arcv.1m             ---644 0 0 ../../usr/man/man1/arcv.1m
+	        uux.1c              ---644 0 0 ../../usr/man/man1/uux.1c
+	        xsend.1             ---644 0 0 ../../usr/man/man1/xsend.1
+	        df.1m               ---644 0 0 ../../usr/man/man1/df.1m
+	        tee.1               ---644 0 0 ../../usr/man/man1/tee.1
+	        split.1             ---644 0 0 ../../usr/man/man1/split.1
+	        dcheck.1m           ---644 0 0 ../../usr/man/man1/dcheck.1m
+	        mail.1              ---644 0 0 ../../usr/man/man1/mail.1
+	        calendar.1          ---644 0 0 ../../usr/man/man1/calendar.1
+	        cc.1                ---644 0 0 ../../usr/man/man1/cc.1
+	        mknod.1m            ---644 0 0 ../../usr/man/man1/mknod.1m
+	        tar.1               ---644 0 0 ../../usr/man/man1/tar.1
+	        lorder.1            ---644 0 0 ../../usr/man/man1/lorder.1
+	        graph.1g            ---644 0 0 ../../usr/man/man1/graph.1g
+	        prep.1              ---644 0 0 ../../usr/man/man1/prep.1
+	        rm.1                ---644 0 0 ../../usr/man/man1/rm.1
+	        wait.1              ---644 0 0 ../../usr/man/man1/wait.1
+	        struct.1            ---644 0 0 ../../usr/man/man1/struct.1
+	        dumpdir.1m          ---644 0 0 ../../usr/man/man1/dumpdir.1m
+	        yacc.1              ---644 0 0 ../../usr/man/man1/yacc.1
+	        passwd.1            ---644 0 0 ../../usr/man/man1/passwd.1
+	        wall.1m             ---644 0 0 ../../usr/man/man1/wall.1m
+	        join.1              ---644 0 0 ../../usr/man/man1/join.1
+	        rev.1               ---644 0 0 ../../usr/man/man1/rev.1
+	        cd.1                ---644 0 0 ../../usr/man/man1/cd.1
+	        prof.1              ---644 0 0 ../../usr/man/man1/prof.1
+	        comm.1              ---644 0 0 ../../usr/man/man1/comm.1
+	        cp.1                ---644 0 0 ../../usr/man/man1/cp.1
+	        col.1               ---644 0 0 ../../usr/man/man1/col.1
+	        pubindex.1          ---644 0 0 ../../usr/man/man1/pubindex.1
+	        ld.1                ---644 0 0 ../../usr/man/man1/ld.1
+	        man.1               ---644 0 0 ../../usr/man/man1/man.1
+	        dump.1m             ---644 0 0 ../../usr/man/man1/dump.1m
+	        sum.1               ---644 0 0 ../../usr/man/man1/sum.1
+	        echo.1              ---644 0 0 ../../usr/man/man1/echo.1
+	        lookall.1           ---644 0 0 ../../usr/man/man1/lookall.1
+	        tc.1                ---644 0 0 ../../usr/man/man1/tc.1
+	        newgrp.1            ---644 0 0 ../../usr/man/man1/newgrp.1
+	        touch.1             ---644 0 0 ../../usr/man/man1/touch.1
+	        iostat.1m           ---644 0 0 ../../usr/man/man1/iostat.1m
+	        chmod.1             ---644 0 0 ../../usr/man/man1/chmod.1
+	        look.1              ---644 0 0 ../../usr/man/man1/look.1
+	        ncheck.1m           ---644 0 0 ../../usr/man/man1/ncheck.1m
+	        lint.1              ---644 0 0 ../../usr/man/man1/lint.1
+	        ps.1                ---644 0 0 ../../usr/man/man1/ps.1
+	        quot.1m             ---644 0 0 ../../usr/man/man1/quot.1m
+	        ptx.1               ---644 0 0 ../../usr/man/man1/ptx.1
+	        ed.1                ---644 0 0 ../../usr/man/man1/ed.1
+	        cal.1               ---644 0 0 ../../usr/man/man1/cal.1
+	        cu.1c               ---644 0 0 ../../usr/man/man1/cu.1c
+	        as.1                ---644 0 0 ../../usr/man/man1/as.1
+	        who.1               ---644 0 0 ../../usr/man/man1/who.1
+	        tbl.1               ---644 0 0 ../../usr/man/man1/tbl.1
+	        sync.1m             ---644 0 0 ../../usr/man/man1/sync.1m
+	        find.1              ---644 0 0 ../../usr/man/man1/find.1
+	        true.1              ---644 0 0 ../../usr/man/man1/true.1
+	        write.1             ---644 0 0 ../../usr/man/man1/write.1
+	        sed.1               ---644 0 0 ../../usr/man/man1/sed.1
+	        eqn.1               ---644 0 0 ../../usr/man/man1/eqn.1
+	        mkconf.1m           ---644 0 0 ../../usr/man/man1/mkconf.1m
+	        nice.1              ---644 0 0 ../../usr/man/man1/nice.1
+	        grep.1              ---644 0 0 ../../usr/man/man1/grep.1
+	        test.1              ---644 0 0 ../../usr/man/man1/test.1
+	        tty.1               ---644 0 0 ../../usr/man/man1/tty.1
+	        sa.1m               ---644 0 0 ../../usr/man/man1/sa.1m
+	        mv.1                ---644 0 0 ../../usr/man/man1/mv.1
+	        mesg.1              ---644 0 0 ../../usr/man/man1/mesg.1
+	        stty.1              ---644 0 0 ../../usr/man/man1/stty.1
+	        diff.1              ---644 0 0 ../../usr/man/man1/diff.1
+	        cmp.1               ---644 0 0 ../../usr/man/man1/cmp.1
+	        od.1                ---644 0 0 ../../usr/man/man1/od.1
+	        f77.1               ---644 0 0 ../../usr/man/man1/f77.1
+	        pwd.1               ---644 0 0 ../../usr/man/man1/pwd.1
+	        restor.1m           ---644 0 0 ../../usr/man/man1/restor.1m
+	        size.1              ---644 0 0 ../../usr/man/man1/size.1
+	        tr.1                ---644 0 0 ../../usr/man/man1/tr.1
+	        intro.1             ---644 0 0 ../../usr/man/man1/intro.1
+	        kill.1              ---644 0 0 ../../usr/man/man1/kill.1
+	        nm.1                ---644 0 0 ../../usr/man/man1/nm.1
+	        diff3.1             ---644 0 0 ../../usr/man/man1/diff3.1
+	        strip.1             ---644 0 0 ../../usr/man/man1/strip.1
+	        troff.1             ---644 0 0 ../../usr/man/man1/troff.1
+	        sh.1                ---644 0 0 ../../usr/man/man1/sh.1
+	        uucp.1c             ---644 0 0 ../../usr/man/man1/uucp.1c
+	        crypt.1             ---644 0 0 ../../usr/man/man1/crypt.1
+	        lex.1               ---644 0 0 ../../usr/man/man1/lex.1
+	        ln.1                ---644 0 0 ../../usr/man/man1/ln.1
+	        dc.1                ---644 0 0 ../../usr/man/man1/dc.1
+	        spline.1g           ---644 0 0 ../../usr/man/man1/spline.1g
+	        ratfor.1            ---644 0 0 ../../usr/man/man1/ratfor.1
+	        login.1             ---644 0 0 ../../usr/man/man1/login.1
+	        tabs.1              ---644 0 0 ../../usr/man/man1/tabs.1
+	        date.1              ---644 0 0 ../../usr/man/man1/date.1
+	        sleep.1             ---644 0 0 ../../usr/man/man1/sleep.1
+	        tp.1                ---644 0 0 ../../usr/man/man1/tp.1
+	        basename.1          ---644 0 0 ../../usr/man/man1/basename.1
+	        deroff.1            ---644 0 0 ../../usr/man/man1/deroff.1
+	        spell.1             ---644 0 0 ../../usr/man/man1/spell.1
+	        sort.1              ---644 0 0 ../../usr/man/man1/sort.1
+	        adb.1               ---644 0 0 ../../usr/man/man1/adb.1
+	        mkfs.1m             ---644 0 0 ../../usr/man/man1/mkfs.1m
+	        tk.1                ---644 0 0 ../../usr/man/man1/tk.1
+	        ac.1m               ---644 0 0 ../../usr/man/man1/ac.1m
+	        clri.1m             ---644 0 0 ../../usr/man/man1/clri.1m
+	        dd.1                ---644 0 0 ../../usr/man/man1/dd.1
+	        mkdir.1             ---644 0 0 ../../usr/man/man1/mkdir.1
+	        ls.1                ---644 0 0 ../../usr/man/man1/ls.1
+	        at.1                ---644 0 0 ../../usr/man/man1/at.1
+	        tsort.1             ---644 0 0 ../../usr/man/man1/tsort.1
+	        pr.1                ---644 0 0 ../../usr/man/man1/pr.1
+	        su.1                ---644 0 0 ../../usr/man/man1/su.1
+	        awk.1               ---644 0 0 ../../usr/man/man1/awk.1
+	        ar.1                ---644 0 0 ../../usr/man/man1/ar.1
+	        plot.1g             ---644 0 0 ../../usr/man/man1/plot.1g
+	        bc.1                ---644 0 0 ../../usr/man/man1/bc.1
+	        file.1              ---644 0 0 ../../usr/man/man1/file.1
+	        du.1                ---644 0 0 ../../usr/man/man1/du.1
+	        chown.1             ---644 0 0 ../../usr/man/man1/chown.1
+	        wc.1                ---644 0 0 ../../usr/man/man1/wc.1
+	        ranlib.1            ---644 0 0 ../../usr/man/man1/ranlib.1
+	        $
+	    $
 include     d--755 0 0
     sys         d--755 0 0
         acct.h      ---644 0 0 ../../include/sys/acct.h
@@ -92,6 +419,41 @@ lib         d--755 0 0
         $
     yacc        d--755 0 0
         yaccpar         ---644 0 0 ../../lib/yacc/yaccpar
+        $
+    font        d--755 0 0
+        ftB     ---644 0 0 ../../usr/lib/font/ftB
+        ftBC    ---644 0 0 ../../usr/lib/font/ftBC
+        ftC     ---644 0 0 ../../usr/lib/font/ftC
+        ftCE    ---644 0 0 ../../usr/lib/font/ftCE
+        ftCI    ---644 0 0 ../../usr/lib/font/ftCI
+        ftCK    ---644 0 0 ../../usr/lib/font/ftCK
+        ftCS    ---644 0 0 ../../usr/lib/font/ftCS
+        ftCW    ---644 0 0 ../../usr/lib/font/ftCW
+        ftG     ---644 0 0 ../../usr/lib/font/ftG
+        ftGI    ---644 0 0 ../../usr/lib/font/ftGI
+        ftGM    ---644 0 0 ../../usr/lib/font/ftGM
+        ftGR    ---644 0 0 ../../usr/lib/font/ftGR
+        ftI     ---644 0 0 ../../usr/lib/font/ftI
+        ftL     ---644 0 0 ../../usr/lib/font/ftL
+        ftLI    ---644 0 0 ../../usr/lib/font/ftLI
+        ftPA    ---644 0 0 ../../usr/lib/font/ftPA
+        ftPB    ---644 0 0 ../../usr/lib/font/ftPB
+        ftPI    ---644 0 0 ../../usr/lib/font/ftPI
+        ftR     ---644 0 0 ../../usr/lib/font/ftR
+        ftS     ---644 0 0 ../../usr/lib/font/ftS
+        ftSB    ---644 0 0 ../../usr/lib/font/ftSB
+        ftSI    ---644 0 0 ../../usr/lib/font/ftSI
+        ftSM    ---644 0 0 ../../usr/lib/font/ftSM
+        ftUD    ---644 0 0 ../../usr/lib/font/ftUD
+        ftXM    ---644 0 0 ../../usr/lib/font/ftXM
+        $
+    tmac        d--755 0 0
+    	tmac.srefs          ---644 0 0 ../../usr/lib/tmac/tmac.srefs
+        tmac.s              ---644 0 0 ../../usr/lib/tmac/tmac.s
+        tmac.an             ---644 0 0 ../../usr/lib/tmac/tmac.an
+        tmac.skeep          ---644 0 0 ../../usr/lib/tmac/tmac.skeep
+        tmac.scover         ---644 0 0 ../../usr/lib/tmac/tmac.scover
+        tmac.sdisp          ---644 0 0 ../../usr/lib/tmac/tmac.sdisp
         $
     $
 src         d--755 0 0

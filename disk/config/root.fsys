@@ -16,6 +16,7 @@ bin       d--755 0 0
           date            ---755 0 0 ../../cmds/date
           dcheck          ---755 0 0 ../../cmds/dcheck
           dd              ---755 0 0 ../../cmds/dd
+          deroff          ---755 0 0 ../../cmds/deroff
           df              ---755 0 0 ../../cmds/df
           dof             ---755 0 0 ../../cmds/dof
           du              ---755 0 0 ../../cmds/du
@@ -35,6 +36,7 @@ bin       d--755 0 0
           login           -u-755 0 0 ../../cmds/login
           ls              ---755 0 0 ../../cmds/ls
           make            ---755 0 0 ../../cmds/make
+          man             ---755 0 0 ../../cmds/man
           mkdir           -u-755 0 0 ../../cmds/mkdir
           mkfs            ---755 0 0 ../../cmds/mkfs
           mknod           ---755 0 0 ../../cmds/mknod
@@ -44,6 +46,7 @@ bin       d--755 0 0
           ncheck          ---755 0 0 ../../cmds/ncheck
           od              ---755 0 0 ../../cmds/od
           passwd          -u-755 0 0 ../../cmds/passwd
+          pr              ---755 0 0 ../../cmds/pr
           ps              ---755 0 0 ../../cmds/ps
           pwd             ---755 0 0 ../../cmds/pwd
           rcc             ---755 0 0 ../../cmds/rcc
@@ -56,6 +59,8 @@ bin       d--755 0 0
           su              ---755 0 0 ../../cmds/su
           sync            ---755 0 0 ../../cmds/sync
           touch           ---755 0 0 ../../cmds/touch
+          troff           ---755 0 0 ../../cmds/troff
+          nroff           ---755 0 0 ../../cmds/nroff
           umount          ---755 0 0 ../../cmds/umount
           update          ---755 0 0 ../../cmds/update
           wc              ---755 0 0 ../../cmds/wc
