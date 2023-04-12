@@ -1,11 +1,14 @@
-.export resetfe
+.export _resetfe
 .export statusfe
 .export setrnd
 
-; void resetfe(void)
-resetfe:
+; void _resetfe(unsigned int)
+; clear exception bits requested in mask
+_resetfe:
   mvfs $8, 16              ; fetch current fpc
-  and $8, $8, ~0x000001F0  ; set flags to 0 (mask 0xfffffe0f)
+  and $4, $4, 0x000001F0   ; only exception bits are allowed
+  xor $4, $4, 0xFFFFFFFF   ; invert mask 
+  and $8, $8, $4           ; clear requested bits 
   mvts $8, 16              ; write to fpc
   jr $31
 

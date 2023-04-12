@@ -45,4 +45,7 @@ float __kernel_sin(float x, float y, int iy);
 int __ieee754_rem_pio2(float x, float *y);
 int __kernel_rem_pio2(float *x, float *y, int e0, int nx, int prec, const int *ipio2);
 
+void _resetfe(unsigned int);
+unsigned int _statusfe(void);
+
 #endif /* __LIBM_H_ */
