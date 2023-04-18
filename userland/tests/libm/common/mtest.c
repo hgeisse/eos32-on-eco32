@@ -86,3 +86,11 @@ char *rstr(int r)
   }
   return "R?";
 }
+
+unsigned int statusfe(void) {
+  return getfe(FE_INEXACT|FE_UNDERFLOW|FE_OVERFLOW|FE_DIVBYZERO|FE_INVALID);
+}
+
+void resetfe(void) {
+  clearfe(FE_INEXACT|FE_UNDERFLOW|FE_OVERFLOW|FE_DIVBYZERO|FE_INVALID);
+}
