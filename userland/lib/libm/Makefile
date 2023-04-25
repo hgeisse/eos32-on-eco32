@@ -19,23 +19,19 @@ SRCS = acos.c asin.c atan.c atan2.c \
 	tan.c tanh.c \
 	__expo2.c
 
-OBJS = $(patsubst %.c,%.o,$(SRCS)) env.o fabs.o sqrt.o
+ASMSRCS = env.s fabs.s sqrt.s
+
+OBJS = $(patsubst %.c,%.o,$(SRCS)) $(patsubst %.s,%.o,$(ASMSRCS))
 
 .PHONY:		all clean
 
 all:		$(OBJS)
 
-env.o: env.s
-	$(BUILD)/bin/as -o env.o env.s
-
-fabs.o: fabs.s
-	$(BUILD)/bin/as -o fabs.o fabs.s
-
-sqrt.o: sqrt.s
-	$(BUILD)/bin/as -o sqrt.o sqrt.s
-
 %.o:		%.c
 		$(BUILD)/bin/lcc $(CCFLAGS) -o $@ -c $<
+
+%.o:		%.s
+	$(BUILD)/bin/as -o $@ $<
 
 clean:
 		rm -f *~ $(OBJS) $(LIB)
