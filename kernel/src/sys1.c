@@ -347,9 +347,6 @@ void setregs(int sp)
 	}
 	u.u_ar0[SP] = sp;
 	u.u_ar0[PC] = 0;
-	for (rp = (int *)&u.u_fps; rp < (int *)&u.u_fps.u_fpregs[6];) {
-		*rp++ = 0;
-	}
 	for (i = 0; i < NOFILE; i++) {
 		if (u.u_pofile[i] & EXCLOSE) {
 			closef(u.u_ofile[i]);

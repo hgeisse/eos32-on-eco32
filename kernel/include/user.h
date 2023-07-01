@@ -34,7 +34,6 @@ struct	user
 	int	u_fpsaved;		/* FP regs saved for this proc */
 	struct fps {
 		int	u_fpsr;		/* FP status register */
-		double	u_fpregs[6];	/* FP registers */
 	} u_fps;
 	char	u_segflg;		/* IO flag: 0:user D; 1:system; 2:user I */
 	char	u_error;		/* return error code */
