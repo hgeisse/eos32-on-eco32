@@ -418,14 +418,16 @@ resume:
 
 	; void savfp(struct fps *fpsp)
 	; save state of floating point hardware
-	; but: we don't have such machinery...
 savfp:
+	mvfs $8, 16
+	stw $8, $4, 0 
 	jr	$31
 
 	; void restfp(struct fps *fpsp)
 	; restore state of floating point hardware
-	; but: we don't have such machinery...
 restfp:
+	ldw $4, $4, 0
+	mvts $4, 16
 	jr	$31
 
 ;***************************************************************

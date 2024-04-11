@@ -37,8 +37,9 @@ static unsigned __FLOAT_BITS(float __f)
 
 #define signbit(x) ((int)(__FLOAT_BITS(x)>>31))
 
-void resetfe(void);
-unsigned int statusfe(void);
+void clearfe(unsigned int);
+unsigned int getfe(unsigned int);
+unsigned int getrnd(void);
 void setrnd(unsigned int);
 
 

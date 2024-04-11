@@ -149,3 +149,5 @@ static int checkcr(long double y, long double ywant, int r)
   }
 }
 
+unsigned int statusfe(void);
+void resetfe(void);
