@@ -1,5 +1,5 @@
 -noboot-
-1000 700
+20480 0
 d--755 0 0
 hgeisse     d--755 10 10
     disk.part   ---755 10 10 ../../home/hgeisse/disk.part
