@@ -1044,7 +1044,7 @@ int main(int argc, char *argv[]) {
     ptptr = partTable + part * 32;
     partType = read4FromEco(ptptr + 0);
     if ((partType & 0x7FFFFFFF) != 0x00000058) {
-      error("partition %d of disk '%s' does not contain an EOS32 file system",
+      error("partition %d of disk '%s' has wrong type (no EOS32 file system)",
             part, fsnam);
     }
     fsStart = read4FromEco(ptptr + 4);
