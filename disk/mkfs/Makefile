@@ -7,9 +7,9 @@ BUILD = ../../build
 CC = gcc
 CFLAGS = -g -Wall
 LDFLAGS = -g
-LDLIBS = -lm
+LDLIBS = -luuid -lm
 
-SRCS = mkfs.c
+SRCS = mkfs.c gpt.c
 OBJS = $(patsubst %.c,%.o,$(SRCS))
 BIN = EOS32-mkfs
 

@@ -9,6 +9,8 @@
 #include <stdarg.h>
 #include <time.h>
 
+#include "gpt.h"
+
 
 /**************************************************************/
 
@@ -147,7 +149,7 @@ typedef struct {
 
 
 time_t now;		/* timestamp used throughout the file system */
-FILE *fs;		/* the file which holds the disk image */
+FILE *disk;		/* the file which holds the disk image */
 Filsys filsys;		/* the file system's super block */
 EOS32_ino_t lastIno;	/* last inode allocated */
 
@@ -449,14 +451,15 @@ void directoryFromX86ToEco(unsigned char *p) {
 
 
 unsigned int fsStart;		/* file system start sector */
+unsigned int fsSize;		/* file system size in sectors */
 
 
 void rdfs(EOS32_daddr_t bno, unsigned char *bf, int blkType) {
   int n;
 
-  fseek(fs, (unsigned long) fsStart * SSIZE +
+  fseek(disk, (unsigned long) fsStart * SSIZE +
         (unsigned long) bno * BSIZE, SEEK_SET);
-  n = fread(bf, 1, BSIZE, fs);
+  n = fread(bf, 1, BSIZE, disk);
   if (n != BSIZE) {
     printf("read error: %d\n", bno);
     exit(1);
@@ -513,9 +516,9 @@ void wtfs(EOS32_daddr_t bno, unsigned char *bf, int blkType) {
       error("illegal block type %d in wtfs()", blkType);
       break;
   }
-  fseek(fs, (unsigned long) fsStart * SSIZE +
+  fseek(disk, (unsigned long) fsStart * SSIZE +
         (unsigned long) bno * BSIZE, SEEK_SET);
-  n = fwrite(bf, 1, BSIZE, fs);
+  n = fwrite(bf, 1, BSIZE, disk);
   if(n != BSIZE) {
     printf("write error: %d\n", bno);
     exit(1);
@@ -992,15 +995,13 @@ void showSizes(void) {
 
 
 int main(int argc, char *argv[]) {
-  char *fsnam;
+  char *diskName;
+  unsigned int diskSize;
+  int partNumber;
   char *proto;
   char protoBuf[20];
-  unsigned int fsSize;
-  int part;
   char *endptr;
-  unsigned char partTable[SSIZE];
-  unsigned char *ptptr;
-  unsigned int partType;
+  GptEntry entry;
   EOS32_daddr_t maxBlocks;
   EOS32_daddr_t numBlocks;
   EOS32_ino_t numInodes;
@@ -1015,40 +1016,45 @@ int main(int argc, char *argv[]) {
     exit(0);
   }
   if (argc != 3 && argc != 4) {
-    printf("Usage: %s <disk> <partition or '*'> [<prototype or size>]\n",
+    printf("Usage:\n"
+           "    %s <disk> <part> [<proto file or size>]\n"
+           "        <disk>  disk image file\n"
+           "        <part>  partition number\n"
+           "                '*' treat whole disk as a single file system\n",
            argv[0]);
-    printf("   or: %s --sizes\n", argv[0]);
+    printf("    %s --sizes\n", argv[0]);
     exit(1);
   }
   time(&now);
-  fsnam = argv[1];
-  fs = fopen(fsnam, "r+b");
-  if (fs == NULL) {
-    error("cannot open disk image '%s'", fsnam);
+  diskName = argv[1];
+  disk = fopen(diskName, "r+b");
+  if (disk == NULL) {
+    error("cannot open disk image '%s'", diskName);
   }
+  fseek(disk, 0, SEEK_END);
+  diskSize = ftell(disk) / SSIZE;
+  /* set fsStart and fsSize */
   if (strcmp(argv[2], "*") == 0) {
     /* whole disk contains one single file system */
     fsStart = 0;
-    fseek(fs, 0, SEEK_END);
-    fsSize = ftell(fs) / SSIZE;
+    fsSize = diskSize;
   } else {
     /* argv[2] is partition number of file system */
-    part = strtoul(argv[2], &endptr, 10);
-    if (*endptr != '\0' || part < 0 || part > 15) {
-      error("illegal partition number '%s'", argv[2]);
+    partNumber = strtoul(argv[2], &endptr, 0);
+    if (*endptr != '\0') {
+      error("cannot read partition number '%s'", argv[2]);
     }
-    fseek(fs, 1 * SSIZE, SEEK_SET);
-    if (fread(partTable, 1, SSIZE, fs) != SSIZE) {
-      error("cannot read partition table of disk '%s'", fsnam);
+    gptRead(disk, diskSize);
+    gptGetEntry(partNumber, &entry);
+    if (strcmp(entry.type, GPT_NULL_UUID) == 0) {
+      error("partition %d is not used", partNumber);
     }
-    ptptr = partTable + part * 32;
-    partType = read4FromEco(ptptr + 0);
-    if ((partType & 0x7FFFFFFF) != 0x00000058) {
-      error("partition %d of disk '%s' has wrong type (no EOS32 file system)",
-            part, fsnam);
+    if (strcmp(entry.type, "2736CFB2-27C3-40C6-AC7A-40A7BE06476D") != 0 &&
+        strcmp(entry.type, "36F2469F-834E-466E-9D2C-6D6F9664B1CB") != 0) {
+      error("partition %d is not an EOS32 file system", partNumber);
     }
-    fsStart = read4FromEco(ptptr + 4);
-    fsSize = read4FromEco(ptptr + 8);
+    fsStart = entry.start;
+    fsSize = entry.end - entry.start + 1;
   }
   printf("File system space is %u (0x%X) sectors of %d bytes each.\n",
          fsSize, fsSize, SSIZE);
