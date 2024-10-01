@@ -9,6 +9,8 @@
 #include <stdarg.h>
 #include <time.h>
 
+#include "gpt.h"
+
 
 #define SECTOR_SIZE	512	/* disk sector size in bytes */
 #define BLOCK_SIZE	4096	/* disk block size in bytes */
@@ -61,6 +63,7 @@ void error(char *fmt, ...) {
 
 
 unsigned int fsStart;		/* file system start sector */
+unsigned int fsSize;		/* file system size in sectors */
 
 
 void readBlock(FILE *disk,
@@ -510,13 +513,12 @@ int parseNumber(char **pc, unsigned int *pi) {
 
 
 int main(int argc, char *argv[]) {
+  char *diskName;
   FILE *disk;
-  unsigned int fsSize;
-  int part;
+  unsigned int diskSize;
+  int partNumber;
   char *endptr;
-  unsigned char partTable[SECTOR_SIZE];
-  unsigned char *ptptr;
-  unsigned int partType;
+  GptEntry entry;
   EOS32_daddr_t numBlocks;
   EOS32_daddr_t currBlock;
   unsigned char blockBuffer[BLOCK_SIZE];
@@ -526,44 +528,48 @@ int main(int argc, char *argv[]) {
   unsigned int n;
 
   if (argc != 3) {
-    printf("Usage: %s <disk> <partition>\n", argv[0]);
-    printf("       <disk> is a disk image file name\n");
-    printf("       <partition> is a partition number ");
-    printf("(or '*' for the whole disk)\n");
+    printf("Usage:\n"
+           "    %s <disk> <part>\n"
+           "        <disk>  disk image file\n"
+           "        <part>  partition number\n"
+           "                '*' treat whole disk as a single file system\n",
+           argv[0]);
     exit(1);
   }
-  disk = fopen(argv[1], "rb");
+  diskName = argv[1];
+  disk = fopen(diskName, "rb");
   if (disk == NULL) {
-    error("cannot open disk image file '%s'", argv[1]);
+    error("cannot open disk image '%s'", diskName);
   }
+  fseek(disk, 0, SEEK_END);
+  diskSize = ftell(disk) / SECTOR_SIZE;
+  /* set fsStart and fsSize */
   if (strcmp(argv[2], "*") == 0) {
     /* whole disk contains one single file system */
     fsStart = 0;
-    fseek(disk, 0, SEEK_END);
-    fsSize = ftell(disk) / SECTOR_SIZE;
+    fsSize = diskSize;
   } else {
     /* argv[2] is partition number of file system */
-    part = strtoul(argv[2], &endptr, 10);
-    if (*endptr != '\0' || part < 0 || part > 15) {
-      error("illegal partition number '%s'", argv[2]);
+    partNumber = strtoul(argv[2], &endptr, 0);
+    if (*endptr != '\0') {
+      error("cannot read partition number '%s'", argv[2]);
     }
-    fseek(disk, 1 * SECTOR_SIZE, SEEK_SET);
-    if (fread(partTable, 1, SECTOR_SIZE, disk) != SECTOR_SIZE) {
-      error("cannot read partition table of disk '%s'", argv[1]);
+    gptRead(disk, diskSize);
+    gptGetEntry(partNumber, &entry);
+    if (strcmp(entry.type, GPT_NULL_UUID) == 0) {
+      error("partition %d is not used", partNumber);
     }
-    ptptr = partTable + part * 32;
-    partType = get4Bytes(ptptr + 0);
-    if ((partType & 0x7FFFFFFF) != 0x00000058) {
-      error("partition %d of disk '%s' does not contain an EOS32 file system",
-            part, argv[1]);
+    if (strcmp(entry.type, "2736CFB2-27C3-40C6-AC7A-40A7BE06476D") != 0 &&
+        strcmp(entry.type, "36F2469F-834E-466E-9D2C-6D6F9664B1CB") != 0) {
+      error("partition %d is not an EOS32 file system", partNumber);
     }
-    fsStart = get4Bytes(ptptr + 4);
-    fsSize = get4Bytes(ptptr + 8);
+    fsStart = entry.start;
+    fsSize = entry.end - entry.start + 1;
   }
-  printf("File system has size %u (0x%X) sectors of %d bytes each.\n",
+  printf("File system space is %u (0x%X) sectors of %d bytes each.\n",
          fsSize, fsSize, SECTOR_SIZE);
   if (fsSize % SPB != 0) {
-    printf("File system size is not a multiple of block size.\n");
+    printf("File system space is not a multiple of block size.\n");
   }
   numBlocks = fsSize / SPB;
   printf("This equals %u (0x%X) blocks of %d bytes each.\n",
