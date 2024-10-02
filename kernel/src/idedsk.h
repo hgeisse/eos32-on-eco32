@@ -7,9 +7,6 @@
 #define _IDEDSK_H_
 
 
-#define EOS32_FSYS	0x0058	/* partition id for EOS32 file system */
-#define EOS32_SWAP	0x0059	/* partition id for EOS32 swap space */
-
 #define SECTOR_SIZE	512
 #define SPB		(BSIZE / SECTOR_SIZE)
 #define WPB		(BSIZE / sizeof(unsigned int))
@@ -39,7 +36,7 @@ extern Bool debugIdeDisk;
 extern struct buf ideTab;
 
 
-int ideGetRoot(unsigned startSector, unsigned numSectors);
+int ideGetRoot(void);
 int ideGetSwap(void);
 
 int ideSize(dev_t dev);

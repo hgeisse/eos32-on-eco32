@@ -20,6 +20,7 @@
 #include "klib.h"
 #include "start.h"
 #include "machdep.h"
+#include "c.h"
 
 
 /*
@@ -43,40 +44,110 @@ static Bool ideInitialized = FALSE;
 /**************************************************************/
 
 
-/* #define NUM_PARTS	(SECTOR_SIZE / sizeof(PartEntry)) */
-#define NUM_PARTS	17
-#define DESCR_SIZE	20
+/*
+ * Get a 4-byte little-endian integer from memory.
+ */
+static unsigned int get4LE(unsigned char *addr) {
+  return (((unsigned int) *(addr + 0)) <<  0) |
+         (((unsigned int) *(addr + 1)) <<  8) |
+         (((unsigned int) *(addr + 2)) << 16) |
+         (((unsigned int) *(addr + 3)) << 24);
+}
+
+
+/*
+ * Check a range of bytes for all zero.
+ */
+static Bool isZero(unsigned char *buf, int len) {
+  unsigned char res;
+  int i;
+
+  res = 0;
+  for (i = 0; i < len; i++) {
+    res |= buf[i];
+  }
+  return res == 0;
+}
+
+
+/*
+ * Compare a little-endian UUID with a big-endian prototype
+ */
+static Bool uuidIsEqualLE(unsigned char *dst, unsigned char *src) {
+  int i;
+
+  if (dst[0] != src[3] ||
+      dst[1] != src[2] ||
+      dst[2] != src[1] ||
+      dst[3] != src[0] ||
+      dst[4] != src[5] ||
+      dst[5] != src[4] ||
+      dst[6] != src[7] ||
+      dst[7] != src[6]) {
+    return 0;
+  }
+  for (i = 8; i < 16; i++) {
+    if (dst[i] != src[i]) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+
+/*
+ * This is the type UUID of an EOS32 swap partition.
+ */
+static unsigned char EOS32_SWAP[16] = {
+  0xC1, 0xBD, 0x63, 0x61, 0x34, 0x2D, 0x48, 0x6E,
+  0xAB, 0xBC, 0x35, 0x47, 0x54, 0x9A, 0x95, 0xF6,
+};
+
+
+/**************************************************************/
+
+
+#define NUMBER_PART_ENTRIES	128
+#define SIZEOF_PART_ENTRY	128
+#define NUMBER_PART_BYTES	(NUMBER_PART_ENTRIES * SIZEOF_PART_ENTRY)
+#define NUMBER_PART_SECTORS	(NUMBER_PART_BYTES) / SECTOR_SIZE
 
 
 /*
  * The disk's partition table.
  */
-typedef struct {
-  unsigned int type;
-  unsigned int start;
-  unsigned int size;
-  char descr[DESCR_SIZE];
-} PartEntry;
+static unsigned char partTable[NUMBER_PART_BYTES];
 
-static PartEntry partTbl[NUM_PARTS] = {
-  /*  0 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
-  /*  1 */  { 0x58, 0x00000800, 0x0001E800 - 0x00000800, "-- not set --" },
-  /*  2 */  { 0x59, 0x0001E800, 0x00037800 - 0x0001E800, "-- not set --" },
-  /*  3 */  { 0x58, 0x00037800, 0x00069800 - 0x00037800, "-- not set --" },
-  /*  4 */  { 0x58, 0x00069800, 0x00091800 - 0x00069800, "-- not set --" },
-  /*  5 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
-  /*  6 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
-  /*  7 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
-  /*  8 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
-  /*  9 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
-  /* 10 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
-  /* 11 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
-  /* 12 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
-  /* 13 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
-  /* 14 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
-  /* 15 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
-  /* 16 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
-};
+
+/*
+ * Given a minor device number, return its start offset.
+ */
+static unsigned int getPartStart(int minorDev) {
+  unsigned char *p;
+
+  if (minorDev < 1 || minorDev > NUMBER_PART_ENTRIES) {
+    return 0;
+  }
+  p = &partTable[(minorDev - 1) * SIZEOF_PART_ENTRY];
+  return get4LE(p + 32);
+}
+
+
+/*
+ * Given a minor device number, return its size.
+ */
+static unsigned int getPartSize(int minorDev) {
+  unsigned char *p;
+
+  if (minorDev < 1 || minorDev > NUMBER_PART_ENTRIES) {
+    return 0;
+  }
+  p = &partTable[(minorDev - 1) * SIZEOF_PART_ENTRY];
+  return get4LE(p + 40) - get4LE(p + 32) + 1;
+}
+
+
+/**************************************************************/
 
 
 static void ideISR(int irq, InterruptContext *icp);
@@ -115,15 +186,16 @@ static void waitDiskReady(void) {
  * and therefore may take a while.
  */
 static void readPartitionTable(void) {
-#if 0
-  /* read disk sector 1 */
-  *DISK_SCT = 1;
-  *DISK_CNT = 1;
-  *DISK_CTRL = DISK_CTRL_STRT;
-  while ((*DISK_CTRL & DISK_CTRL_DONE) == 0) ;
-  /* copy sector from disk buffer */
-  copyWords((unsigned int *) partTbl, DISK_BUFFER, WPS);
-#endif
+  int s;
+
+  /* read partition table sectors */
+  for (s = 0; s < NUMBER_PART_SECTORS; s++) {
+    *DISK_SCT = 2 + s;
+    *DISK_CNT = 1;
+    *DISK_CTRL = DISK_CTRL_STRT;
+    while ((*DISK_CTRL & DISK_CTRL_DONE) == 0) ;
+    copyWords(((unsigned int *) partTable) + s * WPS, DISK_BUFFER, WPS);
+  }
 }
 
 
@@ -131,32 +203,31 @@ static void readPartitionTable(void) {
  * Show the partition table.
  */
 static void showPartitionTable(void) {
-  unsigned int lastSector;
-  int i, j;
+  int i;
+  unsigned char *p;
+  unsigned int start;
+  unsigned int end;
+  unsigned int size;
+  int j;
   char c;
 
   printf("Partitions:\n");
-  printf(" # b type       start      last       size       description\n");
-  for (i = 0; i < NUM_PARTS; i++) {
-    if (partTbl[i].type == 0) {
-      /* skip unused partitions */
+  printf("  # | start      | size       | description      \n");
+  printf("----+------------+------------+------------------\n");
+  for (i = 0; i < 128; i++) {
+    p = &partTable[i * 128];
+    if (isZero(p, 16)) {
+      /* not used */
       continue;
     }
-    if (partTbl[i].type != 0) {
-      lastSector = partTbl[i].start + partTbl[i].size - 1;
-    } else {
-      lastSector = 0;
-    }
-    printf("%2d %s 0x%08lX 0x%08lX 0x%08lX 0x%08lX ",
-           i,
-           partTbl[i].type & 0x80000000 ? "*" : " ",
-           partTbl[i].type & 0x7FFFFFFF,
-           partTbl[i].start,
-           lastSector,
-           partTbl[i].size);
-    for (j = 0; j < DESCR_SIZE; j++) {
-      c = partTbl[i].descr[j];
-      if (c == '\0') {
+    start = get4LE(p + 32);
+    end = get4LE(p + 40);
+    size = end - start + 1;
+    printf("%3d | ", i + 1);
+    printf("0x%08X | 0x%08X | ", start, size);
+    for (j = 0; j < 36; j++) {
+      c = *(p + 56 + 2 * j);
+      if (c == 0) {
         break;
       }
       if (c >= 0x20 && c < 0x7F) {
@@ -207,58 +278,40 @@ static void ideInitialize(void) {
 /**************************************************************/
 
 
-int ideGetRoot(unsigned startSector, unsigned numSectors) {
+/*
+ * Return the root partition number.
+ */
+int ideGetRoot(void) {
   if (!ideInitialized) {
     ideInitialize();
   }
-  /* !!!!! the wizard knows: root is partition 1 */
-  return 1;
+  return bootPart;
 }
 
 
-#if 0
-int ideGetRoot(unsigned startSector, unsigned numSectors) {
+/*
+ * Return the swap partition number.
+ */
+int ideGetSwap(void) {
   int i;
+  unsigned char *p;
 
   if (!ideInitialized) {
     ideInitialize();
   }
-  for (i = 0; i < NUM_PARTS; i++) {
-    if ((partTbl[i].type & 0x7FFFFFFF) == EOS32_FSYS &&
-        partTbl[i].start == startSector &&
-        partTbl[i].size == numSectors) {
-      return i;
+  for (i = 0; i < NUMBER_PART_ENTRIES; i++) {
+    p = &partTable[i * SIZEOF_PART_ENTRY];
+    if (isZero(p, 16)) {
+      /* not used */
+      continue;
+    }
+    if (uuidIsEqualLE(p, EOS32_SWAP)) {
+      /* take the first partition with the right type */
+      return i + 1;
     }
   }
   return -1;
 }
-#endif
-
-
-int ideGetSwap(void) {
-  if (!ideInitialized) {
-    ideInitialize();
-  }
-  /* !!!!! the wizard knows: swap is partition 2 */
-  return 2;
-}
-
-
-#if 0
-int ideGetSwap(void) {
-  int i;
-
-  if (!ideInitialized) {
-    ideInitialize();
-  }
-  for (i = 0; i < NUM_PARTS; i++) {
-    if ((partTbl[i].type & 0x7FFFFFFF) == EOS32_SWAP) {
-      return i;
-    }
-  }
-  return -1;
-}
-#endif
 
 
 /**************************************************************/
@@ -279,10 +332,7 @@ int ideSize(dev_t dev) {
     ideInitialize();
   }
   minorDev = minor(dev);
-  if (minorDev >= NUM_PARTS) {
-    return 0;
-  }
-  numBlocks = partTbl[minorDev].size / SPB;
+  numBlocks = getPartSize(minorDev) / SPB;
   if (debugIdeDisk) {
     printf("       ideSize = 0x%08X\n",
            numBlocks);
@@ -348,7 +398,7 @@ static void ideStart(void) {
     *DISK_SCT = blkStart;
   } else {
     /* this is a normal request within a file system */
-    *DISK_SCT = partTbl[minorDev].start + blkStart;
+    *DISK_SCT = getPartStart(minorDev) + blkStart;
   }
   *DISK_CNT = SPB;
   *DISK_CTRL = diskCtrl;
@@ -373,11 +423,9 @@ void ideStrategy(struct buf *bp) {
   minorDev = minor(bp->b_dev);
   blkStart = bp->b_blkno * SPB;
   /* check parameters */
-  if (minorDev != 16) {
-    if (minorDev < 0 || minorDev > 15 ||
-        ((partTbl[minorDev].type & 0x7FFFFFFF) != EOS32_FSYS &&
-         (partTbl[minorDev].type & 0x7FFFFFFF) != EOS32_SWAP) ||
-        blkStart + SPB > partTbl[minorDev].size) {
+  if (minorDev != 0) {
+    if (minorDev < 1 || minorDev > NUMBER_PART_ENTRIES ||
+        blkStart + SPB > getPartSize(minorDev)) {
       /* illegal disk I/O request */
       bp->b_flags |= B_ERROR;
       iodone(bp);

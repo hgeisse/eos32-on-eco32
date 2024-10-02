@@ -383,7 +383,7 @@ void main(void) {
   if (bootDisk == 0) {
     /* IDE disk */
     rootMajor = 0;
-    rootMinor = ideGetRoot(startSector, numSectors);
+    rootMinor = ideGetRoot();
     swapMajor = 0;
     swapMinor = ideGetSwap();
   } else
@@ -404,7 +404,7 @@ void main(void) {
     printf("unknown boot disk, assuming disk 0\n");
     /* IDE disk */
     rootMajor = 0;
-    rootMinor = ideGetRoot(startSector, numSectors);
+    rootMinor = ideGetRoot();
     swapMajor = 0;
     swapMinor = ideGetSwap();
   }
