@@ -43,7 +43,8 @@ static Bool ideInitialized = FALSE;
 /**************************************************************/
 
 
-#define NUM_PARTS	(SECTOR_SIZE / sizeof(PartEntry))
+/* #define NUM_PARTS	(SECTOR_SIZE / sizeof(PartEntry)) */
+#define NUM_PARTS	17
 #define DESCR_SIZE	20
 
 
@@ -57,7 +58,25 @@ typedef struct {
   char descr[DESCR_SIZE];
 } PartEntry;
 
-static PartEntry partTbl[NUM_PARTS];
+static PartEntry partTbl[NUM_PARTS] = {
+  /*  0 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
+  /*  1 */  { 0x58, 0x00000800, 0x0001E800 - 0x00000800, "-- not set --" },
+  /*  2 */  { 0x59, 0x0001E800, 0x00037800 - 0x0001E800, "-- not set --" },
+  /*  3 */  { 0x58, 0x00037800, 0x00069800 - 0x00037800, "-- not set --" },
+  /*  4 */  { 0x58, 0x00069800, 0x00091800 - 0x00069800, "-- not set --" },
+  /*  5 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
+  /*  6 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
+  /*  7 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
+  /*  8 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
+  /*  9 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
+  /* 10 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
+  /* 11 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
+  /* 12 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
+  /* 13 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
+  /* 14 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
+  /* 15 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
+  /* 16 */  { 0x00, 0x00000000, 0x00000000, "-- not set --" },
+};
 
 
 static void ideISR(int irq, InterruptContext *icp);
@@ -96,6 +115,7 @@ static void waitDiskReady(void) {
  * and therefore may take a while.
  */
 static void readPartitionTable(void) {
+#if 0
   /* read disk sector 1 */
   *DISK_SCT = 1;
   *DISK_CNT = 1;
@@ -103,6 +123,7 @@ static void readPartitionTable(void) {
   while ((*DISK_CTRL & DISK_CTRL_DONE) == 0) ;
   /* copy sector from disk buffer */
   copyWords((unsigned int *) partTbl, DISK_BUFFER, WPS);
+#endif
 }
 
 
@@ -187,6 +208,16 @@ static void ideInitialize(void) {
 
 
 int ideGetRoot(unsigned startSector, unsigned numSectors) {
+  if (!ideInitialized) {
+    ideInitialize();
+  }
+  /* !!!!! the wizard knows: root is partition 1 */
+  return 1;
+}
+
+
+#if 0
+int ideGetRoot(unsigned startSector, unsigned numSectors) {
   int i;
 
   if (!ideInitialized) {
@@ -201,8 +232,19 @@ int ideGetRoot(unsigned startSector, unsigned numSectors) {
   }
   return -1;
 }
+#endif
 
 
+int ideGetSwap(void) {
+  if (!ideInitialized) {
+    ideInitialize();
+  }
+  /* !!!!! the wizard knows: swap is partition 2 */
+  return 2;
+}
+
+
+#if 0
 int ideGetSwap(void) {
   int i;
 
@@ -216,6 +258,7 @@ int ideGetSwap(void) {
   }
   return -1;
 }
+#endif
 
 
 /**************************************************************/
@@ -300,7 +343,7 @@ static void ideStart(void) {
   waitDiskReady();
   minorDev = minor(bp->b_dev);
   blkStart = bp->b_blkno * SPB;
-  if (minorDev == 16) {
+  if (minorDev == 0) {
     /* whole disk, regardless of file systems */
     *DISK_SCT = blkStart;
   } else {
