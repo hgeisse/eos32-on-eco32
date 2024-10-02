@@ -12,6 +12,7 @@
 	.import	main
 
 	.import	bootDisk
+	.import	bootPart
 	.import	startSector
 	.import	numSectors
 	.import	entryPoint
@@ -41,12 +42,14 @@ clrtest:
 	bltu	$8,$9,clrloop
 	add	$29,$0,0xC0400000	; setup stack
 	stw	$16,$0,bootDisk		; make arguments available
-	stw	$17,$0,startSector
-	stw	$18,$0,numSectors
+	stw	$17,$0,bootPart
+	stw	$18,$0,startSector
+	stw	$19,$0,numSectors
 	jal	main			; call 'main' function
 	ldw	$16,$0,bootDisk		; setup arguments for next stage
-	ldw	$17,$0,startSector
-	ldw	$18,$0,numSectors
+	ldw	$17,$0,bootPart
+	ldw	$18,$0,startSector
+	ldw	$19,$0,numSectors
 	ccs				; sync caches
 	ldw	$31,$0,entryPoint	; jump to loaded program
 	jr	$31

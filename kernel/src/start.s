@@ -47,6 +47,7 @@
 	.import	runrun
 
 	.import	bootDisk
+	.import	bootPart
 	.import	startSector
 	.import	numSectors
 
@@ -314,8 +315,9 @@ clrp0u:
 
 	; store boot info
 	stw	$16,$0,bootDisk
-	stw	$17,$0,startSector
-	stw	$18,$0,numSectors
+	stw	$17,$0,bootPart
+	stw	$18,$0,startSector
+	stw	$19,$0,numSectors
 
 	; call main
 	jal	main			; call main, fork off init process

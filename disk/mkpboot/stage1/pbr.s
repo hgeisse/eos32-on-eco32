@@ -9,8 +9,9 @@
 ; it must run within 4K (code + data + stack).
 ;
 ; This code expects the disk number of the boot disk
-; in $16, the start sector of the disk or partition
-; to be booted in $17 and its size in $18.
+; in $16, the partition number to be booted in $17
+; (0 for the whole disk), the start sector of the disk
+; or partition to be booted in $18 and its size in $19.
 ;
 ; The boot loader, which is loaded by this code,
 ; must be in standalone (headerless) executable
@@ -47,7 +48,7 @@ rdsct:
 	stw	$31,$29,20
 	stw	$6,$29,16		; sector count
 	add	$7,$5,$0		; transfer address
-	add	$6,$4,$17		; relative sector -> absolute
+	add	$6,$4,$18		; relative sector -> absolute
 	add	$5,$0,'r'		; command
 	add	$4,$0,$16		; disk number
 	add	$8,$0,dskio

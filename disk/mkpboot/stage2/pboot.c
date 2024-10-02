@@ -213,6 +213,7 @@ void halt(char *msg) {
 
 
 unsigned int bootDisk = 0;	/* gets loaded by previous stage */
+unsigned int bootPart = 0;	/* gets loaded by previous stage */
 unsigned int startSector = 0;	/* gets loaded by previous stage */
 unsigned int numSectors = 0;	/* gets loaded by previous stage */
 

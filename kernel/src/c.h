@@ -10,6 +10,7 @@ extern struct cdevsw cdevsw[];
 extern struct linesw linesw[];
 
 extern unsigned bootDisk;
+extern unsigned bootPart;
 extern unsigned startSector;
 extern unsigned numSectors;
 

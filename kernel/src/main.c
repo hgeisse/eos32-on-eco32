@@ -375,9 +375,10 @@ void main(void) {
   /* set root, swap, and pipe devices */
   printf("Boot info:\n"
          "  disk           = %d\n"
+         "  partition      = %d\n"
          "  start sector   = 0x%X\n"
          "  number sectors = 0x%X\n",
-         bootDisk, startSector, numSectors);
+         bootDisk, bootPart, startSector, numSectors);
   printf("\n");
   if (bootDisk == 0) {
     /* IDE disk */
