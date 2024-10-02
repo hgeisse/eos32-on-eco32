@@ -114,21 +114,21 @@ dev       d--755 0 0
           kmem            c--600 0 0 8 1
           null            c--666 0 0 8 2
           zero            c--666 0 0 8 3
-          idediskp0       b--644 0 0 0 0
+          idedisk         b--644 0 0 0 0
           idediskp1       b--644 0 0 0 1
           idediskp2       b--644 0 0 0 2
           idediskp3       b--644 0 0 0 3
-          idedisk         b--644 0 0 0 16
-          serdiskp0       b--644 0 0 1 0
+          idediskp4       b--644 0 0 0 4
+          serdisk         b--644 0 0 1 0
           serdiskp1       b--644 0 0 1 1
           serdiskp2       b--644 0 0 1 2
           serdiskp3       b--644 0 0 1 3
-          serdisk         b--644 0 0 1 16
-          sdcdiskp0       b--644 0 0 6 0
+          serdiskp4       b--644 0 0 1 4
+          sdcdisk         b--644 0 0 6 0
           sdcdiskp1       b--644 0 0 6 1
           sdcdiskp2       b--644 0 0 6 2
           sdcdiskp3       b--644 0 0 6 3
-          sdcdisk         b--644 0 0 6 16
+          sdcdiskp4       b--644 0 0 6 4
           ramdisk         b--644 0 0 2 0
           swap            b--644 0 0 0 1
           $

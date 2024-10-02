@@ -2,8 +2,8 @@ PATH=/bin:/usr/bin
 cat /WELCOME >/dev/console
 rm -f /etc/mtab
 cat /dev/null >/etc/utmp
-mount /dev/sdcdiskp2 /usr
-mount /dev/sdcdiskp3 /home
+mount /dev/sdcdiskp3 /usr
+mount /dev/sdcdiskp4 /home
 : rm -f /usr/spool/lpd/lock
 : accton /usr/adm/acct
 rm -f /usr/tmp/*
