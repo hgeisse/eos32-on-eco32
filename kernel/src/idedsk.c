@@ -71,23 +71,24 @@ static Bool isZero(unsigned char *buf, int len) {
 
 
 /*
- * Compare a little-endian UUID with a big-endian prototype
+ * Compare a little-endian UUID with a big-endian prototype.
+ * It is irrelevant which is which.
  */
-static Bool uuidIsEqualLE(unsigned char *dst, unsigned char *src) {
+static Bool uuidIsEqualLE(unsigned char *uuid1, unsigned char *uuid2) {
   int i;
 
-  if (dst[0] != src[3] ||
-      dst[1] != src[2] ||
-      dst[2] != src[1] ||
-      dst[3] != src[0] ||
-      dst[4] != src[5] ||
-      dst[5] != src[4] ||
-      dst[6] != src[7] ||
-      dst[7] != src[6]) {
+  if (uuid1[0] != uuid2[3] ||
+      uuid1[1] != uuid2[2] ||
+      uuid1[2] != uuid2[1] ||
+      uuid1[3] != uuid2[0] ||
+      uuid1[4] != uuid2[5] ||
+      uuid1[5] != uuid2[4] ||
+      uuid1[6] != uuid2[7] ||
+      uuid1[7] != uuid2[6]) {
     return 0;
   }
   for (i = 8; i < 16; i++) {
-    if (dst[i] != src[i]) {
+    if (uuid1[i] != uuid2[i]) {
       return 0;
     }
   }
