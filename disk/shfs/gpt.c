@@ -162,7 +162,7 @@ static void rdSector(FILE *disk, unsigned int sectorNum, unsigned char *buf) {
 }
 
 
-void wrSector(FILE *disk, unsigned int sectorNum, unsigned char *buf) {
+static void wrSector(FILE *disk, unsigned int sectorNum, unsigned char *buf) {
   if (fseek(disk, (unsigned long) sectorNum * SECTOR_SIZE, SEEK_SET) < 0) {
     error("cannot position to sector %u (0x%X)", sectorNum, sectorNum);
   }
