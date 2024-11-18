@@ -156,6 +156,7 @@ fstest    d--755 0 0
           8217KiB         ---755 0 0 ../../fstest/8217KiB
           8317KiB         ---755 0 0 ../../fstest/8317KiB
           check           ---755 0 0 ../../fstest/check
+          README          ---755 0 0 ../../fstest/README
           $
 home      d--755 0 0
           $
