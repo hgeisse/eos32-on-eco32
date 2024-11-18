@@ -5,7 +5,7 @@
 BUILD = ../build
 TARGET = $(BUILD)/run/fs-EOS32
 
-DIRS = mkdata mkpboot mkfs shfs
+DIRS = mkfstest mkdata mkpboot mkfs shfs
 
 .PHONY:		all install clean
 

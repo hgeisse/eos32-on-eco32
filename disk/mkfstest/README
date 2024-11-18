@@ -1,0 +1,29 @@
+Here, we generate 8 data files with (pseudo) random bytes.
+The size of each file is reflected in its name, as follows:
+
+name		size in KiB	size in bytes	number of data blocks used
+--------------------------------------------------------------------------
+1KiB		1		1024		1
+5KiB		5		5120		2
+25KiB		25		25600		6 + i + 1
+125KiB		125		128000		6 + i + 26
+4121KiB		4121		4219904		6 + i + 1024
+						  + ii + i + 1
+4221KiB		4221		4322304		6 + i + 1024
+						  + ii + i + 26
+8217KiB		8217		8414208		6 + i + 1024
+						  + ii + i + 1024 + i + 1
+8317KiB		8317		8516608		6 + i + 1024
+						  + ii + i + 1024 + i + 26
+
+The last column list the number of data blocks that
+the corrsponding file is using. The symbol 'i' denotes
+a single indirect block, 'ii' a double indirect block.
+The file size of each file is selected in such a way
+that the last block contains only 1 KiB of real data,
+leaving 3 KiB free.
+
+Each file is checksummed by computing a CRC32 hash value.
+The file 'check' contains one line of description for each
+file (file name, decimal number of kilobytes, hexadecimal
+CRC32 hash) in order to ease testing the file system.

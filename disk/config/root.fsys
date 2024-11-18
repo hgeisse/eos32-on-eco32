@@ -146,6 +146,17 @@ etc       d--755 0 0
           motd            ---644 0 0 ./etc/motd2
           joerc           ---644 0 0 ./etc/joerc
           $
+fstest    d--755 0 0
+          1KiB            ---755 0 0 ../../fstest/1KiB
+          5KiB            ---755 0 0 ../../fstest/5KiB
+          25KiB           ---755 0 0 ../../fstest/25KiB
+          125KiB          ---755 0 0 ../../fstest/125KiB
+          4121KiB         ---755 0 0 ../../fstest/4121KiB
+          4221KiB         ---755 0 0 ../../fstest/4221KiB
+          8217KiB         ---755 0 0 ../../fstest/8217KiB
+          8317KiB         ---755 0 0 ../../fstest/8317KiB
+          check           ---755 0 0 ../../fstest/check
+          $
 home      d--755 0 0
           $
 mnt       d--755 0 0
