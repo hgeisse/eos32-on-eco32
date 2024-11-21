@@ -16,7 +16,7 @@ name		size in KiB	size in bytes	number of data blocks used
 8317KiB		8317		8516608		6 + i + 1024
 						  + ii + i + 1024 + i + 26
 
-The last column list the number of data blocks that
+The last column lists the number of data blocks that
 the corrsponding file is using. The symbol 'i' denotes
 a single indirect block, 'ii' a double indirect block.
 The file size of each file is selected in such a way
