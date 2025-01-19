@@ -1,17 +1,29 @@
+/*
+ * fsck.c -- file system check
+ */
+
+#ifndef eco32
+#define eco32	1
+#endif
+
 #include <stdio.h>
 #include <ctype.h>
+#include <stdarg.h>
+#include <signal.h>
+#include <sys/blk.h>
+#include <sys/tim.h>
+#include <sys/off.h>
+#include <sys/ino.h>
 #include <sys/param.h>
 #include <sys/filsys.h>
 #include <sys/dir.h>
 #include <sys/fblk.h>
-#include <sys/ino.h>
+#include <sys/dev.h>
 #include <sys/inode.h>
 #include <sys/stat.h>
 
-typedef	int	(*SIG_TYP)();
-
 #define NDIRECT	(BSIZE/sizeof(struct direct))
-#define SPERB	(BSIZE/sizeof(short))
+#define IPERB	(BSIZE/sizeof(int))
 
 #define NO	0
 #define YES	1
@@ -44,7 +56,8 @@ typedef struct direct	DIRECT;
 #define CHR	((dp->di_mode & IFMT) == IFCHR)
 #define MPC	((dp->di_mode & IFMT) == IFMPC)
 #define MPB	((dp->di_mode & IFMT) == IFMPB)
-#define SPECIAL	(BLK || CHR || MPC || MPB)
+/* #define SPECIAL	(BLK || CHR || MPC || MPB) */
+#define SPECIAL	(BLK || CHR)
 
 #define NINOBLK	11		/* num blks for raw reading */
 #define MAXRAW	110		/* largest raw read (in blks) */
@@ -56,7 +69,7 @@ struct bufarea {
 	daddr_t	b_bno;
 	union {
 		char	b_buf[BSIZE];		/* buffer space */
-		short	b_lnks[SPERB];		/* link counts */
+		int	b_lnks[IPERB];		/* link counts */
 		daddr_t	b_indir[NINDIR];	/* indirect block */
 		struct filsys b_fs;		/* super block */
 		struct fblk b_fb;		/* free block */
@@ -95,14 +108,16 @@ struct filecntl	sfile;		/* file descriptors for scratch file */
 typedef unsigned MEMSIZE;
 
 MEMSIZE	memsize;		/* amt of memory we got */
-#ifdef pdp11
+#if pdp11
 #define MAXDATA	((MEMSIZE)54*1024)
-#endif
-#if vax
+#elif vax
 #define	MAXDATA ((MEMSIZE)400*1024)
-#endif
-#if interdata
+#elif interdata
 #define	MAXDATA ((MEMSIZE)400*1024)
+#elif eco32
+#define	MAXDATA ((MEMSIZE)400*1024)
+#else
+#error "no machine architecture defined"
 #endif
 
 #define	DUPTBLSIZE	100	/* num of dup blocks to remember */
@@ -136,7 +151,7 @@ char	scrfile[80];
 char	*lfname =	"lost+found";
 char	*checklist =	"/etc/checklist";
 
-short	*lncntp;		/* ptr to link count table */
+int	*lncntp;		/* ptr to link count table */
 
 int	cylsize;		/* num blocks per cylinder */
 int	stepsize;		/* num blocks for spacing purposes */
@@ -191,27 +206,52 @@ daddr_t	fmax;			/* number of blocks in the volume */
 #define SKIP	02
 #define STOP	01
 
-int	(*signal())();
-long	lseek();
-long	time();
-DINODE	*ginode();
-BUFAREA	*getblk();
-BUFAREA	*search();
-int	dirscan();
-int	findino();
-int	catch();
-int	mkentry();
-int	chgdd();
-int	pass1();
-int	pass1b();
-int	pass2();
-int	pass3();
-int	pass4();
-int	pass5();
+void error(char *s1, ...);
+void errexit(char *s1, ...);
+void check(char *dev);
+int ckinode(DINODE *dp, int flg);
+int iblock(daddr_t blk, int ilevel, int flg);
+int pass1(daddr_t blk);
+int pass1b(daddr_t blk);
+int pass2(DIRECT *dirp);
+int pass4(daddr_t blk);
+int pass5(daddr_t blk);
+void blkerr(char *s, daddr_t blk);
+void descend(void);
+int dirscan(daddr_t blk);
+int direrr(char *s);
+void adjust(int lcnt);
+void clri(char *s, int flg);
+int setup(char *dev);
+DINODE *ginode(void);
+int ftypeok(DINODE *dp);
+int reply(char *s);
+int getline(FILE *fp, char *loc, int maxlen);
+void stype(char *p);
+int dostate(int s, int flg);
+int domap(daddr_t blk, int flg);
+int dolncnt(int val, int flg);
+BUFAREA *getblk(BUFAREA *bp, daddr_t blk);
+void flush(struct filecntl *fcp, BUFAREA *bp);
+void rwerr(char *s, daddr_t blk);
+void sizechk(DINODE *dp);
+void ckfini(void);
+void pinode(void);
+void copy(char *fp, char *tp, MEMSIZE size);
+void freechk(void);
+void makefree(void);
+void clear(char *p, MEMSIZE cnt);
+BUFAREA *search(daddr_t blk);
+int findino(DIRECT *dirp);
+int mkentry(DIRECT *dirp);
+int chgdd(DIRECT *dirp);
+int linkup(void);
+int bread(struct filecntl *fcp, char *buf, daddr_t blk, int size);
+int bwrite(struct filecntl *fcp, char *buf, daddr_t blk, int size);
+void catch(int sig);
+int ustat(int x, char *s);
 
-main(argc,argv)
-int	argc;
-char	*argv[];
+int main(int argc, char *argv[])
 {
 	register FILE *fp;
 	register n;
@@ -260,11 +300,10 @@ char	*argv[];
 	memsize = (MEMSIZE)sbrk(0);
 	memsize = MAXDATA - memsize - sizeof(int);
 	while(memsize >= 2*sizeof(BUFAREA) &&
-		(membase = sbrk(memsize)) == (char *)-1)
+		(membase = sbrk(memsize)) == (char *)(unsigned long)(long)-1)
 		memsize -= 1024;
 	if(memsize < 2*sizeof(BUFAREA))
 		errexit("Can't get memory\n");
-#define SIG_IGN	(int (*)())1
 	if (signal(SIGINT, SIG_IGN) != SIG_IGN)
 		signal(SIGINT, catch);
 	if(argc) {		/* arg list has file names */
@@ -279,28 +318,34 @@ char	*argv[];
 		fclose(fp);
 	}
 	exit(0);
+	return 0;
 }
 
 
 /* VARARGS1 */
-error(s1,s2,s3,s4)
-char *s1;
+void error(char *s1, ...)
 {
-	printf(s1,s2,s3,s4);
+	va_list ap;
+
+	va_start(ap, s1);
+	vprintf(s1, ap);
+	va_end(ap);
 }
 
 
 /* VARARGS1 */
-errexit(s1,s2,s3,s4)
-char *s1;
+void errexit(char *s1, ...)
 {
-	error(s1,s2,s3,s4);
+	va_list ap;
+
+	va_start(ap, s1);
+	vprintf(s1, ap);
+	va_end(ap);
 	exit(8);
 }
 
 
-check(dev)
-char *dev;
+void check(char *dev)
 {
 	register DINODE *dp;
 	register n;
@@ -315,7 +360,7 @@ char *dev;
 
 	printf("** Phase 1 - Check Blocks and Sizes\n");
 	pfunc = pass1;
-	for(inum = 1; inum <= imax; inum++) {
+	for(inum = 1; inum < imax; inum++) {
 		if((dp = ginode()) == NULL)
 			continue;
 		if(ALLOC) {
@@ -445,7 +490,7 @@ char *dev;
 		switch(getstate()) {
 			case FSTATE:
 				if(n = getlncnt())
-					adjust((short)n);
+					adjust(n);
 				else {
 					for(blp = badlncnt;blp < badlnp; blp++)
 						if(*blp == inum) {
@@ -462,10 +507,10 @@ char *dev;
 		}
 	}
 #ifndef interdata
-	if(imax - n_files != superblk.s_tinode) {
+	if(imax - 1 - n_files != superblk.s_tinode) {
 		printf("FREE INODE COUNT WRONG IN SUPERBLK");
 		if(reply("FIX") == YES) {
-			superblk.s_tinode = imax - n_files;
+			superblk.s_tinode = imax - 1 - n_files;
 			sbdirty();
 		}
 	}
@@ -547,24 +592,26 @@ char *dev;
 }
 
 
-ckinode(dp,flg)
-DINODE *dp;
-register flg;
+int ckinode(DINODE *dp, int flg)
 {
 	register daddr_t *ap;
 	register ret;
 	int (*func)(), n;
 	daddr_t	iaddrs[NADDR];
+	int i;
 
 	if(SPECIAL)
 		return(KEEPON);
-	l3tol(iaddrs,dp->di_addr,NADDR);
+	/* l3tol(iaddrs,dp->di_addr,NADDR); */
+	for (i = 0; i < NADDR; i++) {
+	  iaddrs[i] = dp->di_addr[i];
+	}
 	func = (flg == ADDR) ? pfunc : dirscan;
-	for(ap = iaddrs; ap < &iaddrs[NADDR-3]; ap++) {
+	for(ap = iaddrs; ap < &iaddrs[NADDR-2]; ap++) {
 		if(*ap && (ret = (*func)(*ap)) & STOP)
 			return(ret);
 	}
-	for(n = 1; n < 4; n++) {
+	for(n = 1; n < 3; n++) {
 		if(*ap && (ret = iblock(*ap,n,flg)) & STOP)
 			return(ret);
 		ap++;
@@ -573,9 +620,7 @@ register flg;
 }
 
 
-iblock(blk,ilevel,flg)
-daddr_t blk;
-register ilevel;
+int iblock(daddr_t blk, int ilevel, int flg)
 {
 	register daddr_t *ap;
 	register n;
@@ -610,8 +655,7 @@ register ilevel;
 }
 
 
-pass1(blk)
-daddr_t blk;
+int pass1(daddr_t blk)
 {
 	register daddr_t *dlp;
 
@@ -659,8 +703,7 @@ daddr_t blk;
 }
 
 
-pass1b(blk)
-daddr_t blk;
+int pass1b(daddr_t blk)
 {
 	register daddr_t *dlp;
 
@@ -678,8 +721,7 @@ daddr_t blk;
 }
 
 
-pass2(dirp)
-register DIRECT *dirp;
+int pass2(DIRECT *dirp)
 {
 	register char *p;
 	register n;
@@ -695,7 +737,7 @@ register DIRECT *dirp;
 		}
 	*pathp = 0;
 	n = NO;
-	if(inum > imax || inum < ROOTINO)
+	if(inum >= imax || inum < ROOTINO)
 		n = direrr("I OUT OF RANGE");
 	else {
 	again:
@@ -726,8 +768,7 @@ register DIRECT *dirp;
 }
 
 
-pass4(blk)
-daddr_t blk;
+int pass4(daddr_t blk)
 {
 	register daddr_t *dlp;
 
@@ -746,8 +787,7 @@ daddr_t blk;
 }
 
 
-pass5(blk)
-daddr_t blk;
+int pass5(daddr_t blk)
 {
 	if(outrange(blk)) {
 		fixfree = 1;
@@ -776,16 +816,14 @@ daddr_t blk;
 }
 
 
-blkerr(s,blk)
-daddr_t blk;
-char *s;
+void blkerr(char *s, daddr_t blk)
 {
 	printf("%ld %s I=%u\n",blk,s,inum);
 	setstate(CLEAR);	/* mark for possible clearing */
 }
 
 
-descend()
+void descend(void)
 {
 	register DINODE *dp;
 	register char *savname;
@@ -805,8 +843,7 @@ descend()
 }
 
 
-dirscan(blk)
-daddr_t blk;
+int dirscan(daddr_t blk)
 {
 	register DIRECT *dirp;
 	register char *p1, *p2;
@@ -845,8 +882,7 @@ daddr_t blk;
 }
 
 
-direrr(s)
-char *s;
+int direrr(char *s)
 {
 	register DINODE *dp;
 
@@ -860,8 +896,7 @@ char *s;
 }
 
 
-adjust(lcnt)
-register short lcnt;
+void adjust(int lcnt)
 {
 	register DINODE *dp;
 
@@ -885,8 +920,7 @@ register short lcnt;
 }
 
 
-clri(s,flg)
-char *s;
+void clri(char *s, int flg)
 {
 	register DINODE *dp;
 
@@ -906,8 +940,7 @@ char *s;
 }
 
 
-setup(dev)
-char *dev;
+int setup(char *dev)
 {
 	register n;
 	register BUFAREA *bp;
@@ -972,21 +1005,23 @@ char *dev;
 		ckfini();
 		return(NO);
 	}
-	imax = ((ino_t)superblk.s_isize - (SUPERB+1)) * INOPB;
-	fmin = (daddr_t)superblk.s_isize;	/* first data blk num */
+	imax = (ino_t)superblk.s_isize * INOPB;
+	fmin = (daddr_t)superblk.s_isize + (SUPERB+1);	/* first data blk num */
 	fmax = superblk.s_fsize;		/* first invalid blk num */
 	if(fmin >= fmax || 
-		(imax/INOPB) != ((ino_t)superblk.s_isize-(SUPERB+1))) {
+		(imax/INOPB) != ((ino_t)superblk.s_isize)) {
 		error("Size check: fsize %ld isize %d\n",
 			superblk.s_fsize,superblk.s_isize);
 		ckfini();
 		return(NO);
 	}
+#if 0 /* HG */
 	printf("File System: %.6s Volume: %.6s\n\n", superblk.s_fname,
 		superblk.s_fpack);
+#endif
 	bmapsz = roundup(howmany(fmax,BITSPB),sizeof(*lncntp));
-	smapsz = roundup(howmany((long)(imax+1),STATEPB),sizeof(*lncntp));
-	lncntsz = (long)(imax+1) * sizeof(*lncntp);
+	smapsz = roundup(howmany((long)(imax),STATEPB),sizeof(*lncntp));
+	lncntsz = (long)(imax) * sizeof(*lncntp);
 	if(bmapsz > smapsz+lncntsz)
 		smapsz = bmapsz-lncntsz;
 	totsz = bmapsz+smapsz+lncntsz;
@@ -1039,7 +1074,7 @@ char *dev;
 			flush(&sfile,bp);
 		}
 		blkmap = freemap = statemap = (char *) NULL;
-		lncntp = (short *) NULL;
+		lncntp = (int *) NULL;
 		smapblk = bmapsz / BSIZE;
 		lncntblk = smapblk + smapsz / BSIZE;
 		fmapblk = smapblk;
@@ -1056,20 +1091,19 @@ char *dev;
 		blkmap = mbase;
 		statemap = &mbase[(MEMSIZE)bmapsz];
 		freemap = statemap;
-		lncntp = (short *)&statemap[(MEMSIZE)smapsz];
+		lncntp = (int *)&statemap[(MEMSIZE)smapsz];
 	}
 	return(YES);
 }
 
 
-DINODE *
-ginode()
+DINODE *ginode(void)
 {
 	register DINODE *dp;
 	register char *mbase;
 	daddr_t iblk;
 
-	if(inum > imax)
+	if(inum >= imax)
 		return(NULL);
 	iblk = itod(inum);
 	if(rawflg) {
@@ -1094,16 +1128,17 @@ ginode()
 }
 
 
-ftypeok(dp)
-DINODE *dp;
+int ftypeok(DINODE *dp)
 {
 	switch(dp->di_mode & IFMT) {
 		case IFDIR:
 		case IFREG:
 		case IFBLK:
 		case IFCHR:
+#if 0 /* HG */
 		case IFMPC:
 		case IFMPB:
+#endif
 			return(YES);
 		default:
 			return(NO);
@@ -1111,8 +1146,7 @@ DINODE *dp;
 }
 
 
-reply(s)
-char *s;
+int reply(char *s)
 {
 	char line[80];
 
@@ -1136,9 +1170,7 @@ char *s;
 }
 
 
-getline(fp,loc,maxlen)
-FILE *fp;
-char *loc;
+int getline(FILE *fp, char *loc, int maxlen)
 {
 	register n;
 	register char *p, *lastloc;
@@ -1156,8 +1188,7 @@ char *loc;
 }
 
 
-stype(p)
-register char *p;
+void stype(char *p)
 {
 	if(*p == 0)
 		return;
@@ -1187,7 +1218,7 @@ register char *p;
 }
 
 
-dostate(s,flg)
+int dostate(int s, int flg)
 {
 	register char *p;
 	register unsigned byte, shift;
@@ -1217,8 +1248,7 @@ dostate(s,flg)
 }
 
 
-domap(blk,flg)
-daddr_t blk;
+int domap(daddr_t blk, int flg)
 {
 	register char *p;
 	register unsigned n;
@@ -1260,20 +1290,19 @@ daddr_t blk;
 }
 
 
-dolncnt(val,flg)
-short val;
+int dolncnt(int val, int flg)
 {
-	register short *sp;
+	register int *sp;
 	register BUFAREA *bp;
 
 	if(lncntp != NULL) {
 		bp = NULL;
 		sp = &lncntp[inum];
 	}
-	else if((bp = getblk((BUFAREA *)NULL,(daddr_t)(lncntblk+(inum/SPERB)))) == NULL)
+	else if((bp = getblk((BUFAREA *)NULL,(daddr_t)(lncntblk+(inum/IPERB)))) == NULL)
 		errexit("Fatal I/O error\n");
 	else
-		sp = &bp->b_un.b_lnks[inum%SPERB];
+		sp = &bp->b_un.b_lnks[inum%IPERB];
 	switch(flg) {
 		case 0:
 			*sp = val;
@@ -1291,9 +1320,7 @@ short val;
 
 
 BUFAREA *
-getblk(bp,blk)
-daddr_t blk;
-register BUFAREA *bp;
+getblk(BUFAREA *bp, daddr_t blk)
 {
 	register struct filecntl *fcp;
 
@@ -1315,9 +1342,7 @@ register BUFAREA *bp;
 }
 
 
-flush(fcp,bp)
-struct filecntl *fcp;
-register BUFAREA *bp;
+void flush(struct filecntl *fcp, BUFAREA *bp)
 {
 	if(bp->b_dirty) {
 		bwrite(fcp,bp->b_un.b_buf,bp->b_bno,BSIZE);
@@ -1326,9 +1351,7 @@ register BUFAREA *bp;
 }
 
 
-rwerr(s,blk)
-char *s;
-daddr_t blk;
+void rwerr(char *s, daddr_t blk)
 {
 	printf("\nCAN NOT %s: BLK %ld",s,blk);
 	if(reply("CONTINUE") == NO)
@@ -1336,8 +1359,7 @@ daddr_t blk;
 }
 
 
-sizechk(dp)
-register DINODE *dp;
+void sizechk(DINODE *dp)
 {
 /*
 	if (maxblk != howmany(dp->di_size, BSIZE))
@@ -1349,7 +1371,7 @@ register DINODE *dp;
 }
 
 
-ckfini()
+void ckfini(void)
 {
 	flush(&dfile,&fileblk);
 	flush(&dfile,&sblk);
@@ -1364,7 +1386,7 @@ ckfini()
 }
 
 
-pinode()
+void pinode(void)
 {
 	register DINODE *dp;
 	register char *p;
@@ -1375,14 +1397,18 @@ pinode()
 	if((dp = ginode()) == NULL)
 		return;
 	printf(" OWNER=");
+#if 0 /* HG */
 	if(getpw((int)dp->di_uid,uidbuf) == 0) {
 		for(p = uidbuf; *p != ':'; p++);
 		*p = 0;
 		printf("%s ",uidbuf);
 	}
 	else {
+#endif
 		printf("%d ",dp->di_uid);
+#if 0 /* HG */
 	}
+#endif
 	printf("MODE=%o\n",dp->di_mode);
 	printf("SIZE=%ld ",dp->di_size);
 	p = ctime(&dp->di_mtime);
@@ -1390,16 +1416,14 @@ pinode()
 }
 
 
-copy(fp,tp,size)
-register char *tp, *fp;
-MEMSIZE size;
+void copy(char *fp, char *tp, MEMSIZE size)
 {
 	while(size--)
 		*tp++ = *fp++;
 }
 
 
-freechk()
+void freechk(void)
 {
 	register daddr_t *ap;
 
@@ -1422,12 +1446,12 @@ freechk()
 }
 
 
-makefree()
+void makefree(void)
 {
 	register i, cyl, step;
 	int j;
 	char flg[MAXCYL];
-	short addr[MAXCYL];
+	int addr[MAXCYL];
 	daddr_t blk, baseblk;
 
 	superblk.s_nfree = 0;
@@ -1437,21 +1461,27 @@ makefree()
 	superblk.s_ninode = 0;
 	superblk.s_ilock = 0;
 	superblk.s_ronly = 0;
+#if 0 /* HG */
 	if(cylsize == 0 || stepsize == 0) {
 		step = superblk.s_dinfo[0];
 		cyl = superblk.s_dinfo[1];
 	}
 	else {
+#endif
 		step = stepsize;
 		cyl = cylsize;
+#if 0 /* HG */
 	}
+#endif
 	if(step > cyl || step <= 0 || cyl <= 0 || cyl > MAXCYL) {
 		error("Default free list spacing assumed\n");
 		step = STEPSIZE;
 		cyl = CYLSIZE;
 	}
+#if 0 /* HG */
 	superblk.s_dinfo[0] = step;
 	superblk.s_dinfo[1] = cyl;
+#endif
 	clear(flg,sizeof(flg));
 	i = 0;
 	for(j = 0; j < cyl; j++) {
@@ -1486,18 +1516,14 @@ makefree()
 }
 
 
-clear(p,cnt)
-register char *p;
-MEMSIZE cnt;
+void clear(char *p, MEMSIZE cnt)
 {
 	while(cnt--)
 		*p++ = 0;
 }
 
 
-BUFAREA *
-search(blk)
-daddr_t blk;
+BUFAREA *search(daddr_t blk)
 {
 	register BUFAREA *pbp, *bp;
 
@@ -1514,8 +1540,7 @@ daddr_t blk;
 }
 
 
-findino(dirp)
-register DIRECT *dirp;
+int findino(DIRECT *dirp)
 {
 	register char *p1, *p2;
 
@@ -1523,7 +1548,7 @@ register DIRECT *dirp;
 		return(KEEPON);
 	for(p1 = dirp->d_name,p2 = srchname;*p2++ == *p1; p1++) {
 		if(*p1 == 0 || p1 == &dirp->d_name[DIRSIZ-1]) {
-			if(dirp->d_ino >= ROOTINO && dirp->d_ino <= imax)
+			if(dirp->d_ino >= ROOTINO && dirp->d_ino < imax)
 				parentdir = dirp->d_ino;
 			return(STOP);
 		}
@@ -1532,8 +1557,7 @@ register DIRECT *dirp;
 }
 
 
-mkentry(dirp)
-register DIRECT *dirp;
+int mkentry(DIRECT *dirp)
 {
 	register ino_t in;
 	register char *p;
@@ -1552,8 +1576,7 @@ register DIRECT *dirp;
 }
 
 
-chgdd(dirp)
-register DIRECT *dirp;
+int chgdd(DIRECT *dirp)
 {
 	if(dirp->d_name[0] == '.' && dirp->d_name[1] == '.' &&
 	dirp->d_name[2] == 0) {
@@ -1564,7 +1587,7 @@ register DIRECT *dirp;
 }
 
 
-linkup()
+int linkup(void)
 {
 	register DINODE *dp;
 	register lostdir;
@@ -1633,11 +1656,7 @@ linkup()
 }
 
 
-bread(fcp,buf,blk,size)
-daddr_t blk;
-register struct filecntl *fcp;
-register size;
-char *buf;
+int bread(struct filecntl *fcp, char *buf, daddr_t blk, int size)
 {
 	if(lseek(fcp->rfdes,blk<<BSHIFT,0) < 0)
 		rwerr("SEEK",blk);
@@ -1648,11 +1667,7 @@ char *buf;
 }
 
 
-bwrite(fcp,buf,blk,size)
-daddr_t blk;
-register struct filecntl *fcp;
-register size;
-char *buf;
+int bwrite(struct filecntl *fcp, char *buf, daddr_t blk, int size)
 {
 	if(fcp->wfdes < 0)
 		return(NO);
@@ -1666,14 +1681,13 @@ char *buf;
 	return(NO);
 }
 
-catch()
+void catch(int sig)
 {
 	ckfini();
 	exit(4);
 }
 
-ustat(x, s)
-char *s;
+int ustat(int x, char *s)
 {
 	return(-1);
 }

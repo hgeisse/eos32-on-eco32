@@ -4,8 +4,8 @@
 
 BUILD = ../../build
 
-DIRS = ar as cat chgrp chmod chown clri cmp cp date \
-       dcheck dd deroff df dof du echo ed getty grep hangman icheck \
+DIRS = ar as cat chgrp chmod chown clri cmp cp date dcheck dd \
+       deroff df dof du echo ed fsck getty grep hangman icheck \
        init joe kill lcc ld lex ln load login ls man make mkdir \
        mkfs mkmboot mknod mkpart mkpboot mount mv ncheck \
        od passwd ps pr pwd rm rmdir sh shfs shpart stty \

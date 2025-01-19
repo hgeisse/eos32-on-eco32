@@ -610,6 +610,10 @@ src         d--755 0 0
         	Makefile            ---644 0 0 ../../usr/src/bin/date/Makefile
             date.c              ---644 0 0 ../../usr/src/bin/date/date.c
             $
+        fsck     d--644 0 0
+        	Makefile            ---644 0 0 ../../usr/src/bin/fsck/Makefile
+            fsck.c              ---644 0 0 ../../usr/src/bin/fsck/fsck.c
+            $
         hangman  d--644 0 0
         	Makefile            ---644 0 0 ../../usr/src/bin/hangman/Makefile
             hangman.c           ---644 0 0 ../../usr/src/bin/hangman/hangman.c
