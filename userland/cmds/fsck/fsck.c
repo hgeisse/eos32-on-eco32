@@ -1190,8 +1190,13 @@ int getline(FILE *fp, char *loc, int maxlen)
 
 void stype(char *p)
 {
-	if(*p == 0)
+	if(*p == 0) {
+#if eco32
+		cylsize = 500;
+		stepsize = 1;
+#endif
 		return;
+	}
 	if (*(p+1) == 0) {
 		if (*p == '3') {
 			cylsize = 200;
